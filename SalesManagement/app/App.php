@@ -33,9 +33,15 @@
                 $this->controller = ucfirst(strtolower($urlArr[0]));
                 unset($urlArr[0]);
             }
-            if(file_exists('app/Controllers/'.($this->controller)."Controller".'.php')){
-                require_once('app/Controllers/'.($this->controller)."Controller".'.php');
-                $this->controller = new ($this->controller."Controller");
+            if(file_exists('./app/Controllers/'.$this->controller.'/'.($this->controller)."Controller".'.php')){
+                require_once('./app/Controllers/'.$this->controller.'/'.($this->controller)."Controller".'.php');
+                if(class_exists($this->controller."Controller")){
+                    $this->controller = new ($this->controller."Controller");
+                }
+                else{
+                    $this->loadError();
+                    exit;
+                }
             }
             else{
                 $this->loadError();
@@ -46,6 +52,10 @@
             if(!empty($urlArr[1])){
                 if(method_exists($this->controller, strtolower($urlArr[1]))){
                     $this->action = strtolower($urlArr[1]);
+                }
+                else{
+                    $this->loadError();
+                    exit;
                 }
                 unset($urlArr[1]);
             }
