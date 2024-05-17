@@ -2,8 +2,8 @@
     class Controller{
 
         public function model($model){
-            if(file_exists("./app/Models/".$model.".php")){
-                require_once("./app/Models/".$model.".php");
+            if(file_exists(_DIR_ROOT."/app/Models/".$model.".php")){
+                require_once(_DIR_ROOT."/app/Models/".$model.".php");
                 if(class_exists($model)){
                     return new $model;
                 }
@@ -12,8 +12,10 @@
         }
 
         public function render( $view, $data = [] ){
-            if(file_exists("./app/Views/".$view.".php")){
-                require_once("./app/Views/".$view.".php");
+            extract($data);
+            
+            if(file_exists(_DIR_ROOT."/app/Views/".$view.".php")){
+                require_once(_DIR_ROOT."/app/Views/".$view.".php");
             }
 
         }

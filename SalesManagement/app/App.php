@@ -27,14 +27,14 @@
         private function URLProcess(){
             $url = $this->getURL();
             $urlArr = explode("/", filter_var(trim($url, "/"), FILTER_SANITIZE_URL));
-
+            
             //Xu ly controller
             if(!empty($urlArr[0])){
                 $this->controller = ucfirst(strtolower($urlArr[0]));
                 unset($urlArr[0]);
             }
-            if(file_exists('./app/Controllers/'.$this->controller.'/'.($this->controller)."Controller".'.php')){
-                require_once('./app/Controllers/'.$this->controller.'/'.($this->controller)."Controller".'.php');
+            if(file_exists(_DIR_ROOT.'/app/Controllers/'.($this->controller)."Controller".'.php')){
+                require_once(_DIR_ROOT.'/app/Controllers/'.($this->controller)."Controller".'.php');
                 if(class_exists($this->controller."Controller")){
                     $this->controller = new ($this->controller."Controller");
                 }
@@ -62,7 +62,6 @@
 
             //Xu ly params
             $this->params = array_values($urlArr);
-
             try {
                 call_user_func_array([ $this->controller, $this->action], $this->params);
             } catch (ArgumentCountError $e) {
@@ -73,7 +72,7 @@
         }
 
         public function loadError($name = "404"){
-            require_once("./app/errors/".$name.".php");
+            require_once(_DIR_ROOT."/app/errors/".$name.".php");
         }
     }
 ?>

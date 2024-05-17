@@ -1,11 +1,7 @@
 <?php
-    class HomeController{
+    class HomeController extends Controller{
         public function index(){
-            echo"ads";
-        }
-        
-        public function test($a, $b){
-            echo "".$a."".$b."";
+            $this->render("home/index");
         }
     }
 ?>

@@ -1,1 +1,2 @@
-<h1>product view</h1>
+<h1>Product view</h1>
+<?php print_r($product)?>
