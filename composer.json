@@ -1,0 +1,13 @@
+{
+    "name": "admin/sales-management",
+    "type": "library",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "authors": [
+        {
+            "name": "StevePenguin",
+            "email": "dogiahuy2252004@gmail.com"
+        }
+    ]
+}

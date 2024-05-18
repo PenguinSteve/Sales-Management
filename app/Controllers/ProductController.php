@@ -3,7 +3,7 @@
 
         public function index(){
             $productModel = $this->model("ProductModel");
-            $this->render("products/index", ["product" => $productModel->getProducts()]);
+            $this->render("products/index", ["product" => $productModel->getProductByID(1)]);
         }
     }
 ?>

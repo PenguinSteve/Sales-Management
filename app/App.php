@@ -61,14 +61,13 @@
             }
 
             //Xu ly params
-            $this->params = array_values($urlArr);
+            $this->params = $urlArr?array_values($urlArr):[];
             try {
                 call_user_func_array([ $this->controller, $this->action], $this->params);
             } catch (ArgumentCountError $e) {
                 $this->loadError();
                 exit;
             }
-            
         }
 
         public function loadError($name = "404"){
