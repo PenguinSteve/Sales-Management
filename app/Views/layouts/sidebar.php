@@ -3,7 +3,7 @@
 
         <!--Logo-->
         <div class="sidebar-header">
-            <img src="public/images/logo.svg" alt="" srcset="">
+            <a href = "home"><h1>Home</h1></a>
         </div>
 
         <!--Content-->
@@ -35,14 +35,14 @@
                 <li class='sidebar-title'>Users</li>
 
                 <li class="sidebar-item">
-                    <a href="" class='sidebar-link'>
+                    <a href="admin/" class='sidebar-link'>
                         <i data-feather="layout" width="20"></i>
                         <span>Account</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="./customer" class='sidebar-link'>
+                    <a href="" class='sidebar-link'>
                         <i data-feather="layout" width="20"></i>
                         <span>Customer</span>
                     </a>

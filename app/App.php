@@ -26,7 +26,7 @@
 
         private function URLProcess(){
             $url = $this->getURL();
-            
+
             $urlArr = explode("/", filter_var(trim($url, "/"), FILTER_SANITIZE_URL));
             
             //Xu ly controller
