@@ -3,7 +3,7 @@
 
         public function index(){
             $productModel = $this->model("ProductModel");
-            $this->render("products/index", ["product" => $productModel->getProductByID(1)]);
+            $this->render("products/product_management", ["title" => "Danh mục sản phẩm"]);
         }
     }
 ?>

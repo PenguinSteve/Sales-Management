@@ -26,7 +26,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="./product/" class='sidebar-link'>
+                    <a href="product/" class='sidebar-link'>
                         <i data-feather="briefcase" width="20"></i>
                         <span>Product Catalog</span>
                     </a>

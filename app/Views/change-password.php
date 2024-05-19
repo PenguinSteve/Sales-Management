@@ -54,6 +54,8 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
         </footer>
     </div>
 
+    <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
+
     <script src="public/js/feather-icons/feather.min.js"></script>
     <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="public/js/app.js"></script>

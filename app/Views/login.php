@@ -31,6 +31,9 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
             </div>
         </div>
     </div>
+
+    <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+
 </body>
 
 </html>

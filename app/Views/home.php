@@ -24,6 +24,8 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
         </div>
     </footer>
     
+    <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+
     <script src="public/js/feather-icons/feather.min.js"></script>
     <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="public/js/app.js"></script>

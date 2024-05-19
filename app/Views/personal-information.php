@@ -13,7 +13,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
 
                 <!--image and upload image-->
                 <div class="col-md-4 mr-4 userImg">
-                    <img class="card-img-top image" src="public/images/avatar/avatar-s-1.png" id="image" onclick="importFile()" />
+                    <img class="card-img-top image image-avatar" src="public/images/avatar/avatar-s-1.png" id="image" onclick="importFile()" />
                     <input type="file" id="fileInput" style="display: none;" onclick="changeAvatar()">
                 </div>
 
@@ -28,7 +28,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
                         if (file) {
                             const reader = new FileReader()
                             reader.onload = function(event) {
-                                $("#image").attr("src", event.target.result)
+                                $(".image-avatar").attr("src", event.target.result)
                             }
                             reader.readAsDataURL(file)
                         }
@@ -92,6 +92,8 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
                 </div>
             </div>
         </footer>
+
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
         <script src="public/js/feather-icons/feather.min.js"></script>
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
