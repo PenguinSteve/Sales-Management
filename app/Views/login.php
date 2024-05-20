@@ -13,7 +13,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
                     <p>Please sign in to continue.</p>
                 </div>
 
-                <form action="home/postLogin" method="POST" class="m-4">
+                <form action="home/postLogin" method="POST" class="m-4" id="loginForm">
                     <div class="form-floating mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="usename" class="form-control" name="username" id="username" required autocomplete="username">
@@ -26,14 +26,21 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
                             <small>Forgot password?</small>
                         </a>
                     </div>
-                    <button class="btn btn-primary mr-4 mt-5 mb-3 float-right" type="submit">Log in</button>
                 </form>
+                <button class="btn btn-primary mr-4 mt-5 mb-3 float-right" id="submitButton" type="submit">Log in</button>
             </div>
         </div>
     </div>
 
     <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
+    <script>
+        $(document).ready(function() {
+            $('#submitButton').on('click', function() {
+                $('#loginForm').submit();
+            });
+        });
+    </script>
 </body>
 
 </html>

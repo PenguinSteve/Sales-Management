@@ -10,7 +10,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
 
         <div id="main">
             <?php
-            require_once(_DIR_ROOT . '/app/Views/modal/ModelDeleteConfirm.php');
+            require_once(_DIR_ROOT . '/app/Views/modal/ModalDeleteConfirm.php');
             ?>
 
             <section class="py-2">

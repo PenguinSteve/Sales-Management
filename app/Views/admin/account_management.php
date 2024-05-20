@@ -10,8 +10,9 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
 
         <div id="main">
             <?php
-            require_once(_DIR_ROOT . '/app/Views/modal/ModelAddUpdateEmployee.php');
-            require_once(_DIR_ROOT . '/app/Views/modal/ModelDeleteConfirm.php');
+            require_once(_DIR_ROOT . '/app/Views/admin/ModalAddEmployee.php');
+            require_once(_DIR_ROOT . '/app/Views/admin/ModalUpdateEmployee.php');
+            require_once(_DIR_ROOT . '/app/Views/modal/ModalDeleteConfirm.php');
             ?>
             <div class="main-content container-fluid">
                 <div class="page-title">
@@ -20,7 +21,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
                             <h3>Account</h3>
                             <p class="text-subtitle text-muted">View a list of employees.</p>
                         </div>
-                        <div class="mt-4"><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addUpdate">Add</a></div>
+                        <div class="mt-4"><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addEmployee">Add</a></div>
                     </div>
                 </div>
 
@@ -68,7 +69,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
 
                                 //Column 5: button
                                 echo "<td>
-                                        <button type=\"button\" class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#addUpdate\">Edit</button>
+                                        <button type=\"button\" class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#updateEmployee\">Edit</button>
                                         <button type=\"button\" class=\"btn btn-outline-danger ml-1\" data-toggle=\"modal\" data-target=\"#confirmDeleteModal\">Delete</button>
                                     </td>";
                                 echo "</tr>";

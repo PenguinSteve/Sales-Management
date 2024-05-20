@@ -12,14 +12,14 @@
                 <li class='sidebar-title'>Main Menu</li>
 
                 <li class="sidebar-item active ">
-                    <a href="" class='sidebar-link'>
+                    <a href="statistics/" class='sidebar-link'>
                         <i data-feather="home" width="20"></i>
                         <span>Reporting and Analytics</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                    <a href="transaction/" class='sidebar-link'>
                         <i data-feather="triangle" width="20"></i>
                         <span>Transaction Processing</span>
                     </a>
@@ -42,7 +42,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="" class='sidebar-link'>
+                    <a href="customer/" class='sidebar-link'>
                         <i data-feather="layout" width="20"></i>
                         <span>Customer</span>
                     </a>

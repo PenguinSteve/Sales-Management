@@ -1,8 +1,8 @@
 <?php
-    class Transaction extends Controller{
+    class TransactionController extends Controller{
         
         public function index(){
-            $this->render("transaction/index");
+            $this->render("transaction/index", ['title' => 'Giao dịch']);
         }
     }
 ?>

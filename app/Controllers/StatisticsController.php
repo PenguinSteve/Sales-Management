@@ -1,8 +1,8 @@
 <?php
-    class Statistics extends Controller{
+    class StatisticsController extends Controller{
         
         public function index(){
-            $this->render("statistics/index");
+            $this->render("statistics/index", ['title' => 'Thống kê']);
         }
     }
 ?>

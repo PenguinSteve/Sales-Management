@@ -26,7 +26,7 @@
 
         private function URLProcess(){
             $url = $this->getURL();
-
+            
             $urlArr = explode("/", filter_var(trim($url, "/"), FILTER_SANITIZE_URL));
             
             //Xu ly controller
@@ -53,6 +53,7 @@
             if(!empty($urlArr[1])){
                 if(method_exists($this->controller, strtolower($urlArr[1]))){
                     $this->action = strtolower($urlArr[1]);
+                    
                 }
                 else{
                     $this->loadError();
