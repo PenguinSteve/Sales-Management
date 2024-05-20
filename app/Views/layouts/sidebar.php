@@ -3,7 +3,9 @@
 
         <!--Logo-->
         <div class="sidebar-header">
-            <a href = "home"><h1>Home</h1></a>
+            <a href="home">
+                <h1>Home</h1>
+            </a>
         </div>
 
         <!--Content-->
@@ -34,13 +36,16 @@
 
                 <li class='sidebar-title'>Users</li>
 
-                <li class="sidebar-item">
-                    <a href="admin/" class='sidebar-link'>
-                        <i data-feather="layout" width="20"></i>
+                <?php
+                if ($currentUser['role'] === "admin") {
+                    echo "<li class=\"sidebar-item\">
+                    <a href=\"admin/\" class='sidebar-link'>
+                        <i data-feather=\"layout\" width=\"20\"></i>
                         <span>Account</span>
                     </a>
-                </li>
-
+                    </li>";
+                }
+                ?>
                 <li class="sidebar-item">
                     <a href="customer/" class='sidebar-link'>
                         <i data-feather="layout" width="20"></i>

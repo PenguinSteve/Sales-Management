@@ -1,5 +1,6 @@
 <?php
-class Connection {
+class Connection
+{
     private static $instance;
     private $servername = "localhost";
     private $username = "root";
@@ -7,29 +8,31 @@ class Connection {
     private $dbname = "sales-management";
     private $conn;
 
-    private function __construct() {
-
-        if($this->conn == null){
+    private function __construct()
+    {
+        if ($this->conn == null) {
             $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
             if ($this->conn->connect_error) {
                 die("Connection failed: " . $this->conn->connect_error);
             }
         }
-        
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new Connection();
         }
         return self::$instance;
     }
 
-    public function getConnection() {
+    public function getConnection()
+    {
         return $this->conn;
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->conn->close();
     }
 }
@@ -37,5 +40,3 @@ class Connection {
 // Sử dụng:
 $database = Connection::getInstance();
 $conn = $database->getConnection();
-
-?>
