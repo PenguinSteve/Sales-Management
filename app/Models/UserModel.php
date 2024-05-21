@@ -1,9 +1,12 @@
 <?php
-
+require_once("app/Models/EmailModel.php");
 class UserModel extends Database
 {
+    private EmailModel $emailModel;
+
     function __construct()
     {
+        $this->emailModel = new EmailModel();
         parent::__construct();
     }
 
@@ -22,20 +25,34 @@ class UserModel extends Database
         return $this->select("SELECT * FROM user WHERE username = ?", [$username], 's');
     }
 
+    public function getUserByEmail($email)
+    {
+        return $this->select("SELECT * FROM user WHERE email = ?", [$email], 's');
+    }
+
+    public function getUserByEmailAndToken($email, $token)
+    {
+        return $this->select("SELECT * FROM token WHERE email = ?, token = ?", [$email, $token], 'ss');
+    }
+
     public function createUser($email, $name)
     {
         $username = $this->emailToUsername($email);
         $password = $this->hashPassword($username);
         $role = "user";
         $status = "inactive";
-        $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, $role, $status], 'ssssss');
+        $rowsAffected = $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, $role, $status], 'ssssss');
 
-        $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');
+        if ($rowsAffected > 0) {
+            $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function saveUser($username, $password, $email, $name, $avatar, $status)
+    public function saveUserInformation($username, $name, $avatar = null, $status = null)
     {
-
     }
 
     private function hashPassword($password)
@@ -49,13 +66,13 @@ class UserModel extends Database
         return $parts[0];
     }
 
-    public function saveChangePassword($username, $password){
+    public function saveChangePassword($username, $password)
+    {
         $rowsAffected = $this->action("UPDATE user SET password = ? WHERE username = ?", [$this->hashPassword($password), $username], 'ss');
-        if($rowsAffected > 0){
+        if ($rowsAffected > 0) {
             $_SESSION['announce'] = "Đổi mật khẩu thành công";
             return true;
-        }
-        else{
+        } else {
             $_SESSION['announce'] = "Đổi mật khẩu không thành công";
             return false;
         }

@@ -46,4 +46,24 @@ class HomeController extends Controller
         header("Location:" . _HOST . "home/login");
         exit;
     }
+
+    public function loginViaEmail()
+    {
+        $email = $_GET["email"];
+        $token = $_GET["token"];
+        if ($this->authenticationModel->loginViaEmail($email, $token)) {
+            if (isset($_SESSION['isNeedToChangePassword'])) {
+                if ($_SESSION['isNeedToChangePassword'] === true) {
+                    header("Location:" . _HOST . "user/changePasswordFirstTime");
+                    exit;
+                }
+            } else {
+                header("Location:" . _HOST . "home");
+                exit;
+            }
+        } else {
+            header("Location:" . _HOST . "home/login");
+            exit;
+        }
+    }
 }

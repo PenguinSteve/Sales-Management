@@ -60,4 +60,6 @@ class UserController extends Controller
     //     $_SESSION['user'] = $this->userModel->getUserByUsername($username)[0];
     //     header("Location:" . _HOST . "user");
     // }
+
+    
 }
