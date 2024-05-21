@@ -8,6 +8,8 @@ if ($isAuthenticated) :
     ?>
 
     <body>
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
         <div class="col-md-5 mx-auto">
             <div class="card pt-5 mt-5 cardLogin">
@@ -47,7 +49,6 @@ if ($isAuthenticated) :
             </div>
         </footer>
 
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <script src="public/js/feather-icons/feather.min.js"></script>
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

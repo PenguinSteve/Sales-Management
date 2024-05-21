@@ -49,4 +49,15 @@ class UserController extends Controller
             header("Location:" . _HOST . "user/changePassword");
         }
     }
+
+    // public function savePersonalInformation(){
+    //     $username = $_SESSION['user']['username'];
+    //     $email = $_POST['email'];
+    //     $name = $_POST['name'];
+    //     $avatar = $_POST['avatar'];
+    //     $status = $_POST['status'];
+    //     $this->userModel->saveUser($username, $email, $name, $avatar, $status);
+    //     $_SESSION['user'] = $this->userModel->getUserByUsername($username)[0];
+    //     header("Location:" . _HOST . "user");
+    // }
 }
