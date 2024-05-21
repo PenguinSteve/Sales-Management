@@ -65,14 +65,14 @@ if ($isAuthenticated) :
                         </table>
 
                         <div class="d-flex mt-3 justify-content-between">
-                            <div class="d-flex" style="margin-left: 23rem;">
+                            <div class="d-flex" style="margin-left: 20rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
                                 <h4 style="color: #5A8DEE;">1</h4>
                             </div>
 
-                            <div class="d-flex justify-content-end" style="margin-right: 16rem;">
+                            <div class="d-flex justify-content-end" style="margin-right: 14rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
-                                <h4 style="color: #5A8DEE;">9.000.000</h4>
+                                <h5 style="color: #5A8DEE;">9.000.000</h5>
                             </div>
                         </div>
 

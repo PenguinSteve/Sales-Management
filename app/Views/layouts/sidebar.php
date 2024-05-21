@@ -48,7 +48,7 @@
                 ?>
                 <li class="sidebar-item">
                     <a href="customer/" class='sidebar-link'>
-                        <i data-feather="layout" width="20"></i>
+                        <i data-feather="user" width="20"></i>
                         <span>Customer</span>
                     </a>
                 </li>

@@ -27,7 +27,7 @@ if ($isAuthenticated) :
                             </div>
                             <?php
                             if ($currentUser['role'] === "admin") {
-                                echo "<div><a href=\"#\" class=\"btn btn-primary mr-4\">Add</a></div>";
+                                echo "<div><a href=\"product/addProduct\" class=\"btn btn-primary mr-4\">Add</a></div>";
                             }
                             ?>
 
