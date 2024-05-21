@@ -38,5 +38,15 @@ class UserController extends Controller
         }
     }
 
-    
+    public function saveChangePassword(){
+        $username = $_SESSION['user']['username'];
+        $password = $_POST['password'];
+        if($this->userModel->saveChangePassword($username, $password)){
+            $_SESSION['user'] = $this->userModel->getUserByUsername($username)[0];
+            header("Location:" . _HOST . "home");
+        }
+        else{
+            header("Location:" . _HOST . "user/changePassword");
+        }
+    }
 }
