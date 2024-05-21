@@ -34,8 +34,6 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
 
     <script>
         $(document).ready(function(){
-            // $("small").hide()
-
             $(".btn-primary").click(function(){
                 if ($("#username").val() == "" && $("#pass").val() == "") {
                     $("small").show()
