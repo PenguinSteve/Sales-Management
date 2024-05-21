@@ -25,4 +25,6 @@ class ProductModel extends Database
     {
         return $this->select("SELECT * FROM product WHERE barcode = ?", [$barcode], 'i');
     }
+
+    
 }

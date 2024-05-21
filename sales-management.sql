@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 20, 2024 lúc 12:33 PM
+-- Thời gian đã tạo: Th5 21, 2024 lúc 09:59 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -56,9 +56,7 @@ CREATE TABLE `product` (
   `name` varchar(255) DEFAULT NULL,
   `import_price` float DEFAULT NULL,
   `retail_price` float DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
   `sold` int(11) DEFAULT 0,
-  `barcode` int(11) DEFAULT NULL,
   `created` datetime NOT NULL,
   `image_url` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL
@@ -71,7 +69,7 @@ CREATE TABLE `product` (
 --
 
 CREATE TABLE `token` (
-  `token` varchar(255) NOT NULL,
+  `token` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `expire_on` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -124,13 +122,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user`
---
-
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `name`, `avatar`, `role`, `status`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', 'Quản lý', NULL, 'admin', 'activated');
-
---
 -- Chỉ mục cho các bảng đã đổ
 --
 
@@ -152,7 +143,6 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `barcode` (`barcode`),
   ADD KEY `category_id` (`category_id`);
 
 --
@@ -206,7 +196,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1000;
 
 --
 -- AUTO_INCREMENT cho bảng `transaction`
@@ -224,7 +214,7 @@ ALTER TABLE `transaction_detail`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
