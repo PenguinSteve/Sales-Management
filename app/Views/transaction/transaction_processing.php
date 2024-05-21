@@ -13,6 +13,19 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
+            <script>
+                var sidebarLinks = $('.sidebar-link')
+
+                $('.sidebar-link').each(function() {
+                    if ($(this).hasClass('active')) {
+                        $(this).removeClass('active')
+                    }
+                })
+
+                var activeElement = $('a[href="transaction/"]')
+                activeElement.closest('li').addClass('active')
+            </script>
+
             <div id="main">
                 <div class="main-content container-fluid">
                     <div class="page-title">

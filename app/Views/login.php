@@ -1,5 +1,6 @@
 <?php
-require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
+require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
+require_once(_DIR_ROOT . '/app/Views/layouts/announce.php')
 ?>
 
 <body>
@@ -16,30 +17,31 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
                 <form action="home/postLogin" method="POST" class="m-4" id="loginForm">
                     <div class="form-floating mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="usename" class="form-control" name="username" id="username" required autocomplete="username">
+                        <input type="text" class="form-control" name="username" id="username" autocomplete="username">
                     </div>
 
                     <div class="form-floating mb-3">
                         <label for="pass" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="pass" required autocomplete="password">
+                        <input type="password" class="form-control" name="password" id="pass" autocomplete="password">
                         <a href="#" class='float-right'>
                             <small>Forgot password?</small>
                         </a>
                     </div>
                 </form>
-                <button class="btn btn-primary mr-4 mt-5 mb-3 float-right" id="submitButton" type="submit">Log in</button>
+                <button class="btn btn-primary mr-4 mt-5 mb-3 float-right" id="submitButton" onclick="validate()">Log in</button>
             </div>
         </div>
     </div>
 
-    <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
     <script>
-        $(document).ready(function() {
-            $('#submitButton').on('click', function() {
+        function validate() {
+            if ($("#username").val() == "" || $("#pass").val()) {
+                <?php $_SESSION['announce'] = "Username and Password cannot be empty" ?>
+            } else {
                 $('#loginForm').submit();
-            });
-        });
+            }
+        }
     </script>
 </body>
 

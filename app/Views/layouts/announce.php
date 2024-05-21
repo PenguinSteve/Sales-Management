@@ -1,5 +1,5 @@
 <?php if (isset($_SESSION['announce'])) : ?>
-    <div id="announce" class="announce toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
+    <div id="announce" class="announce toast float-right z-1" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000" style="width: 18rem; height: fit-content">
 
         <div class="toast-header">
             <i class="bi bi-exclamation-triangle"></i>
