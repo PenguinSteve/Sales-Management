@@ -1,13 +1,12 @@
 <?php
-require_once("./app/Models/UserModel.php");
+require_once("./app/Models/AuthenticationModel.php");
 class HomeController extends Controller
 {
-    private UserModel $userModel;
-
+    private AuthenticationModel $authenticationModel;
 
     public function __construct()
     {
-        $this->userModel = new UserModel();
+        $this->authenticationModel = new AuthenticationModel();
     }
 
     public function index()
@@ -20,24 +19,31 @@ class HomeController extends Controller
         $this->render("login", ['title' => 'Đăng nhập']);
     }
 
-    public function postLogin()
+    public function checkLogin()
     {
-        if (isset($_POST["username"]) && isset($_POST["password"])) {
-
-            $username = $_POST["username"];
-            $password = $_POST["password"];
-            $_SESSION['user'] = ['role' => "admin"];
-
-            header("Location:" . _HOST . "home");
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+        if ($this->authenticationModel->checkLogin($username, $password)) {
+            if (isset($_SESSION['isNeedToChangePassword'])) {
+                if ($_SESSION['isNeedToChangePassword'] === true) {
+                    header("Location:" . _HOST . "user/changePasswordFirstTime");
+                    exit;
+                }
+            } else {
+                header("Location:" . _HOST . "home");
+                exit;
+            }
         } else {
-            $_SESSION['announce'] = "Đăng nhập thất bại";
             header("Location:" . _HOST . "home/login");
+            exit;
         }
     }
 
     public function logout()
     {
+        unset($_SESSION["user"]);
         session_destroy();
         header("Location:" . _HOST . "home/login");
+        exit;
     }
 }

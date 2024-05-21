@@ -31,7 +31,6 @@ class Database
     //function use for action add, update, delete and return rows have been affected
     public function action($query, $params = [], $paramTypes = '')
     {
-
         $stmt = $this->conn->prepare($query);
 
         if ($paramTypes && $params) {

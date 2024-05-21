@@ -14,7 +14,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
                     <p>Please sign in to continue.</p>
                 </div>
 
-                <form action="home/postLogin" method="POST" class="m-4" id="loginForm">
+                <form action="home/checkLogin" method="POST" class="m-4" id="loginForm">
                     <div class="form-floating mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="username" class="form-control" name="username" id="username" required autocomplete="username">

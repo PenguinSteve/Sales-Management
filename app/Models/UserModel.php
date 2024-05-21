@@ -21,4 +21,31 @@ class UserModel extends Database
     {
         return $this->select("SELECT * FROM user WHERE username = ?", [$username], 's');
     }
+
+    public function createUser($email, $name)
+    {
+        $username = $this->emailToUsername($email);
+        $password = $this->hashPassword($username);
+        $role = "user";
+        $status = "inactive";
+        $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, $role, $status], 'ssssss');
+
+        $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');
+    }
+
+    public function saveUser($username, $password, $email, $name, $avatar, $status)
+    {
+
+    }
+
+    private function hashPassword($password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    private function emailToUsername($email)
+    {
+        $parts = explode('@', $email);
+        return $parts[0];
+    }
 }

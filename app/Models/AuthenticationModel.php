@@ -1,4 +1,5 @@
 <?php
+require_once("./app/Models/UserModel.php");
 class AuthenticationModel extends Database
 {
 
@@ -10,23 +11,42 @@ class AuthenticationModel extends Database
         $this->userModel = new UserModel();
     }
 
-    public function checkLogin()
+    public function checkLogin($username, $password)
     {
-        return $this->select("SELECT * FROM product");
+        $user = $this->userModel->getUserByUsername($username);
+
+        if ($username === "admin" && empty($user)) {
+            $this->createUserAdmin();
+            $user = $this->userModel->getUserByUsername($username)[0];
+        }
+
+        if(empty($user)){
+            $_SESSION['announce'] = "Tên đăng nhập hoặc mật khẩu không đúng";
+            return false;
+        }
+        $user = $user[0];
+
+        if(!password_verify($password, $user["password"])) {
+            $_SESSION['announce'] = "Tên đăng nhập hoặc mật khẩu không đúng";
+            return false;
+        }
+        if($user["status"] === "inactive"){
+            $_SESSION['announce'] = "Tài khoản chưa được kích hoạt, hãy đăng nhập bằng đường link được gửi tới email đăng ký";
+            return false;
+        }
+        if($user["status"] === "locked"){
+            $_SESSION['announce'] = "Tài khoản đã bị khóa";
+            return false;
+        }
+        if(password_verify($username, $user["password"])){
+            $_SESSION["isNeedToChangePassword"] = true;
+        }
+        $_SESSION['user'] = $user;
+        return true;
     }
 
-    public function getProductById($id)
+    public function createUserAdmin()
     {
-        return $this->select("SELECT * FROM product WHERE id = ?", [$id], 'i');
-    }
-
-    public function getProductByName($name)
-    {
-        return $this->select("SELECT * FROM product WHERE name LIKE ?", ["%" . $name . "%"], 's');
-    }
-
-    public function getProductByBarcode($barcode)
-    {
-        return $this->select("SELECT * FROM product WHERE barcode = ?", [$barcode], 'i');
+        $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", ["admin", password_hash("admin", PASSWORD_DEFAULT), "admin@gmail.com", "Quản lý", "admin", "activated"], 'ssssss');
     }
 }
