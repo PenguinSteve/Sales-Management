@@ -19,7 +19,7 @@ class HomeController extends Controller
         $this->render("login", ['title' => 'Đăng nhập']);
     }
 
-    public function postLogin()
+    public function checkLogin()
     {
         $username = $_POST["username"];
         $password = $_POST["password"];

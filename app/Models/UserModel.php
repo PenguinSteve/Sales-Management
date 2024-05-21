@@ -25,19 +25,18 @@ class UserModel extends Database
     public function createUser($email, $name)
     {
         $username = $this->emailToUsername($email);
-        $password = $username;
+        $password = $this->hashPassword($username);
         $role = "user";
         $status = "inactive";
-        $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, $role, $status], 'ssssss');
+        $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, $role, $status], 'ssssss');
 
         $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');
     }
 
     public function saveUser($username, $password, $email, $name, $avatar, $status)
     {
-    }
 
-    
+    }
 
     private function hashPassword($password)
     {

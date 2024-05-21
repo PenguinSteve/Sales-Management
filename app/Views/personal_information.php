@@ -40,7 +40,6 @@ if ($isAuthenticated) :
                         }
                     </script>
 
-
                     <!--information details-->
                     <div class="col-md-6">
                         <div class="card">

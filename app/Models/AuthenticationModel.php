@@ -13,17 +13,19 @@ class AuthenticationModel extends Database
 
     public function checkLogin($username, $password)
     {
-        $user = $this->userModel->getUserByUsername($username)[0];
+        $user = $this->userModel->getUserByUsername($username);
 
         if ($username === "admin" && empty($user)) {
             $this->createUserAdmin();
             $user = $this->userModel->getUserByUsername($username)[0];
         }
 
-        if(empty($user)) {
+        if(empty($user)){
             $_SESSION['announce'] = "Tên đăng nhập hoặc mật khẩu không đúng";
             return false;
         }
+        $user = $user[0];
+
         if(!password_verify($password, $user["password"])) {
             $_SESSION['announce'] = "Tên đăng nhập hoặc mật khẩu không đúng";
             return false;

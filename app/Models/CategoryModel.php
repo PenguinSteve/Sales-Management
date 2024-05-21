@@ -10,4 +10,5 @@ class CategoryModel extends Database
     {
         return $this->select("SELECT * FROM category");
     }
+
 }
