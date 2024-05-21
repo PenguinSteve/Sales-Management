@@ -11,4 +11,15 @@ class UserController extends Controller
     {
         $this->render("change_password", ['title' => "Đổi mật khẩu"]);
     }
+
+    public function changePasswordFirstTime(){
+        if($_SESSION['isNeedToChangePassword'] === true){
+            $this->render("change_password_first_time", ["title"=> "Đổi mật khẩu lần đầu"]);
+        }
+        else{
+            header("Location:" . _HOST . "home");
+        }
+    }
+
+    // public function 
 }

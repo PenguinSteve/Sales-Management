@@ -1,5 +1,5 @@
 <?php
-$isAuthenticated = isset($_SESSION['user']);
+$isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
 ?>
@@ -110,6 +110,6 @@ if ($isAuthenticated) :
     </html>
 
 <?php
-else : header("Location:" . _HOST . "home/login");
+else : header("Location:" . _HOST . "home/logout");
 endif;
 ?>
