@@ -10,18 +10,18 @@ if ($isAuthenticated) :
     <body>
         <div id="app">
 
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
+            <?php //require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
+                <form method="POST" enctype="multipart/form-data">
                 <div class="row gx-4 pl-5 align-items-center pt-5">
-                    <form action="">
                         <!--image and upload image-->
                         <div class="col-md-4 mr-4">
                             <img class="card-img-top" id="image"/>
 
                             <div class="form-file mt-3">
-                                <input id="userImage" type="file" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)">
+                                <input id="userImg" name="userImage" type="file" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)" required>
                                 <label class="form-file-label" for="customFile">
                                     <span class="form-file-text" id="customFile">Choose image...</span>
                                     <span class="form-file-button btn-primary "><i data-feather="upload"></i></span>
@@ -29,9 +29,8 @@ if ($isAuthenticated) :
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-
                         <!--barcode-->
+                        <div class="col-md-6">
                         <div class="d-flex align-items-center">
                             <svg id="barcode"></svg>
                             <div class="small fa-barcode" id="productId" style="margin-left: 4rem;">SKU: BST-498</div>
@@ -42,48 +41,48 @@ if ($isAuthenticated) :
                             <div class="mb-2 d-flex justify-content-between">
                                 <label for="name" class="col-form-label">Product name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="name">
+                                    <input type="text" class="form-control" name="name" required>
                                 </div>
                             </div>
 
                             <div class="mb-2 d-flex justify-content-between">
                                 <label for="import_price" class="col-form-label">Import price</label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="import_price">
+                                    <input type="number" class="form-control" name="import_price" required>
                                 </div>
                             </div>
 
                             <div class="mb-2 d-flex justify-content-between">
                                 <label for="retail_price" class="col-form-label">Retail price</label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="retail_price">
+                                    <input type="number" class="form-control" name="retail_price" required>
                                 </div>
                             </div>
 
                             <div class="mb-2 d-flex justify-content-between">
                                 <label for="category" class="col-form-label">Category</label>
-                                <select class="form-select" style="width: 16.7rem;">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select name="category" class="form-select" style="width: 14.6rem;" required>
+                                    <?php foreach ($categories as $category) {
+                                        echo "<option value=\"" .$category['id'] . "\">" .$category['name'] . "</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
 
                             <div class="mb-2 d-flex justify-content-between">
                                 <label for="date" class="col-form-label">Creation date</label>
                                 <div class="col-sm-8">
-                                    <input type="date" class="form-control" id="retail_price">
+                                    <input type="date" class="form-control" name="date" required>
                                 </div>
                             </div>
 
                             <div class="mb-2 d-flex justify-content-end">
-                                <button type="button" class="btn btn-outline-success float-right" style="margin-top: 2rem; width: 6rem;">Save</button>
+                                <button type="submit" class="btn btn-outline-success float-right" style="margin-top: 2rem; width: 6rem;">Save</button>
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
+            </form>
             </div>
         </div>
         </div>
@@ -116,7 +115,7 @@ if ($isAuthenticated) :
 
                     reader.onload = function(e) {
                         $("#image").attr("src", e.target.result)
-                        $('#customFile').text(e.target.result)
+                        $('#customFile').text(fileInput.files[0]['name'])
                     }
                     reader.readAsDataURL(fileInput.files[0])
                 }
@@ -138,13 +137,12 @@ if ($isAuthenticated) :
                 width: 1,
                 displayValue: false
             })
-
-
-
-
-
-
         </script>
+
+    <?php
+    
+        print_r($categories);
+    ?>
     </html>
 
 <?php

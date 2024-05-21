@@ -26,5 +26,9 @@ class ProductModel extends Database
         return $this->select("SELECT * FROM product WHERE barcode = ?", [$barcode], 'i');
     }
 
+    public function createProduct($name, $import_price, $retail_price, $date, $targetFile, $category) {
+    //     $this->action("INSERT INTO product (name, import_price, retail_price, created, image_url, category_id) VALUES (?, ?, ?, ?, ?, ?)", [$name, $import_price, $retail_price, $date, $targetFile, $category], 'sddsss');
+    }
+
     
 }

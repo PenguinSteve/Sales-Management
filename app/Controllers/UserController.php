@@ -3,6 +3,7 @@ require_once("app/Models/UserModel.php");
 class UserController extends Controller
 {
     private UserModel $userModel;
+    
     public function __construct(){
         $this->userModel = new UserModel();
     }
