@@ -48,4 +48,16 @@ class UserModel extends Database
         $parts = explode('@', $email);
         return $parts[0];
     }
+
+    public function saveChangePassword($username, $password){
+        $rowsAffected = $this->action("UPDATE user SET password = ? WHERE username = ?", [$this->hashPassword($password), $username], 'ss');
+        if($rowsAffected > 0){
+            $_SESSION['announce'] = "Đổi mật khẩu thành công";
+            return true;
+        }
+        else{
+            $_SESSION['announce'] = "Đổi mật khẩu không thành công";
+            return false;
+        }
+    }
 }
