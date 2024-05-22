@@ -11,7 +11,7 @@
 
             <!--enter information-->
             <div class="modal-body">
-                <form class="form form-horizontal">
+                <form id="formUpdate" class="form form-horizontal">
                     <div class="form-body">
                         <div class="row ml-3">
                             <div class="col-md-3">
@@ -52,7 +52,7 @@
             <!--footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success ml-1">Save</button>
+                <button id="saveUpdate" type="button" class="btn btn-success ml-1">Save</button>
             </div>
         </div>
     </div>
