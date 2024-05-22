@@ -32,7 +32,7 @@ class UserModel extends Database
 
     public function getUserByEmailAndToken($email, $token)
     {
-        return $this->select("SELECT * FROM token WHERE email = ?, token = ?", [$email, $token], 'ss');
+        return $this->select("SELECT * FROM token WHERE email = ? AND token = ?", [$email, $token], 'ss');
     }
 
     public function createUser($email, $name)
