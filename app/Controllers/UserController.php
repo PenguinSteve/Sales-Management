@@ -3,6 +3,7 @@ require_once("app/Models/UserModel.php");
 class UserController extends Controller
 {
     private UserModel $userModel;
+    
     public function __construct(){
         $this->userModel = new UserModel();
     }
@@ -27,7 +28,7 @@ class UserController extends Controller
 
     public function saveChangePasswordFirstTime(){
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = $_POST['pass'];
         if($this->userModel->saveChangePassword($username, $password)){
             unset($_SESSION['isNeedToChangePassword']);
             $_SESSION['user'] = $this->userModel->getUserByUsername($username)[0];
@@ -60,6 +61,4 @@ class UserController extends Controller
     //     $_SESSION['user'] = $this->userModel->getUserByUsername($username)[0];
     //     header("Location:" . _HOST . "user");
     // }
-
-    
 }

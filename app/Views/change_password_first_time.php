@@ -2,6 +2,8 @@
 $isAuthenticated = (isset($_SESSION['user']) && isset($_SESSION['isNeedToChangePassword']));
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
+    $currentUsername = $_SESSION['user']['username'];
+    //$currentPass = $_SESSION['user']['password'];
 ?>
     <?php
     require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
@@ -11,6 +13,8 @@ if ($isAuthenticated) :
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+        
         <div class="col-md-5 mx-auto">
             <div class="card pt-5 mt-5 cardLogin">
                 <div class="card-body">
@@ -21,16 +25,18 @@ if ($isAuthenticated) :
                         <p>Change your password when logging in for the first time.</p>
                     </div>
 
-                    <form action="" class="m-4">
+                    <form id="changeFirstTime" action="" class="m-4" method="POST">
                         <div class="form-floating mb-3">
                             <label for="pass" class="form-label">New password</label>
-                            <input type="pass" class="form-control" name="pass" id="pass" required>
+                            <input type="password" class="form-control" name="pass" id="pass" required>
                         </div>
 
                         <div class="form-floating mb-3">
                             <label for="confirmPass" class="form-label">Confirm password</label>
                             <input type="password" class="form-control" name="confirmPass" id="confirmPass" required>
                         </div>
+
+                        <small style="color: red; display: none">New password cannot be empty!</small>
                     </form>
 
                     <button class="btn btn-primary mr-4 mt-4 mb-3 float-right" type="submit">Confirm</button>
@@ -49,12 +55,58 @@ if ($isAuthenticated) :
             </div>
         </footer>
 
-
         <script src="public/js/feather-icons/feather.min.js"></script>
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script src="public/js/app.js"></script>
         <script src="public/js/main.js"></script>
     </body>
+
+    <script>
+        $(document).ready(function() {
+            $('.btn-primary').click(function() {
+                const currUser = <?php echo json_encode($currentUsername); ?>
+                //const currPass = <//?php echo json_encode($currentPass); ?>
+
+                if ($("#pass").val() == "") {
+                    $("small").show()
+                    $("#pass").focus()
+
+                } else if ($("#confirmPass").val() == "") {
+                    $("small").html("You need to confirm your password!").show()
+                    $("#confirmPass").focus()
+
+                } else if ($("#pass").val() != $("#confirmPass").val()) {
+                    $("small").html("Confirmation password is incorrect!").show()
+                    $("#confirmPass").focus()
+
+                } else if ($("#pass").val() === currUser) {
+                    $("small").html("The new password must not be the same as the username!").show()
+                    $("#pass").focus()
+
+                // } else if ($("#pass").val() === currPass) {
+                //     $("small").html("The new password must not be the same as the current password!")
+                //     $("small").show()
+                //     $("#pass").focus()
+
+                } else {
+                    $.ajax({
+                        url: "user/saveChangePasswordFirstTime",
+                        method: "POST",
+                        data: {
+                            username: currUser,
+                            password: $("#pass").val()
+                        },
+                        success: function(response) {
+                            $("#changeFirstTime").submit()
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            $("small").html("An error occurred while changing the password!").show();
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 
     </html>
 

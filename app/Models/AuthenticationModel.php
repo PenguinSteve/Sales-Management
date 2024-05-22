@@ -17,7 +17,7 @@ class AuthenticationModel extends Database
 
         if ($username === "admin" && empty($user)) {
             $this->createUserAdmin();
-            $user = $this->userModel->getUserByUsername($username)[0];
+            $user = $this->userModel->getUserByUsername($username);
         }
 
         if(empty($user)){
