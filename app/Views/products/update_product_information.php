@@ -15,7 +15,7 @@ if ($isAuthenticated) :
 
         <div id="app">
 
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php'); ?>
+            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
@@ -53,7 +53,7 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="name" class="col-form-label">Product name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="name" required value="<?php echo $product[0]['name'] ?>">
+                                            <input type="text" class="form-control" name="name" required value="<?php echo $product[0]['product_name'] ?>">
                                         </div>
                                     </div>
 
@@ -76,9 +76,9 @@ if ($isAuthenticated) :
                                         <select name="category" class="form-select" style="width: 16.2rem;" required>
                                             <?php foreach ($categories as $category) {
                                                 if ($category['id'] == $product[0]['category_id']) {
-                                                    echo "<option value=\"" . $category['id'] . "\" selected>" . $category['name'] . "</option>";
+                                                    echo "<option value=\"" . $category['category_id'] . "\" selected>" . $category['category_name'] . "</option>";
                                                 } else {
-                                                    echo "<option value=\"" . $category['id'] . "\">" . $category['name'] . "</option>";
+                                                    echo "<option value=\"" . $category['category_id'] . "\">" . $category['category_name'] . "</option>";
                                                 }
                                             }
                                             ?>
@@ -128,19 +128,6 @@ if ($isAuthenticated) :
     </body>
 
     <script>
-        // $(document).ready(function() {
-
-        //     $('#uploadImg').trigger('click')
-
-        //     $('#file-input').change(function() {
-        //         var fileInput = document.getElementById('file-input');
-        //         var file = fileInput.files[0];
-        //         var formData = new FormData();
-        //         formData.append('file', file);
-        //     });
-        // });
-
-
         // show image on <img> tag-->
         function chooseFile(fileInput) {
             if (fileInput.files && fileInput.files[0]) {
@@ -156,7 +143,7 @@ if ($isAuthenticated) :
 
 
         // show barcode
-        JsBarcode("#barcode", <?php echo $product[0]['id'] ?>, {
+        JsBarcode("#barcode", <?php echo $product[0]['product_id'] ?>, {
             height: 40,
             width: 2,
             displayValue: false

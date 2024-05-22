@@ -17,7 +17,7 @@ class UserModel extends Database
 
     public function getUserById($id)
     {
-        return $this->select("SELECT * FROM user WHERE id = ?", [$id], 'i');
+        return $this->select("SELECT * FROM user WHERE user_id = ?", [$id], 'i');
     }
 
     public function getUserByUsername($username)
@@ -54,6 +54,28 @@ class UserModel extends Database
 
     public function saveUserInformation($username, $name, $avatar = null, $status = null)
     {
+    }
+
+    public function updateUser($id, $name, $targetFile)
+    {
+        $rowsAffected = $this->action(
+            "UPDATE user SET name = ?, avatar = ? WHERE user_id = ?",
+            [$name, $targetFile, $id],
+            'ss'
+        );
+
+        return $rowsAffected > 0;
+    }
+
+    public function updateUserNoAvatar($id, $name)
+    {
+        $rowsAffected = $this->action(
+            "UPDATE user SET name = ? WHERE user_id = ?",
+            [$id, $name],
+            's'
+        );
+
+        return $rowsAffected > 0;
     }
 
     private function hashPassword($password)

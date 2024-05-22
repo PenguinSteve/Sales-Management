@@ -105,8 +105,8 @@ if ($isAuthenticated) :
 
             var idProduct
 
-            $(".btn-outline-danger").click(function() {
-                idProduct = this.id
+            $('.btn-outline-danger').on('click', function() {
+                idProduct = $(this).attr('id');
             })
 
             $("#deleteSomething").click(function() {
@@ -114,7 +114,9 @@ if ($isAuthenticated) :
                     url: "product/deleteProduct/" + idProduct,
                     method: "POST",
                     success: function(response) {
-                        $('html').html(response);
+                        $('#confirmDeleteModal').modal('hide');
+                        $('.modal-backdrop').remove();
+                        $('body').html(response);
                     },
                     error: function(error) {
 
@@ -122,6 +124,24 @@ if ($isAuthenticated) :
                 })
             })
         })
+
+
+
+
+        // // Bắt sự kiện click trên các nút có lớp delete-button
+        // $('.delete-button').on('click', function() {
+        //     selectedButtonId = $(this).attr('id');
+        //     console.log('Selected Button ID:', selectedButtonId);
+        // });
+
+        // // Bắt sự kiện click trên nút xác nhận xóa trong modal
+        // $('#confirmDeleteButton').on('click', function() {
+        //     if (selectedButtonId) {
+        //         console.log('Confirmed delete for ID:', selectedButtonId);
+        //         // Thực hiện hành động xóa tại đây
+        //         // Ví dụ: gửi request tới server để xóa item với ID tương ứng
+        //     }
+        // })
     </script>
 
     </html>

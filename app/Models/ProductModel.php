@@ -48,6 +48,17 @@ class ProductModel extends Database
         return $rowsAffected > 0;
     }
 
+    public function updateProductNoImage($id, $name, $import_price, $retail_price, $date, $category)
+    {
+        $rowsAffected = $this->action(
+            "UPDATE product SET product_name = ?, import_price = ?, retail_price = ?, created = ?, category_id = ? WHERE product_id = ?",
+            [$name, $import_price, $retail_price, $date, $category, $id],
+            'sddsss'
+        );
+
+        return $rowsAffected > 0;
+    }
+
     public function deleteProduct($id)
     {
         return $this->action("DELETE FROM product WHERE product_id = ? AND sold = 0", [$id], 's');
