@@ -8,12 +8,12 @@ class ProductModel extends Database
 
     public function getProducts()
     {
-        return $this->select("SELECT * FROM product");
+        return $this->select("SELECT * FROM product_id");
     }
 
     public function getProductById($id)
     {
-        return $this->select("SELECT * FROM product WHERE id = ?", [$id], 'i');
+        return $this->select("SELECT * FROM product WHERE product_id = ?", [$id], 'i');
     }
 
     public function getProductByName($name)
@@ -31,6 +31,6 @@ class ProductModel extends Database
     }
 
     public function getProductByNameOrBarCode($text){
-        return $this->select("SELECT * FROM product WHERE name LIKE ? OR CAST(barcode AS CHAR) LIKE ?", ["%" . $text . "%", "%" . $text . "%"], 'ss');
+        return $this->select("SELECT * FROM product WHERE product_name LIKE ? OR CAST(product_id AS CHAR) LIKE ?", ["%" . $text . "%", "%" . $text . "%"], 'ss');
     }
 }
