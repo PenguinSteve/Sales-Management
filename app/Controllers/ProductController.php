@@ -56,9 +56,8 @@ class ProductController extends Controller
         $this->render("products/update_product_information", ['title' => 'Cập nhập sản phẩm', 'product' => $product, 'categories' => $categories]);
     }
 
-    public function updateProduct()
+    public function updateProduct($id)
     {
-        $id = $_POST['id'];
         $name = $_POST["name"];
         $import_price = $_POST["import_price"];
         $retail_price = $_POST["retail_price"];
@@ -69,12 +68,26 @@ class ProductController extends Controller
         $targetFile = "public/product_images/" . basename($_FILES['imageProduct']['name']);
         move_uploaded_file($_FILES['imageProduct']['tmp_name'], $targetFile);
 
-        $row_affected = $this->productModel->createProduct($name, $import_price, $retail_price, $date, $targetFile, $category);
+        $row_affected = $this->productModel->updateProduct($id, $name, $import_price, $retail_price, $date, $targetFile, $category);
         if ($row_affected) {
-            $_SESSION['announce'] = "Thêm sản phẩm thành công";
+            $_SESSION['announce'] = "Cập nhật sản phẩm thành công";
         } else {
-            $_SESSION['announce'] = "Thêm sản phẩm thất bại";
+            $_SESSION['announce'] = "Cập nhật sản phẩm thất bại";
         }
         header('Location: ' . _HOST . 'product');
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = extract($this->productModel->getProductById($id));
+        $urlImg = $product[0]['image_url'];
+        $row_affected = $this->productModel->deleteProduct($id);
+
+        if ($row_affected) {
+            unlink($urlImg);
+            $_SESSION['announce'] = "Xóa sản phẩm thành công";
+        } else {
+            $_SESSION['announce'] = "Không thể xóa những sản phẩm đã được lập hóa đơn";
+        }
     }
 }

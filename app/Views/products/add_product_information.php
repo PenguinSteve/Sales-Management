@@ -50,14 +50,14 @@ if ($isAuthenticated) :
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="import_price" class="col-form-label">Import price</label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="import_price" required>
+                                        <input type="number" class="form-control inputNum" name="import_price" required>
                                     </div>
                                 </div>
 
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="retail_price" class="col-form-label" required>Retail price</label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control" name="retail_price" required>
+                                        <input type="number" class="form-control inputNum" name="retail_price" required>
                                     </div>
                                 </div>
 
@@ -122,6 +122,14 @@ if ($isAuthenticated) :
                     reader.readAsDataURL(fileInput.files[0])
                 }
             }
+
+            //Prevent input quantity less than 1
+            $(document).on('input', '.inputNum', function() {
+                var value = $(this).val();
+                if (value < 1 || value == '') {
+                    $(this).val(1);
+                }
+            });
         </script>
     </body>
 

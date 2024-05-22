@@ -15,7 +15,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger ml-1">Delete</button>
+                <button id="deleteSomething" type="button" class="btn btn-danger ml-1">Delete</button>
             </div>
         </div>
     </div>

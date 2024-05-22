@@ -77,7 +77,8 @@
   height: fit-content;
   width: fit-content;
   font-size: large;
-  color: red;
+  margin-left: 3rem;
+  color: black;
 }
 
  .price {
