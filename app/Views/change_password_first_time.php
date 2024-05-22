@@ -10,6 +10,8 @@ if ($isAuthenticated) :
     ?>
 
     <body>
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
         

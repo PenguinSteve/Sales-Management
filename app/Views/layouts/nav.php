@@ -5,7 +5,7 @@
                 <div class="avatar mr-1">
                     <img class="image-avatar" src="public/images/avatar/avatar-s-1.png">
                 </div>
-                <div class="d-none d-md-block d-lg-inline-block">Hi, Saugi</div>
+                <div class="d-none d-md-block d-lg-inline-block">Hi, <?php echo $_SESSION['user']['name']?></div>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
