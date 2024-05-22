@@ -45,6 +45,7 @@ class UserModel extends Database
 
         if ($rowsAffected > 0) {
             $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');
+            $this->emailModel->sendEmailOnCreateUser($email);
             return true;
         } else {
             return false;
@@ -68,7 +69,7 @@ class UserModel extends Database
 
     public function saveChangePassword($username, $password)
     {
-        if(password_verify($password, $this->getUserByUsername($username)[0]['password'])){
+        if (password_verify($password, $this->getUserByUsername($username)[0]['password'])) {
             $_SESSION['announce'] = "Mật khẩu mới không được trùng với mật khẩu cũ";
             return false;
         }

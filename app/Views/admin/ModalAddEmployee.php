@@ -11,22 +11,23 @@
 
             <!--enter information-->
             <div class="modal-body">
-                <form class="form form-horizontal">
+                <form id="formAdd" class="form form-horizontal" method="POST" action="admin/createUser">
                     <div class="form-body">
                         <div class="row ml-3">
                             <div class="col-md-3">
                                 <label>Name</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="name" placeholder="Enter name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
                             </div>
 
                             <div class="col-md-3">
                                 <label>Email</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="email" placeholder="Enter email">
+                                <input type="text" class="form-control mb-3" name="email" id="email" placeholder="Enter email">
                             </div>
+                            <small style="color: red; display: none">Name cannot be empty!</small>
                         </div>
                     </div>
                 </form>
@@ -35,8 +36,7 @@
             <!--footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                <div><a href="product/addProduct" class="btn btn-primary mr-4">Save</a></div>
-                <button type="button" class="btn btn-success ml-1">Save</button>
+                <button type="button" id="saveAdd" class="ml-1 btn btn-primary">Save</button>
             </div>
         </div>
     </div>
