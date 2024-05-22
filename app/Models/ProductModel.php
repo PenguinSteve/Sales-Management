@@ -8,7 +8,7 @@ class ProductModel extends Database
 
     public function getProducts()
     {
-        return $this->select("SELECT * FROM product_id");
+        return $this->select("SELECT p.*, c.name FROM product p INNER JOIN category c ON p.category_id = c.id");
     }
 
     public function getProductById($id)
@@ -26,11 +26,15 @@ class ProductModel extends Database
         return $this->select("SELECT * FROM product WHERE barcode = ?", [$barcode], 'i');
     }
 
-    public function createProduct($name, $import_price, $retail_price, $date, $targetFile, $category) {
+    public function createProduct($name, $import_price, $retail_price, $date, $targetFile, $category)
+    {
+        $rowsAffected = $this->action("INSERT INTO product (name, import_price, retail_price, created, image_url, category_id) VALUES (?, ?, ?, ?, ?, ?)", [$name, $import_price, $retail_price, $date, $targetFile, $category], 'sddsss');
+        return $rowsAffected > 0;
         $this->action("INSERT INTO product (name, import_price, retail_price, created, image_url, category_id) VALUES (?, ?, ?, ?, ?, ?)", [$name, $import_price, $retail_price, $date, $targetFile, $category], 'sddsss');
     }
 
-    public function getProductByNameOrBarCode($text){
+    public function getProductByNameOrBarCode($text)
+    {
         return $this->select("SELECT * FROM product WHERE product_name LIKE ? OR CAST(product_id AS CHAR) LIKE ?", ["%" . $text . "%", "%" . $text . "%"], 'ss');
     }
 }

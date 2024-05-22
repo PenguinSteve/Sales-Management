@@ -103,12 +103,12 @@ if ($isAuthenticated) :
                         </table>
 
                         <div class="d-flex mt-3 justify-content-between">
-                            <div class="d-flex" style="margin-left: 23rem;">
+                            <div class="d-flex" style="margin-left: 20rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
                                 <h4 style="color: #5A8DEE;" id="totalProducts">0</h4>
                             </div>
 
-                            <div class="d-flex justify-content-end" style="margin-right: 16rem;">
+                            <div class="d-flex justify-content-end" style="margin-right: 14rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
                                 <h4 style="color: #5A8DEE;" id="totalAmount">0</h4>
                             </div>
@@ -202,13 +202,13 @@ if ($isAuthenticated) :
                     totalAmount += parseInt($(this).text().replace(/\./g, ''));
                 });
                 $('#totalAmount').text(totalAmount.toLocaleString('it-IT'));
-                
+
                 // Update total products
                 var totalProducts = 0;
                 $('.inputNum').each(function() {
                     totalProducts += parseInt($(this).val());
                 });
-                $('#totalProducts').text(totalProducts);    
+                $('#totalProducts').text(totalProducts);
             });
         })
     </script>

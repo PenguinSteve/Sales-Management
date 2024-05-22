@@ -16,18 +16,19 @@ if ($isAuthenticated) :
 
         <div id="app">
 
-            <?php //require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
+            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
-                <form method="POST" enctype="multipart/form-data">
-                <div class="row gx-4 pl-5 align-items-center pt-5">
-                        <!--image and upload image-->
-                        <div class="col-md-4 mr-4">
-                            <img class="card-img-top" id="image"/>
 
+                <form method="POST" enctype="multipart/form-data" action="product/createProduct">
+                <div class="row gx-4 pl-5 align-items-center pt-5">
+                        
+                    <!--image and upload image-->
+                    <div class="col-md-4 mr-4">
+                        <img class="card-img-top" id="image" src=""/>
                             <div class="form-file mt-3">
-                                <input id="userImg" name="userImage" type="file" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)" required>
+                                <input type="file" name="imageProduct" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)" required>
                                 <label class="form-file-label" for="customFile">
                                     <span class="form-file-text" id="customFile">Choose image...</span>
                                     <span class="form-file-button btn-primary "><i data-feather="upload"></i></span>
@@ -35,12 +36,7 @@ if ($isAuthenticated) :
                             </div>
                         </div>
 
-                        <!--barcode-->
                         <div class="col-md-6">
-                        <div class="d-flex align-items-center">
-                            <svg id="barcode"></svg>
-                            <div class="small fa-barcode" id="productId" style="margin-left: 4rem;">SKU: BST-498</div>
-                        </div>
 
                         <!--information details-->
                         <div class="col-md-9 pt-4">
@@ -59,7 +55,7 @@ if ($isAuthenticated) :
                             </div>
 
                             <div class="mb-2 d-flex justify-content-between">
-                                <label for="retail_price" class="col-form-label">Retail price</label>
+                                <label for="retail_price" class="col-form-label" required>Retail price</label>
                                 <div class="col-sm-8">
                                     <input type="number" class="form-control" name="retail_price" required>
                                 </div>
@@ -88,9 +84,8 @@ if ($isAuthenticated) :
                         </div>
                     </div>
                 </div>
-            </form>
             </div>
-        </div>
+        </form>
         </div>
 
         <!--Footer-->
@@ -110,44 +105,25 @@ if ($isAuthenticated) :
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script src="public/js/app.js"></script>
         <script src="public/js/main.js"></script>
-    </body>
 
         <script>
-            // show image on <img> tag-->
+            // show image on <img> tag
+            var selectedImage;
             function chooseFile(fileInput) {
                 if (fileInput.files && fileInput.files[0]) {
+                    selectedImage = fileInput.files[0]
                     var reader = new FileReader();
 
                     reader.onload = function(e) {
                         $("#image").attr("src", e.target.result)
-                        $('#customFile').text(fileInput.files[0]['name'])
+                        $('#customFile').text(fileInput.files[0].name);
                     }
                     reader.readAsDataURL(fileInput.files[0])
                 }
             }
-
-            // show barcode when product id is available
-            $(document).ready(function() {
-                var check = $('#productId').text()
-
-                if (check != '') {
-                    $('#barcode').show()
-                } else {
-                    $('#barcode').hide()
-                }
-            })
-
-            JsBarcode("#barcode", "SKU: BST-498", {
-                height: 40,
-                width: 1,
-                displayValue: false
-            })
         </script>
+    </body>
 
-    <?php
-    
-        print_r($categories);
-    ?>
     </html>
 
 <?php

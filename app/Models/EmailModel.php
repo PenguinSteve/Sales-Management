@@ -40,7 +40,7 @@ class EmailModel extends Database
 
             //Recipients
             $mail->setFrom('', 'Sales Management');
-            $mail->addAddress($email);                           
+            $mail->addAddress($email);
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
@@ -54,18 +54,19 @@ class EmailModel extends Database
         }
     }
 
-    public function sendEmailOnCreateUser($email){
+    public function sendEmailOnCreateUser($email)
+    {
         $token = $this->generateToken($email);
         $subject = "Đăng nhập vào hệ thống quản lý bán hàng";
-        $body = "Chào mừng bạn đến với Sales Management.<br>Tài khoản của bạn đã được tạo bằng email này.<br> Hãy click vào link sau để kích hoạt tài khoản của bạn và đăng nhập vào hệ thống: <a href='" . _HOST . "home/loginViaEmail?email=". $email ."token=" . $token . "'>Đăng nhập</a>";
+        $body = "Chào mừng bạn đến với Sales Management.<br>Tài khoản của bạn đã được tạo bằng email này.<br> Hãy click vào link sau để kích hoạt tài khoản của bạn và đăng nhập vào hệ thống: <a href='" . _HOST . "home/loginViaEmail?email=" . $email . "token=" . $token . "'>Đăng nhập</a>";
         $this->sendEmail($email, $subject, $body);
     }
 
-    public function resendEmail($email){
+    public function resendEmail($email)
+    {
         $token = $this->generateToken($email);
         $subject = "Đăng nhập vào hệ thống quản lý bán hàng";
-        $body = "Chào mừng bạn đến với Sales Management.<br>Đây là email được gửi lại để kích hoạt tài khoản và đăng nhập vào hệ thống.<br> Hãy click vào link sau để kích hoạt tài khoản của bạn và đăng nhập vào hệ thống: <a href='" . _HOST . "home/loginViaEmail?email=". $email ."token=" . $token . "'>Đăng nhập</a>";
+        $body = "Chào mừng bạn đến với Sales Management.<br>Đây là email được gửi lại để kích hoạt tài khoản và đăng nhập vào hệ thống.<br> Hãy click vào link sau để kích hoạt tài khoản của bạn và đăng nhập vào hệ thống: <a href='" . _HOST . "home/loginViaEmail?email=" . $email . "token=" . $token . "'>Đăng nhập</a>";
         $this->sendEmail($email, $subject, $body);
     }
 }
-?>
