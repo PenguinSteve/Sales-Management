@@ -40,7 +40,7 @@ if ($isAuthenticated) :
 
                             <div class="d-flex justify-content-left mt-5">
                                 <div class="form-group col-lg-4">
-                                    <input type="text" class="form-control" id="basicInput" placeholder="Search or Enter barcode">
+                                    <input type="text" class="form-control" id="searchProduct" placeholder="Search or Enter barcode">
                                 </div>
                                 <a class="btn btn-primary ml-2" style="height: 2.3rem;">Add</a>
                             </div>
@@ -66,7 +66,7 @@ if ($isAuthenticated) :
 
                                     <!--Column 2: number of items-->
                                     <td class="d-flex justify-content-center text-bold-500">
-                                        <input type="number" class="form-control inputNum">
+                                        <input type="number" class="form-control inputNum" min="1" value="1">
                                     </td>
 
                                     <!--Column 3: unit price-->
@@ -124,6 +124,8 @@ if ($isAuthenticated) :
         document.getElementById("btnCheckout").onclick = function() {
             window.location.href = "transaction/checkout";
         };
+
+
     </script>
 <?php
 else : header("Location:" . _HOST . "home/logout");
