@@ -10,8 +10,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->productModel = new ProductModel();
         $this->categoryModel = new CategoryModel();
+        $this->productModel = new ProductModel();
     }
 
     public function index()
@@ -24,6 +24,7 @@ class ProductController extends Controller
     public function addProduct() {
         $categories = $this->categoryModel->getCategories();
         $productModel = $this->model("ProductModel");
+
         $this->render("products/product_information", ['title' => 'Thêm sản phẩm', 'categories' => $categories]);
     }
 

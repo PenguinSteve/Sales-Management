@@ -1,5 +1,9 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
+if(isset($_SESSION['isNeedToChangePassword'])){
+    header("Location:" . _HOST . "user/changePasswordFirstTime");
+    exit();
+}
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
 ?>
@@ -8,7 +12,7 @@ if ($isAuthenticated) :
     ?>
 
     <body>
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/toast.php') ?>
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <div id="app">
 
