@@ -1,6 +1,6 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
-if(isset($_SESSION['isNeedToChangePassword'])){
+if (isset($_SESSION['isNeedToChangePassword'])) {
     header("Location:" . _HOST . "user/changePasswordFirstTime");
     exit();
 }
@@ -22,11 +22,11 @@ if ($isAuthenticated) :
             <div id="main">
 
                 <form method="POST" enctype="multipart/form-data" action="product/createProduct">
-                <div class="row gx-4 pl-5 align-items-center pt-5">
-                        
-                    <!--image and upload image-->
-                    <div class="col-md-4 mr-4">
-                        <img class="card-img-top" id="image" src=""/>
+                    <div class="row gx-4 pl-5 align-items-center pt-5">
+
+                        <!--image and upload image-->
+                        <div class="col-md-4 mr-4">
+                            <img class="card-img-top" id="image" src="" />
                             <div class="form-file mt-3">
                                 <input type="file" name="imageProduct" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)" required>
                                 <label class="form-file-label" for="customFile">
@@ -38,54 +38,54 @@ if ($isAuthenticated) :
 
                         <div class="col-md-6">
 
-                        <!--information details-->
-                        <div class="col-md-9 pt-4">
-                            <div class="mb-2 d-flex justify-content-between">
-                                <label for="name" class="col-form-label">Product name</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="name" required>
+                            <!--information details-->
+                            <div class="col-md-9 pt-4">
+                                <div class="mb-2 d-flex justify-content-between">
+                                    <label for="name" class="col-form-label">Product name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="name" required>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="mb-2 d-flex justify-content-between">
-                                <label for="import_price" class="col-form-label">Import price</label>
-                                <div class="col-sm-8">
-                                    <input type="number" class="form-control" name="import_price" required>
+                                <div class="mb-2 d-flex justify-content-between">
+                                    <label for="import_price" class="col-form-label">Import price</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" class="form-control" name="import_price" required>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="mb-2 d-flex justify-content-between">
-                                <label for="retail_price" class="col-form-label" required>Retail price</label>
-                                <div class="col-sm-8">
-                                    <input type="number" class="form-control" name="retail_price" required>
+                                <div class="mb-2 d-flex justify-content-between">
+                                    <label for="retail_price" class="col-form-label" required>Retail price</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" class="form-control" name="retail_price" required>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="mb-2 d-flex justify-content-between">
-                                <label for="category" class="col-form-label">Category</label>
-                                <select name="category" class="form-select" style="width: 14.6rem;" required>
-                                    <?php foreach ($categories as $category) {
-                                        echo "<option value=\"" .$category['id'] . "\">" .$category['name'] . "</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-
-                            <div class="mb-2 d-flex justify-content-between">
-                                <label for="date" class="col-form-label">Creation date</label>
-                                <div class="col-sm-8">
-                                    <input type="date" class="form-control" name="date" required>
+                                <div class="mb-2 d-flex justify-content-between">
+                                    <label for="category" class="col-form-label">Category</label>
+                                    <select name="category" class="form-select" style="width: 14.6rem;" required>
+                                        <?php foreach ($categories as $category) {
+                                            echo "<option value=\"" . $category['id'] . "\">" . $category['category_name'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="mb-2 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-outline-success float-right" style="margin-top: 2rem; width: 6rem;">Save</button>
+                                <div class="mb-2 d-flex justify-content-between">
+                                    <label for="date" class="col-form-label">Creation date</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" class="form-control" name="date" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-outline-success float-right" style="margin-top: 2rem; width: 6rem;">Save</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
-        </form>
+            </form>
         </div>
 
         <!--Footer-->
@@ -109,6 +109,7 @@ if ($isAuthenticated) :
         <script>
             // show image on <img> tag
             var selectedImage;
+
             function chooseFile(fileInput) {
                 if (fileInput.files && fileInput.files[0]) {
                     selectedImage = fileInput.files[0]

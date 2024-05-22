@@ -8,7 +8,7 @@ class ProductModel extends Database
 
     public function getProducts()
     {
-        return $this->select("SELECT p.*, c.name FROM product p INNER JOIN category c ON p.category_id = c.id");
+        return $this->select("SELECT p.*, category_name FROM product p INNER JOIN category c ON p.category_id = c.category_id");
     }
 
     public function getProductById($id)
@@ -28,9 +28,8 @@ class ProductModel extends Database
 
     public function createProduct($name, $import_price, $retail_price, $date, $targetFile, $category)
     {
-        $rowsAffected = $this->action("INSERT INTO product (name, import_price, retail_price, created, image_url, category_id) VALUES (?, ?, ?, ?, ?, ?)", [$name, $import_price, $retail_price, $date, $targetFile, $category], 'sddsss');
+        $rowsAffected = $this->action("INSERT INTO product (product_name, import_price, retail_price, created, image_url, category_id) VALUES (?, ?, ?, ?, ?, ?)", [$name, $import_price, $retail_price, $date, $targetFile, $category], 'sddsss');
         return $rowsAffected > 0;
-        $this->action("INSERT INTO product (name, import_price, retail_price, created, image_url, category_id) VALUES (?, ?, ?, ?, ?, ?)", [$name, $import_price, $retail_price, $date, $targetFile, $category], 'sddsss');
     }
 
     public function getProductByNameOrBarCode($text)

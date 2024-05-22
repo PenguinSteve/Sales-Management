@@ -35,6 +35,7 @@
             <!--footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                <div><a href="product/addProduct" class="btn btn-primary mr-4">Save</a></div>
                 <button type="button" class="btn btn-success ml-1">Save</button>
             </div>
         </div>

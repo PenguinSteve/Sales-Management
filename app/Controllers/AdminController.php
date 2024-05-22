@@ -20,10 +20,11 @@ class AdminController extends Controller
         $this->render("admin/account_management", ['title' => 'Quản lý tài khoản', 'users' => $users]);
     }
 
-    public function createUser(){
+    public function createUser()
+    {
         $email = $_POST['email'];
         $name = $_POST['name'];
-        if($this->userModel->createUser($email, $name)){
+        if ($this->userModel->createUser($email, $name)) {
             $_SESSION['announce'] = "Tạo tài khoản thành công";
         } else {
             $_SESSION['announce'] = "Tạo tài khoản thất bại";
@@ -31,7 +32,8 @@ class AdminController extends Controller
         header('Location: ' . _HOST . 'admin');
     }
 
-    public function resendEmail($email){
+    public function resendEmail($email)
+    {
         $this->emailModel->resendEmail($email);
         $_SESSION['announce'] = "Gửi email thành công";
         header('Location: ' . _HOST . 'admin');
