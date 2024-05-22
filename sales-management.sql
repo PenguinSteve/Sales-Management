@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 22, 2024 lúc 05:16 AM
+-- Thời gian đã tạo: Th5 22, 2024 lúc 07:33 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -67,7 +67,7 @@ CREATE TABLE `product` (
   `retail_price` float DEFAULT NULL,
   `sold` int(11) DEFAULT 0,
   `created` datetime NOT NULL,
-  `image_url` int(11) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -129,13 +129,6 @@ CREATE TABLE `user` (
   `role` varchar(20) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `user`
---
-
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `name`, `avatar`, `role`, `status`) VALUES
-(1, 'admin', '$2y$10$Si9wctgLcMFtrxTJ8Qg7xuK.ei1yTbkbVawsRwgbnypBfTkfQxcU.', 'admin@gmail.com', 'Quản lý', NULL, 'admin', 'activated');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -230,7 +223,7 @@ ALTER TABLE `transaction_detail`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
