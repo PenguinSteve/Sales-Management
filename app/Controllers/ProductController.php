@@ -16,19 +16,19 @@ class ProductController extends Controller
 
     public function index()
     {
-        $productModel = $this->model("ProductModel");
         $products = $this->productModel->getProducts();
-        $this->render("products/product_management", ["title" => "Danh mục sản phẩm"]);
+        $this->render("products/product_management", ["title" => "Danh mục sản phẩm", "products" => $products]);
     }
 
-    public function addProduct() {
+    public function addProduct()
+    {
         $categories = $this->categoryModel->getCategories();
-        $productModel = $this->model("ProductModel");
 
-        $this->render("products/product_information", ['title' => 'Thêm sản phẩm', 'categories' => $categories]);
+        $this->render("products/add_product_information", ['title' => 'Thêm sản phẩm', 'categories' => $categories]);
     }
 
-    public function createProduct() {
+    public function createProduct()
+    {
         $name = $_POST["name"];
         $import_price = $_POST["import_price"];
         $retail_price = $_POST["retail_price"];
@@ -36,11 +36,45 @@ class ProductController extends Controller
         $date = $_POST["date"];
 
         // Move product image to new folder and $targetFile is the its new url
-        $targetFile = "public/product_images/" . basename($_FILES['userImage']['name']);
-        move_uploaded_file($_FILES['userImage']['tmp_name'], $targetFile);
+        $targetFile = "public/product_images/" . basename($_FILES['imageProduct']['name']);
+        move_uploaded_file($_FILES['imageProduct']['tmp_name'], $targetFile);
 
-        $this->productModel->createProduct($name, $import_price, $retail_price, $date, $targetFile, $category);
+        $row_affected = $this->productModel->createProduct($name, $import_price, $retail_price, $date, $targetFile, $category);
+        if ($row_affected) {
+            $_SESSION['announce'] = "Thêm sản phẩm thành công";
+        } else {
+            $_SESSION['announce'] = "Thêm sản phẩm thất bại";
+        }
+        header('Location: ' . _HOST . 'product');
+    }
 
-        $this->addProduct();
+    // for update action
+    public function getProduct($id)
+    {
+        $categories = $this->categoryModel->getCategories();
+        $product = $this->productModel->getProductById($id);
+        $this->render("products/update_product_information", ['title' => 'Cập nhập sản phẩm', 'product' => $product, 'categories' => $categories]);
+    }
+
+    public function updateProduct()
+    {
+        $id = $_POST['id'];
+        $name = $_POST["name"];
+        $import_price = $_POST["import_price"];
+        $retail_price = $_POST["retail_price"];
+        $category = $_POST["category"];
+        $date = $_POST["date"];
+
+        // Move product image to new folder and $targetFile is the its new url
+        $targetFile = "public/product_images/" . basename($_FILES['imageProduct']['name']);
+        move_uploaded_file($_FILES['imageProduct']['tmp_name'], $targetFile);
+
+        $row_affected = $this->productModel->createProduct($name, $import_price, $retail_price, $date, $targetFile, $category);
+        if ($row_affected) {
+            $_SESSION['announce'] = "Thêm sản phẩm thành công";
+        } else {
+            $_SESSION['announce'] = "Thêm sản phẩm thất bại";
+        }
+        header('Location: ' . _HOST . 'product');
     }
 }

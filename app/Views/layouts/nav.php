@@ -12,10 +12,9 @@
                 <?php
                 if (!isset($_SESSION['isNeedToChangePassword'])) {
                     echo "<a class=\"dropdown-item\" href=\"user/index\"><i data-feather=\"user\"></i> Account</a>";
-                    echo "<a class=\"dropdown-item\" href=\"user/changePassword\"><i data-feather=\"pass\"></i> Change password</a>";
+                    echo "<a class=\"dropdown-item\" href=\"user/changePassword\"><i data-feather=\"lock\"></i> Change password</a>";
                 }
                 ?>
-
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="home/logout"><i data-feather="log-out"></i> Logout</a>
             </div>

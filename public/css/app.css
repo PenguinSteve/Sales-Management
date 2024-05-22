@@ -70,6 +70,16 @@
  * 6. Responsive
  */
 
+.idProduct {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  height: fit-content;
+  width: fit-content;
+  font-size: large;
+  color: red;
+}
+
  .price {
   color: #5A8DEE;
   font-weight: bold;

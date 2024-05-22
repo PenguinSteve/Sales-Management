@@ -27,7 +27,7 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
 
                     <small style="color: red; display: none">Username and password cannot be empty!</small>
                 </form>
-                <button class="btn btn-primary mr-4 mt-5 mb-3 float-right">Log in</button>
+                <button class="btn btn-primary mr-4 mt-5 mb-3 float-right" onclick="validate()">Log in</button>
             </div>
         </div>
     </div>
@@ -37,16 +37,14 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
             $(".btn-primary").click(function(){
                 if ($("#username").val() == "" && $("#pass").val() == "") {
                     $("small").show()
-                    $("#username").focus()
+                    $("#username").focus();
 
                 } else if ($("#username").val() == "") {
-                    $("small").html("Username cannot be empty!")
-                    $("small").show()
+                    $("small").html("Username cannot be empty!").show();
                     $("#username").focus()
-                
+
                 } else if ($("#pass").val() == "") {
-                    $("small").html("Password cannot be empty!")
-                    $("small").show()
+                    $("small").html("Password cannot be empty!").show()
                     $("#pass").focus()
 
                 } else {
