@@ -8,7 +8,7 @@ class ProductModel extends Database
 
     public function getProducts()
     {
-        return $this->select("SELECT * FROM product_id");
+        return $this->select("SELECT * FROM product");
     }
 
     public function getProductById($id)

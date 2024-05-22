@@ -17,7 +17,7 @@ class UserModel extends Database
 
     public function getUserById($id)
     {
-        return $this->select("SELECT * FROM user WHERE id = ?", [$id], 'i');
+        return $this->select("SELECT * FROM user WHERE user_id = ?", [$id], 'i');
     }
 
     public function getUserByUsername($username)
