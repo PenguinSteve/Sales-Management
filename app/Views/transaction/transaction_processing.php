@@ -32,6 +32,7 @@ if ($isAuthenticated) :
             </script>
 
             <div id="main">
+
                 <div class="main-content container-fluid">
                     <div class="page-title">
                         <div>
@@ -40,14 +41,33 @@ if ($isAuthenticated) :
 
                             <div class="d-flex justify-content-left mt-5">
                                 <div class="form-group col-lg-4">
-                                    <input type="text" class="form-control" id="basicInput" placeholder="Search or Enter barcode">
+                                    <input type="text" class="form-control" id="searchProduct" placeholder="Search or Enter barcode">
                                 </div>
-                                <a class="btn btn-primary ml-2" style="height: 2.3rem;">Add</a>
                             </div>
+
+                            <div class="suggested-products">
+                                <div class="product-list" id="product-list">
+                                    <!-- Each product item can be structured like this -->
+                                    <div class="product-item">
+                                        <p>Product Name</p>
+                                    </div>
+                                    <div class="product-item">
+                                        <p>Product Name</p>
+                                    </div>
+                                    <div class="product-item">
+                                        <p>Product Name</p>
+                                    </div>
+                                    <div class="product-item">
+                                        <p>Product Name</p>
+                                    </div>
+                                    <!-- Repeat the product item structure for each suggested product -->
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="cart">
                         <table class="table table-light mb-0">
                             <thead>
                                 <tr>
@@ -66,7 +86,7 @@ if ($isAuthenticated) :
 
                                     <!--Column 2: number of items-->
                                     <td class="d-flex justify-content-center text-bold-500">
-                                        <input type="number" class="form-control inputNum">
+                                        <input type="number" class="form-control inputNum" min="1" value="1">
                                     </td>
 
                                     <!--Column 3: unit price-->
@@ -85,12 +105,12 @@ if ($isAuthenticated) :
                         <div class="d-flex mt-3 justify-content-between">
                             <div class="d-flex" style="margin-left: 20rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
-                                <h4 style="color: #5A8DEE;">1</h4>
+                                <h4 style="color: #5A8DEE;" id="totalProducts">0</h4>
                             </div>
 
                             <div class="d-flex justify-content-end" style="margin-right: 14rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
-                                <h5 style="color: #5A8DEE;">9.000.000</h5>
+                                <h4 style="color: #5A8DEE;" id="totalAmount">0</h4>
                             </div>
                         </div>
 
@@ -98,6 +118,7 @@ if ($isAuthenticated) :
                     </div>
                 </div>
             </div>
+
 
             <!--Footer-->
             <footer>
@@ -124,6 +145,72 @@ if ($isAuthenticated) :
         document.getElementById("btnCheckout").onclick = function() {
             window.location.href = "transaction/checkout";
         };
+
+        $(document).ready(function() {
+
+            //Suggestions for products when searching
+            $('#searchProduct').on('input', function() {
+                var text = $(this).val()
+                $.ajax({
+                    url: 'transaction/searchProduct/' + text,
+                    type: 'POST',
+                    success: function(response) {
+                        var productListView = $('#product-list')
+                        productListView.empty()
+                        response.forEach(product => {
+                            productListView.append('<div class="product-item" data-product-id="' + product.id + '" data-product-name="' + product.name + '" data-retail-price="' + product.retailPrice + '"><p>' + product.name + ' - ' + product.price + '</p></div>')
+
+                        })
+                    }
+                })
+            })
+
+            //Add product to cart when click on product item on suggestion list
+            $('.product-item').click(function() {
+                var productId = $(this).data('product-id');
+                var productName = $(this).data('product-name');
+                var retailPrice = $(this).data('retail-price');
+
+                var newRow = '<tr data-product-id="' + productId + '" data-product-name="' + productName + '" data-retail-price="' + retailPrice + '">' +
+                    '<td>' + productName + '</td>' +
+                    '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum" min="1" value="1"></td>' +
+                    '<td>' + retailPrice + '</td>' +
+                    '<td class="total-price">' + retailPrice + '</td>' +
+                    '<td><button type="button" class="btn btn-outline-danger ml-1">Delete</button></td>' +
+                    '</tr>';
+
+                $('tbody').append(newRow);
+
+                // Update total products
+                var totalProducts = parseInt($('#totalProducts').text());
+                $('#totalProducts').text(totalProducts + 1);
+
+                // Update total amount
+                var totalAmount = parseInt($('#totalAmount').text().replace(/\./g, ''));
+                $('#totalAmount').text((totalAmount + retailPrice).toLocaleString('it-IT'));
+            });
+
+            $('tbody').on('change', '.inputNum', function() {
+                var quantity = $(this).val();
+                var price = $(this).closest('tr').data('retail-price');
+                var totalPrice = quantity * price;
+                $(this).closest('tr').find('.total-price').text(totalPrice.toLocaleString('it-IT'));
+
+                // Update total amount
+                var totalAmount = 0;
+                $('.total-price').each(function() {
+                    totalAmount += parseInt($(this).text().replace(/\./g, ''));
+                });
+                $('#totalAmount').text(totalAmount.toLocaleString('it-IT'));
+
+                // Update total products
+                var totalProducts = 0;
+                $('.inputNum').each(function() {
+                    totalProducts += parseInt($(this).val());
+                });
+                $('#totalProducts').text(totalProducts);
+            });
+        })
     </script>
 <?php
 else : header("Location:" . _HOST . "home/logout");
