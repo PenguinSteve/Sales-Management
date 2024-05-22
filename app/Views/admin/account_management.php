@@ -1,6 +1,6 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
-if(isset($_SESSION['isNeedToChangePassword'])){
+if (isset($_SESSION['isNeedToChangePassword'])) {
     header("Location:" . _HOST . "user/changePasswordFirstTime");
     exit();
 }
@@ -52,7 +52,7 @@ if ($isAuthenticated) :
                                 <?php foreach ($users as $user) {
 
 
-                                    echo "<tr data-user-id = \"" . $user['id']
+                                    echo "<tr data-user-id = \"" . $user['user_id']
                                         . "\" data-user-username = \"" . $user['username']
                                         . "\" data-user-email = \"" . $user['email']
                                         . "\" data-user-name = \"" . $user['name']
