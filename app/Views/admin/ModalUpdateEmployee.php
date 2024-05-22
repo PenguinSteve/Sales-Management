@@ -25,14 +25,14 @@
                                 <label>Name</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="name">
+                                <input type="text" class="form-control" id="name" disabled>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Email</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="email">
+                                <input type="text" class="form-control" id="email" disabled>
                             </div>
 
                             <div class="d-flex">

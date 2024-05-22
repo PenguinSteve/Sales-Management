@@ -1,5 +1,9 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
+if(isset($_SESSION['isNeedToChangePassword'])){
+    header("Location:" . _HOST . "user/changePasswordFirstTime");
+    exit();
+}
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
 ?>
@@ -8,18 +12,21 @@ if ($isAuthenticated) :
     ?>
 
     <body>
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+
         <div id="app">
 
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
-            <form enctype="multipart/form-data" method="POST" action="">
-                <div class="row gx-4 pl-5 align-items-center pt-5">
 
+                <form method="POST" enctype="multipart/form-data" action="product/createProduct">
+                <div class="row gx-4 pl-5 align-items-center pt-5">
+                        
                     <!--image and upload image-->
                     <div class="col-md-4 mr-4">
-                        <img class="card-img-top" id="image" />
+                        <img class="card-img-top" id="image" src=""/>
                             <div class="form-file mt-3">
                                 <input type="file" name="imageProduct" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)" required>
                                 <label class="form-file-label" for="customFile">
@@ -27,15 +34,9 @@ if ($isAuthenticated) :
                                     <span class="form-file-button btn-primary "><i data-feather="upload"></i></span>
                                 </label>
                             </div>
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <!--barcode-->
-                        <div class="d-flex align-items-center">
-                            <svg id="barcode"></svg>
-                            <div class="small fa-barcode" id="productId" style="margin-left: 4rem;">SKU: BST-498</div>
                         </div>
+
+                        <div class="col-md-6">
 
                         <!--information details-->
                         <div class="col-md-9 pt-4">
@@ -56,17 +57,17 @@ if ($isAuthenticated) :
                             <div class="mb-2 d-flex justify-content-between">
                                 <label for="retail_price" class="col-form-label" required>Retail price</label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" name="retail_price">
+                                    <input type="number" class="form-control" name="retail_price" required>
                                 </div>
                             </div>
 
                             <div class="mb-2 d-flex justify-content-between">
-                                <label for="category" name='category' class="col-form-label">Category</label>
-                                <select class="form-select" style="width: 14.5rem;">
-                                    <option selected>Phone</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <label for="category" class="col-form-label">Category</label>
+                                <select name="category" class="form-select" style="width: 14.6rem;" required>
+                                    <?php foreach ($categories as $category) {
+                                        echo "<option value=\"" .$category['id'] . "\">" .$category['name'] . "</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
 
@@ -83,8 +84,8 @@ if ($isAuthenticated) :
                         </div>
                     </div>
                 </div>
-            </form>
             </div>
+        </form>
         </div>
 
         <!--Footer-->
@@ -99,7 +100,6 @@ if ($isAuthenticated) :
             </div>
         </footer>
 
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <script src="public/js/feather-icons/feather.min.js"></script>
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -107,24 +107,6 @@ if ($isAuthenticated) :
         <script src="public/js/main.js"></script>
 
         <script>
-            // show barcode when product id is available
-            $(document).ready(function() {
-                var check = $('#productId').text()
-
-                if (check != '') {
-                    $('#barcode').show();
-                } else {
-                    $('#barcode').hide();
-                }
-            })
-
-            JsBarcode("#barcode", "SKU: BST-498", {
-                height: 40,
-                width: 1,
-                displayValue: false
-            });
-
-
             // show image on <img> tag
             var selectedImage;
             function chooseFile(fileInput) {
@@ -142,19 +124,7 @@ if ($isAuthenticated) :
         </script>
     </body>
 
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (isset($_FILES['imageProduct'])) {
-            $targetDir = "public/product_images/";
-            $targetImage = $targetDir . basename($_FILES['imageProduct']['name']);
-
-            // Move the image file to the product_images folder
-            move_uploaded_file($_FILES['imageProduct']['tmp_name'], $targetImage);
-        }
-    }
-    ?>
-
-</html>
+    </html>
 
 <?php
 else : header("Location:" . _HOST . "home/logout");

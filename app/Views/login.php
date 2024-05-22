@@ -40,13 +40,11 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
                     $("#username").focus();
 
                 } else if ($("#username").val() == "") {
-                    $("small").html("Username cannot be empty!");
-                    $("small").show()
+                    $("small").html("Username cannot be empty!").show();
                     $("#username").focus()
-                
+
                 } else if ($("#pass").val() == "") {
-                    $("small").html("Password cannot be empty!");
-                    $("small").show()
+                    $("small").html("Password cannot be empty!").show()
                     $("#pass").focus()
 
                 } else {

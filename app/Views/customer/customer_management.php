@@ -1,5 +1,9 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
+if(isset($_SESSION['isNeedToChangePassword'])){
+    header("Location:" . _HOST . "user/changePasswordFirstTime");
+    exit();
+}
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
 ?>
@@ -8,6 +12,8 @@ if ($isAuthenticated) :
     ?>
 
     <body>
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+
         <div id="app">
 
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
@@ -64,7 +70,6 @@ if ($isAuthenticated) :
             </div>
         </footer>
 
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <script src="public/js/feather-icons/feather.min.js"></script>
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

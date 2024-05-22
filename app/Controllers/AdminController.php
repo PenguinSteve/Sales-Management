@@ -15,4 +15,15 @@ class AdminController extends Controller
         $users = $this->userModel->getUsers();
         $this->render("admin/account_management", ['title' => 'Quản lý tài khoản', 'users' => $users]);
     }
+
+    public function createUser(){
+        $email = $_POST['email'];
+        $name = $_POST['name'];
+        if($this->userModel->createUser($email, $name)){
+            $_SESSION['announce'] = "Tạo tài khoản thành công";
+        } else {
+            $_SESSION['announce'] = "Tạo tài khoản thất bại";
+        }
+        header('Location: ' . _HOST . 'admin');
+    }
 }
