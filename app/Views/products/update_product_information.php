@@ -22,7 +22,7 @@ if ($isAuthenticated) :
 
             <div id="main">
 
-                <form class="ml-5" method="POST" enctype="multipart/form-data" action="product/createProduct">
+                <form class="ml-5" method="POST" enctype="multipart/form-data" action="product/updateProduct">
                     <div class="row gx-4 pl-5 align-items-center pt-5">
 
                         <!--image and upload image-->

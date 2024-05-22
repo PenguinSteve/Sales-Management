@@ -45,6 +45,7 @@ class UserModel extends Database
 
         if ($rowsAffected > 0) {
             $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');
+            $this->emailModel->sendEmailOnCreateUser($email);
             return true;
         } else {
             return false;
