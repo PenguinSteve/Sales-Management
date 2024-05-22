@@ -69,7 +69,7 @@ class UserModel extends Database
 
     public function saveChangePassword($username, $password)
     {
-        if(password_verify($password, $this->getUserByUsername($username)[0]['password'])){
+        if (password_verify($password, $this->getUserByUsername($username)[0]['password'])) {
             $_SESSION['announce'] = "Mật khẩu mới không được trùng với mật khẩu cũ";
             return false;
         }

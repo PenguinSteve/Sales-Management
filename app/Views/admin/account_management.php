@@ -111,6 +111,34 @@ if ($isAuthenticated) :
         <script src="public/js/main.js"></script>
     </body>
 
+    <script>
+        $(document).ready(function() {
+            $("#saveAdd").click(function() {
+                if ($("#name").val() == "") {
+                    $("small").show()
+                    $("#name").focus()
+                } else if ($("#email").val() == "") {
+                    $("small").html("Email cannot be empty!").show()
+                    $("#email").focus()
+                } else {
+                    $("#formAdd").submit()
+                }
+            })
+
+            $("#saveUpdate").click(function() {
+                if ($("#name").val() == "") {
+                    $("small").show()
+                    $("#name").focus()
+                } else if ($("#email").val() == "") {
+                    $("small").html("Email cannot be empty!").show()
+                    $("#email").focus()
+                } else {
+                    $("#formAdd").submit()
+                }
+            })
+        })
+    </script>
+
     </html>
 <?php
 else : header("Location:" . _HOST . "home/logout");

@@ -33,14 +33,14 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
     </div>
 
     <script>
-        $(document).ready(function(){
-            $(".btn-primary").click(function(){
+        $(document).ready(function() {
+            $(".btn-primary").click(function() {
                 if ($("#username").val() == "" && $("#pass").val() == "") {
                     $("small").show()
-                    $("#username").focus();
+                    $("#username").focus()
 
                 } else if ($("#username").val() == "") {
-                    $("small").html("Username cannot be empty!").show();
+                    $("small").html("Username cannot be empty!").show()
                     $("#username").focus()
 
                 } else if ($("#pass").val() == "") {
@@ -52,7 +52,6 @@ require_once(_DIR_ROOT . '/app/Views/layouts/header.php');
                 }
             })
         })
-
     </script>
 </body>
 
