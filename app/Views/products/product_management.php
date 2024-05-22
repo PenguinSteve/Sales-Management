@@ -47,9 +47,9 @@ if ($isAuthenticated) :
                                             <img class="card-img-top p-1 mx-auto pt-2" style="width: 10rem;" src="{$product['image_url']}"/>
 
                                             <div class="card-body pl-4 pr-4 pb-0">
-                                                <h6 class="fw-bolder nameProduct">{$product['name']}</h6>
+                                                <h6 class="fw-bolder nameProduct">{$product['product_name']}</h6>
                                                 <p class="category">{$product['category_id']}</p>
-                                                <p>Code: {$product['id']}</p>
+                                                <p>Code: {$product['product_id']}</p>
                                                 <div class="d-flex">
                                                     <h5 class="fw-bolder price mr-2">{$product['retail_price']} VND</h5>
                                                     <p class="retail_price text-sm">{$product['import_price']} VND</p>
@@ -57,8 +57,8 @@ if ($isAuthenticated) :
                                             </div>
 
                                             <div class="card-footer pt-2 pb-3 pr-4 border-top-0 bg-transparent d-flex justify-content-end">
-                                                <a href="product/getProduct/{$product['id']}" class="btn btn-outline-success">Edit</a>
-                                                <!-- <a href="product/getProduct/{$product['id']}" class="btn btn-outline-success">Edit</a> -->
+                                                <a href="product/getProduct/{$product['product_id']}" class="btn btn-outline-success">Edit</a>
+                                                
 
                                                 <button type="button" class="btn btn-outline-danger ml-1" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
                                             </div>

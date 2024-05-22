@@ -65,7 +65,7 @@ if ($isAuthenticated) :
                                     <label for="category" class="col-form-label">Category</label>
                                     <select name="category" class="form-select" style="width: 14.6rem;" required>
                                         <?php foreach ($categories as $category) {
-                                            echo "<option value=\"" . $category['id'] . "\">" . $category['category_name'] . "</option>";
+                                            echo "<option value=\"" . $category['category_id'] . "\">" . $category['category_name'] . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -84,8 +84,8 @@ if ($isAuthenticated) :
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
 
         <!--Footer-->

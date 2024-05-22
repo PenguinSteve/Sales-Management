@@ -44,7 +44,7 @@ if ($isAuthenticated) :
                                 <div class="d-flex align-items-center">
                                     <svg id="barcode"></svg>
                                     <div class="fa-barcode" id="productId">
-                                        <input class="idProduct" type="text" disabled value="<?php echo $product[0]['id'] ?>" style="background-color: transparent; border: none; outline: none; height: fit-content; width: fit-content; font-size: small;" />
+                                        <input class="idProduct" type="text" disabled value="<?php echo $product[0]['product_id'] ?>" style="background-color: transparent; border: none; outline: none; height: fit-content; width: fit-content; font-size: small;" />
                                     </div>
                                 </div>
 
@@ -53,7 +53,7 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="name" class="col-form-label">Product name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="name" required value="<?php echo $product[0]['name'] ?>">
+                                            <input type="text" class="form-control" name="name" required value="<?php echo $product[0]['product_name'] ?>">
                                         </div>
                                     </div>
 
@@ -75,10 +75,10 @@ if ($isAuthenticated) :
                                         <label for="category" class="col-form-label">Category</label>
                                         <select name="category" class="form-select" style="width: 14.6rem;" required>
                                             <?php foreach ($categories as $category) {
-                                                if ($category['id'] == $product[0]['category_id']) {
-                                                    echo "<option value=\"" . $category['id'] . "\" selected>" . $category['name'] . "</option>";
+                                                if ($category['category_id'] == $product[0]['category_id']) {
+                                                    echo "<option value=\"" . $category['category_id'] . "\" selected>" . $category['category_name'] . "</option>";
                                                 } else {
-                                                    echo "<option value=\"" . $category['id'] . "\">" . $category['name'] . "</option>";
+                                                    echo "<option value=\"" . $category['category_id'] . "\">" . $category['category_name'] . "</option>";
                                                 }
                                             }
                                             ?>
@@ -142,19 +142,12 @@ if ($isAuthenticated) :
         }
 
         // show barcode
-        JsBarcode("#barcode", <?php echo $product[0]['id'] ?>, {
+        JsBarcode("#barcode", <?php echo $product[0]['product_id'] ?>, {
             height: 40,
             width: 2,
-            displayValue: false
+            displayValue: true
         })
     </script>
-
-    <?php
-    //print_r($product[0]);
-    echo $product[0]['category_id'];
-    echo $category['id'];
-    ?>
-
     </html>
 
 <?php
