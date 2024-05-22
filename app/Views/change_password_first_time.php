@@ -3,7 +3,6 @@ $isAuthenticated = (isset($_SESSION['user']) && isset($_SESSION['isNeedToChangeP
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
     $currentUsername = $_SESSION['user']['username'];
-    //$currentPass = $_SESSION['user']['password'];
 ?>
     <?php
     require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
@@ -13,7 +12,6 @@ if ($isAuthenticated) :
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
         
         <div class="col-md-5 mx-auto">
             <div class="card pt-5 mt-5 cardLogin">
@@ -25,7 +23,7 @@ if ($isAuthenticated) :
                         <p>Change your password when logging in for the first time.</p>
                     </div>
 
-                    <form id="changeFirstTime" action="" class="m-4" method="POST">
+                    <form id="changeFirstTime" action="user/saveChangePasswordFirstTime" class="m-4" method="POST">
                         <div class="form-floating mb-3">
                             <label for="pass" class="form-label">New password</label>
                             <input type="password" class="form-control" name="pass" id="pass" required>
@@ -65,7 +63,6 @@ if ($isAuthenticated) :
         $(document).ready(function() {
             $('.btn-primary').click(function() {
                 const currUser = <?php echo json_encode($currentUsername); ?>
-                //const currPass = <//?php echo json_encode($currentPass); ?>
 
                 if ($("#pass").val() == "") {
                     $("small").show()
@@ -82,34 +79,13 @@ if ($isAuthenticated) :
                 } else if ($("#pass").val() === currUser) {
                     $("small").html("The new password must not be the same as the username!").show()
                     $("#pass").focus()
-
-                // } else if ($("#pass").val() === currPass) {
-                //     $("small").html("The new password must not be the same as the current password!")
-                //     $("small").show()
-                //     $("#pass").focus()
-
                 } else {
-                    $.ajax({
-                        url: "user/saveChangePasswordFirstTime",
-                        method: "POST",
-                        data: {
-                            username: currUser,
-                            password: $("#pass").val()
-                        },
-                        success: function(response) {
-                            $("#changeFirstTime").submit()
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            $("small").html("An error occurred while changing the password!").show();
-                        }
-                    })
+                    $("#changeFirstTime").submit()
                 }
             })
         })
     </script>
-
     </html>
-
 <?php
 else : header("Location:" . _HOST . "home/logout");
 endif;

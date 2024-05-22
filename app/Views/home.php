@@ -1,6 +1,6 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
-if($_SESSION['isNeedToChangePassword']){
+if (isset($_SESSION['isNeedToChangePassword'])) {
     header("Location:" . _HOST . "user/changePasswordFirstTime");
     exit();
 }
@@ -12,7 +12,7 @@ if ($isAuthenticated) :
     ?>
 
     <body>
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
+
 
         <div id="app">
 
@@ -20,6 +20,7 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
+                <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
             </div>
         </div>
 

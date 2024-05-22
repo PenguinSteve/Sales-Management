@@ -1,6 +1,6 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
-if($_SESSION['isNeedToChangePassword']){
+if(isset($_SESSION['isNeedToChangePassword'])){
     header("Location:" . _HOST . "user/changePasswordFirstTime");
     exit();
 }

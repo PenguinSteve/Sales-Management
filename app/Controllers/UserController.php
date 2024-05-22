@@ -27,7 +27,7 @@ class UserController extends Controller
     }
 
     public function saveChangePasswordFirstTime(){
-        $username = $_POST['username'];
+        $username = isset($_SESSION['user']['username']) ? $_SESSION['user']['username'] : "";
         $password = $_POST['pass'];
         if($this->userModel->saveChangePassword($username, $password)){
             unset($_SESSION['isNeedToChangePassword']);

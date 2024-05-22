@@ -1,12 +1,16 @@
 <?php
+require_once("./app/Models/ProductModel.php");
+require_once("./app/Models/CategoryModel.php");
 class ProductController extends Controller
 {
-    // private ProductModel $productModel;
+    private ProductModel $productModel;
+    private CategoryModel $categoryModel;
 
-    // public function __construct()
-    // {
-    //     $this->productModel = new ProductModel();
-    // }
+    public function __construct()
+    {
+        $this->categoryModel = new CategoryModel();
+        $this->productModel = new ProductModel();
+    }
 
     public function index()
     {
@@ -16,7 +20,8 @@ class ProductController extends Controller
 
     public function addProduct() {
         $productModel = $this->model("ProductModel");
-        $this->render("products/product_information", ["title" => "Thêm sản phẩm"]);
+        $categories = $this->categoryModel->getCategories();
+        $this->render("products/product_information", ['title' => 'Thêm sản phẩm', 'categories' => $categories]);
     }
 
     public function createProduct() {
