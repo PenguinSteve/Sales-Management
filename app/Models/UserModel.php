@@ -56,6 +56,28 @@ class UserModel extends Database
     {
     }
 
+    public function updateUser($id, $name, $targetFile)
+    {
+        $rowsAffected = $this->action(
+            "UPDATE user SET name = ?, avatar = ? WHERE user_id = ?",
+            [$name, $targetFile, $id],
+            'ssi'
+        );
+
+        return $rowsAffected > 0;
+    }
+
+    public function updateUserNoAvatar($id, $name)
+    {
+        $rowsAffected = $this->action(
+            "UPDATE user SET name = ? WHERE user_id = ?",
+            [$name, $id],
+            'si'
+        );
+
+        return $rowsAffected > 0;
+    }
+
     private function hashPassword($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);

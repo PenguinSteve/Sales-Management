@@ -8,34 +8,35 @@ if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
 ?>
     <?php
-    require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
-    ?>
+    require_once(_DIR_ROOT . '/app/Views/layouts/header.php') ?>
 
     <body>
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <div id="app">
 
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php')
-            ?>
+            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
 
-                <form class="ml-5" method="POST" enctype="multipart/form-data" action="product/updateProduct">
+                <form id="form" class="ml-5" method="POST" enctype="multipart/form-data" action="product/updateProduct/<?php echo $product[0]['product_id'] ?>">
+
                     <div class="row gx-4 pl-5 align-items-center pt-5">
 
                         <!--image and upload image-->
                         <div class="col-md-3 mr-2">
-                            <img class="card-img-top" id="image" src="<?php echo $product[0]['image_url']; ?>" />
+                            <img class="card-img-top" id="image" src="<?php echo $product[0]['image_url'] ?>" />
                             <div class="form-file mt-3">
-                                <input type="file" name="imageProduct" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)" required>
+                                <input id="uploadImg" type="file" name="imageProduct" class="form-file-input" accept=".jpg,.jpeg,.png" onchange="chooseFile(this)">
                                 <label class="form-file-label" for="customFile">
-                                    <span class="form-file-text" id="customFile">Choose image...</span>
+                                    <span class="form-file-text" id="customFile"></span>
                                     <span class="form-file-button btn-primary "><i data-feather="upload"></i></span>
                                 </label>
                             </div>
+                            <small style="color: red; display: none">Choose an image!</small>
                         </div>
+
 
                         <div class="col-md-7">
 
@@ -43,8 +44,9 @@ if ($isAuthenticated) :
                             <div class="col-md-12">
                                 <div class="d-flex align-items-center">
                                     <svg id="barcode"></svg>
-                                    <div class="fa-barcode" id="productId">
-                                        <input class="idProduct" type="text" disabled value="<?php echo $product[0]['product_id'] ?>" style="background-color: transparent; border: none; outline: none; height: fit-content; width: fit-content; font-size: small;" />
+                                    <div class="fa-barcode">
+                                        <input class="idProduct" type="text" disabled value="<?php echo $product[0]['product_id'] ?>" style="color:black; margin-left: 3rem">
+
                                     </div>
                                 </div>
 
@@ -60,21 +62,22 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="import_price" class="col-form-label">Import price</label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" name="import_price" required value="<?php echo $product[0]['import_price']; ?>">
+                                            <input type="number" class="form-control inputNum" name="import_price" required value="<?php echo $product[0]['import_price']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="retail_price" class="col-form-label" required>Retail price</label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" name="retail_price" required value="<?php echo $product[0]['retail_price']; ?>">
+                                            <input type="number" class="form-control inputNum" name="retail_price" required value="<?php echo $product[0]['retail_price']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="category" class="col-form-label">Category</label>
-                                        <select name="category" class="form-select" style="width: 14.6rem;" required>
+                                        <select name="category" class="form-select" style="width: 16.2rem;" required>
                                             <?php foreach ($categories as $category) {
+
                                                 if ($category['category_id'] == $product[0]['category_id']) {
                                                     echo "<option value=\"" . $category['category_id'] . "\" selected>" . $category['category_name'] . "</option>";
                                                 } else {
@@ -98,7 +101,7 @@ if ($isAuthenticated) :
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-outline-success float-right" style="margin-top: 2rem; width: 6rem;">Save</button>
+                                        <button type="submit" class="btn btn-outline-success float-right" style="margin-top: 2rem; width: 6rem;" onclick="sendForm()">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -141,13 +144,24 @@ if ($isAuthenticated) :
             }
         }
 
+
         // show barcode
         JsBarcode("#barcode", <?php echo $product[0]['product_id'] ?>, {
             height: 40,
             width: 2,
             displayValue: true
         })
+
+        //Prevent input quantity less than 1
+        $(document).on('input', '.inputNum', function() {
+            var value = $(this).val()
+            if (value < 1 || value == '') {
+                $(this).val(1)
+            }
+        })
     </script>
+
+
     </html>
 
 <?php
