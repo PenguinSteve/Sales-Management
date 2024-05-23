@@ -91,7 +91,7 @@ class ProductController extends Controller
             // unlink($urlImg);
             $_SESSION['announce'] = "Xóa sản phẩm thành công";
         } else {
-            $_SESSION['announce'] = "Không thể xóa những sản phẩm đã được lập hóa đơn";
+            $_SESSION['announce'] = "Không thể xóa những sản phẩm đã được bán";
         }
         header('Location: ' . _HOST . 'product');
     }

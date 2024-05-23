@@ -111,6 +111,8 @@ if ($isAuthenticated) :
         }
     </script>
 
+
+    </html>
 <?php
 else : header("Location:" . _HOST . "home/logout");
 endif;

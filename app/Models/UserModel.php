@@ -37,11 +37,16 @@ class UserModel extends Database
 
     public function createUser($email, $name)
     {
+        if(!empty($this->getUserByEmail($email))){
+            $_SESSION['announce'] = "Email đã tồn tại";
+            return false;
+        }
+        
         $username = $this->emailToUsername($email);
         $password = $this->hashPassword($username);
         $role = "user";
         $status = "inactive";
-        $rowsAffected = $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, $role, $status], 'ssssss');
+        $rowsAffected = $this->action("INSERT INTO user (username, password, email, name, avatar, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, "public/images/avatar/avatar-s-1.png",$role, $status], 'sssssss');
 
         if ($rowsAffected > 0) {
             $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');
