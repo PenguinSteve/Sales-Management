@@ -32,7 +32,7 @@ class UserModel extends Database
 
     public function getUserByEmailAndToken($email, $token)
     {
-        return $this->select("SELECT * FROM token WHERE email = ?, token = ?", [$email, $token], 'ss');
+        return $this->select("SELECT * FROM token WHERE email = ? AND token = ?", [$email, $token], 'ss');
     }
 
     public function createUser($email, $name)
@@ -61,7 +61,7 @@ class UserModel extends Database
         $rowsAffected = $this->action(
             "UPDATE user SET name = ?, avatar = ? WHERE user_id = ?",
             [$name, $targetFile, $id],
-            'ss'
+            'ssi'
         );
 
         return $rowsAffected > 0;
@@ -71,8 +71,8 @@ class UserModel extends Database
     {
         $rowsAffected = $this->action(
             "UPDATE user SET name = ? WHERE user_id = ?",
-            [$id, $name],
-            's'
+            [$name, $id],
+            'si'
         );
 
         return $rowsAffected > 0;

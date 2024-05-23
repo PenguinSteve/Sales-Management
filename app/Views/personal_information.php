@@ -40,28 +40,28 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="id" class="col-form-label">ID</label>
                                         <div class="col-sm-8">
-                                            <input name="id" type="text" class="form-control" value="<?php echo $user[0]['user_id'] ?>">
+                                            <input disabled name="id" type="text" class="form-control" value="<?php echo $currentUser['user_id'] ?>">
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="name" class="col-form-label">Full name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="name" value="<?php echo $user[0]['name'] ?>">
+                                            <input type="text" class="form-control" name="name" value="<?php echo $currentUser['name'] ?>" required>
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="email" class="col-form-label">Email</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="email" value="<?php echo $user[0]['email'] ?>">
+                                            <input type="text" class="form-control" id="email" value="<?php echo $currentUser['email'] ?>" disabled>
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="role" class="col-form-label">Role</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="role" disabled value="<?php echo $user[0]['role'] ?>">
+                                            <input type="text" class="form-control" id="role" disabled value="<?php echo $currentUser['role'] ?>">
                                         </div>
                                     </div>
 

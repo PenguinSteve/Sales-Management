@@ -10,9 +10,9 @@ class UserController extends Controller
     }
     public function index()
     {
-        $id = $_SESSION['user']['user_id'];
-        $user = $this->userModel->getUserById($id);
-        $this->render("personal_information", ['title' => "Thông tin cá nhân", 'user' => $user]);
+        // $id = $_SESSION['user']['user_id'];
+        // $user = $this->userModel->getUserById($id);
+        $this->render("personal_information", ['title' => "Thông tin cá nhân"]);
     }
 
     public function changePassword()
@@ -45,13 +45,18 @@ class UserController extends Controller
     public function saveChangePassword()
     {
         $username = $_SESSION['user']['username'];
-        $password = $_POST['password'];
-        if ($this->userModel->saveChangePassword($username, $password)) {
-            $_SESSION['user'] = $this->userModel->getUserByUsername($username)[0];
-            header("Location:" . _HOST . "home");
-        } else {
-            header("Location:" . _HOST . "user/changePassword");
+        $curr_pass = $_POST['curr_pass'];
+        $new_pass = $_POST['new_pass'];
+
+        if (password_verify($curr_pass, $_SESSION['user']['password'])) {
+            if ($this->userModel->saveChangePassword($username, $new_pass)) {
+                $_SESSION['user'] = $this->userModel->getUserByUsername($username)[0];
+                header("Location:" . _HOST . "home");
+                exit();
+            }
         }
+        header("Location:" . _HOST . "user/changePassword");
+        exit();
     }
 
     public function updatePersonalAccount($id)
@@ -70,9 +75,11 @@ class UserController extends Controller
 
         if ($row_affected) {
             $_SESSION['announce'] = "Cập nhật thông tin thành công";
+            $_SESSION['user'] = $this->userModel->getUserById($id)[0];
         } else {
             $_SESSION['announce'] = "Cập nhật thông tin thất bại";
         }
+
         header("Location: " . _HOST . "user");
     }
 }
