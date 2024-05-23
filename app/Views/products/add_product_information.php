@@ -85,8 +85,8 @@ if ($isAuthenticated) :
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
 
         <!--Footer-->

@@ -9,10 +9,8 @@ if ($isAuthenticated) :
     ?>
 
     <body>
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
-
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
-        
+        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
         <div class="col-md-5 mx-auto">
             <div class="card pt-5 mt-5 cardLogin">
                 <div class="card-body">
@@ -85,6 +83,7 @@ if ($isAuthenticated) :
             })
         })
     </script>
+
     </html>
 <?php
 else : header("Location:" . _HOST . "home/logout");

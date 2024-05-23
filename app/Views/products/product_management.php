@@ -39,6 +39,7 @@ if ($isAuthenticated) :
                         </div>
 
                         <div class="row gx-lg-4 row-cols-xl-4 justify-content-left">
+
                             <?php
                             if (count($products) > 0) {
                                 foreach ($products as $product) {
@@ -56,10 +57,13 @@ if ($isAuthenticated) :
                                                         <h5 class="fw-bolder price mr-2">{$product['retail_price']} đ</h5>
                                                         <p class="retail_price text-sm">{$product['import_price']} đ</p>
                                                     </div>
+
                                                 </div>
+
 
                                                 <div class="card-footer pt-2 pb-3 pr-4 border-top-0 bg-transparent d-flex justify-content-end">
                                         HTML;
+
 
                                     if ($currentUser['role'] === "admin") {
                                         echo <<<HTML

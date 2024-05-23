@@ -21,6 +21,7 @@ if ($isAuthenticated) :
             <div id="main">
 
                 <form id="form" class="ml-5" method="POST" enctype="multipart/form-data" action="product/updateProduct/<?php echo $product[0]['product_id'] ?>">
+
                     <div class="row gx-4 pl-5 align-items-center pt-5">
 
                         <!--image and upload image-->
@@ -45,6 +46,7 @@ if ($isAuthenticated) :
                                     <svg id="barcode"></svg>
                                     <div class="fa-barcode">
                                         <input class="idProduct" type="text" disabled value="<?php echo $product[0]['product_id'] ?>" style="color:black; margin-left: 3rem">
+
                                     </div>
                                 </div>
 
@@ -75,7 +77,8 @@ if ($isAuthenticated) :
                                         <label for="category" class="col-form-label">Category</label>
                                         <select name="category" class="form-select" style="width: 16.2rem;" required>
                                             <?php foreach ($categories as $category) {
-                                                if ($category['id'] == $product[0]['category_id']) {
+
+                                                if ($category['category_id'] == $product[0]['category_id']) {
                                                     echo "<option value=\"" . $category['category_id'] . "\" selected>" . $category['category_name'] . "</option>";
                                                 } else {
                                                     echo "<option value=\"" . $category['category_id'] . "\">" . $category['category_name'] . "</option>";
@@ -146,7 +149,7 @@ if ($isAuthenticated) :
         JsBarcode("#barcode", <?php echo $product[0]['product_id'] ?>, {
             height: 40,
             width: 2,
-            displayValue: false
+            displayValue: true
         })
 
         //Prevent input quantity less than 1
@@ -157,6 +160,7 @@ if ($isAuthenticated) :
             }
         })
     </script>
+
 
     </html>
 

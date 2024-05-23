@@ -36,9 +36,9 @@ class EmailModel extends Database
             $mail->Username   = 'dogiahuyfore@gmail.com';                     //SMTP username
             $mail->Password   = 'mugx uauu hwex nrwl';                               //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->Port       = 465;                              //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             $mail->CharSet = 'UTF-8';
-
+            
             //Recipients
             $mail->setFrom('salesmangement@noreply.com', 'Sales Management');
             $mail->addAddress($email);
