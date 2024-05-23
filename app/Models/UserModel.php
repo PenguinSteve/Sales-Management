@@ -37,6 +37,11 @@ class UserModel extends Database
 
     public function createUser($email, $name)
     {
+        if(!empty($this->getUserByEmail($email))){
+            $_SESSION['announce'] = "Email đã tồn tại";
+            return false;
+        }
+        
         $username = $this->emailToUsername($email);
         $password = $this->hashPassword($username);
         $role = "user";

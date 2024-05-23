@@ -40,7 +40,12 @@ class TransactionModel extends Database
 
             $transaction_id = $this->getConn()->insert_id;
             foreach ($products as $product) {
+                //Create transaction detail
                 $this->action("INSERT INTO transaction_detail (product_id, transaction_id, quantity, price) VALUES (?, ?, ?, ?)", [$product['product_id'], $transaction_id, $product['quantity'], $product['retail_price']], 'iiid');
+
+                //Update product quantity have been sold
+                $this->action("UPDATE product SET sold = sold + ? WHERE product_id = ?", [$product['quantity'], $product['product_id']], 'ii');
+
             }
             unset($_SESSION['cart']);
             return true;
