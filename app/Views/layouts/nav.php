@@ -3,7 +3,8 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <div class="avatar mr-1">
-                    <img class="image-avatar" src="<?php echo $_SESSION['user']['avatar']?>">
+                    <img class="image-avatar" src="<?php echo $_SESSION['user']['avatar'] ?>">
+
                 </div>
                 <div class="d-none d-md-block d-lg-inline-block">Hi, <?php echo $_SESSION['user']['name'] ?></div>
             </a>

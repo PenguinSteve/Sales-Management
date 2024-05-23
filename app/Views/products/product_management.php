@@ -129,10 +129,6 @@ if ($isAuthenticated) :
             })
         })
 
-
-
-
-        
     </script>
 
     </html>

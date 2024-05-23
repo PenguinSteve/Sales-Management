@@ -8,6 +8,11 @@ class TransactionModel extends Database
         parent::__construct();
     }
 
+    public function getPurchasingHistory($id)
+    {
+        return $this->select("SELECT * FROM transaction WHERE user_id = ?", [$id], 'i');
+    }
+
     public function getTransactions()
     {
         return $this->select("SELECT * FROM transaction");
