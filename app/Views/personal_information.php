@@ -21,12 +21,12 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
-                <form action="user/updatePersonalAccount/<?php echo $_SESSION['user']['user_id'] ?>" method="POST" enctype="multipart/form-data">
+                <form action="user/updatePersonalAccount/<?php echo $currentUser['user_id'] ?>" method="POST" enctype="multipart/form-data">
                     <div class="row gx-6 pl-5 align-items-center pt-5 ml-5">
                         <!--image and upload image-->
                         <div class="col-md-4 mr-4 userImg">
-                            <img class="card-img-top image image-avatar" src="public/images/avatar/avatar-s-1.png" id="image" onclick="importFile()" />
-                            <input name="avatar" type="file" id="fileInput" style="display: none;" onclick="changeAvatar()">
+                            <img class="card-img-top image image-avatar" src="<?php echo $user[0]['avatar'] ?>" id="image" onclick="importFile()" />
+                            <input name="avatar" type="file" id="fileInput" style="display: none;" onchange="chooseFile(this)">
                         </div>
 
                         <!--information details-->
@@ -98,20 +98,18 @@ if ($isAuthenticated) :
             $("#fileInput").click()
         }
 
-        function changeAvatar() {
-            const file = document.getElementById('fileInput').files[0]
+        // show image on <img> tag-->
+        function chooseFile(fileInput) {
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
 
-            if (file) {
-                const reader = new FileReader()
-                reader.onload = function(event) {
-                    $(".image-avatar").attr("src", event.target.result)
+                reader.onload = function(e) {
+                    $("#image").attr("src", e.target.result)
                 }
-                reader.readAsDataURL(file)
+                reader.readAsDataURL(fileInput.files[0])
             }
         }
     </script>
-
-    <?php print_r($_POST) ?>
 
     </html>
 <?php

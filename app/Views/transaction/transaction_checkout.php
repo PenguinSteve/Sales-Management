@@ -20,7 +20,9 @@ if ($isAuthenticated) :
 
         <div id="app">
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
+            <?php
+            require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php')
+            ?>
 
             <div id="main">
                 <?php
@@ -236,46 +238,45 @@ if ($isAuthenticated) :
                     alert('Hãy điền đầy đủ thông tin khách hàng và số tiền khách hàng trả');
                     e.preventDefault();
                 } else {
-                    $('#printInvoiceModal').modal('show');
+                    $('#date').text(new Date().toLocaleDateString('vi-VN'));
+                    $('#customerName').text($('#name').val());
+                    $('#totalAmountModal').text($('#totalAmount').text());
+                    $('#customerPhone').text($('#phone').val());
+                    $('#staffName').text('<?php echo $currentUser['name'] ?>');
+
+                    var products = <?php echo json_encode($_SESSION['cart']['products']); ?>;
+                    $('.modal-body .product').empty();
+                    products.forEach(function(product) {
+                        var total = product.quantity * product.retail_price;
+                        $('.modal-body').append('<div class="d-flex justify-content-between product"><p>' + product.product_name + '</p><p>' + product.quantity + '</p><p>' + total + '</p></div>');
+                    });
+                    $.ajax({
+                        url: 'transaction/saveTransaction',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            customer: {
+                                name: $('#name').val(),
+                                address: $('#address').val(),
+                                phone: $('#phone').val()
+                            },
+                            cusGives: $('#cusGives').val(),
+                            products: products,
+                            date: $('#date').text()
+                        },
+                        success: function(response) {
+                            if(response.status == 'success'){
+                                $('#InvoiceModal').modal('show');
+                            }else{
+                                window.location.href = "transaction/checkout";
+                            }
+                        }
+                    })
                 }
             });
 
-            $('#printInvoiceModal').on('show.bs.modal', function() {
-                //Change data in invoice modal
-                $('#date').text(new Date().toLocaleDateString('vi-VN'));
-                $('#customerName').text($('#name').val());
-                $('#totalAmountModal').text($('#totalAmount').text());
-                $('#customerPhone').text($('#phone').val());
-                $('#staffName').text('<?php echo $currentUser['name'] ?>');
-
-                var products = <?php echo json_encode($_SESSION['cart']['products']); ?>;
-                $('.modal-body .product').empty();
-                products.forEach(function(product) {
-                    var total = product.quantity * product.retail_price;
-                    $('.modal-body').append('<div class="d-flex justify-content-between product"><p>' + product.product_name + '</p><p>' + product.quantity + '</p><p>' + total + '</p></div>');
-                });
-
-                $.ajax({
-                    url: 'transaction/saveTransaction',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        customer: {
-                            name: $('#name').val(),
-                            address: $('#address').val(),
-                            phone: $('#phone').val()
-                        },
-                        cusGives: $('#cusGives').val(),
-                        products: products
-                    },
-                    success: function(response) {
-                        
-                    }
-                })
-            });
-
             //Header to transaction process when close invoice modal
-            $('#printInvoiceModal').on('hidden.bs.modal', function(e) {
+            $('#InvoiceModal').on('hidden.bs.modal', function(e) {
                 window.location.href = "transaction";
             });
         })

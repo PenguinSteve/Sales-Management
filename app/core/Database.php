@@ -8,6 +8,9 @@ class Database
         $this->conn = Connection::getInstance()->getConnection();
     }
 
+    public function getConn(){
+        return $this->conn;
+    }
     //function use for action query data and return selected rows
     public function select($query, $params = [], $paramTypes = '')
     {

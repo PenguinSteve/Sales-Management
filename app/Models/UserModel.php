@@ -41,7 +41,7 @@ class UserModel extends Database
         $password = $this->hashPassword($username);
         $role = "user";
         $status = "inactive";
-        $rowsAffected = $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, $role, $status], 'ssssss');
+        $rowsAffected = $this->action("INSERT INTO user (username, password, email, name, avatar, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)", [$username, $password, $email, $name, "public/images/avatar/avatar-s-1.png",$role, $status], 'sssssss');
 
         if ($rowsAffected > 0) {
             $this->action("INSERT INTO token (email) VALUES (?)", [$email], 's');

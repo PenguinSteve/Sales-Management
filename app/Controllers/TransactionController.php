@@ -18,7 +18,7 @@ class TransactionController extends Controller
 
     public function index()
     {
-        if(isset($_SESSION['cart'])){
+        if (isset($_SESSION['cart'])) {
             unset($_SESSION['cart']);
         }
         $this->render("transaction/transaction_processing", ['title' => 'Giao dịch']);
@@ -56,26 +56,23 @@ class TransactionController extends Controller
 
     public function saveTransaction()
     {
-        if (isset($_POST['customer']) && isset($_POST['totalAmount']) && isset($_POST['totalProducts']) && isset($_POST['cart'])) {
-            $customer = $_POST['customer'];
-            $totalAmount = $_POST['totalAmount'];
-            $totalProducts = $_POST['totalProducts'];
-            $cart = $_POST['cart'];
+        header('Content-Type: application/json');
+        $customer = $_POST['customer'];
+        $customer_give = $_POST['cusGives'];
+        $products = $_SESSION['cart']['products'];
+        $totalAmount = $_SESSION['cart']['totalAmount'];
 
-            $customer_id = $this->customerModel->getCustomerByPhone($customer['phone']);
-            if ($customer_id == null) {
-                $customer_id = $this->customerModel->insertCustomer($customer);
-            } else {
-                $customer_id = $customer_id['id'];
-            }
+        $date = DateTime::createFromFormat('d/m/Y', $_POST['date']);
+        $formatted_date = $date->format('Y-m-d H:i:s');
 
-            $transaction_id = $this->transactionModel->insertTransaction($customer_id, $totalAmount, $totalProducts);
-
-            foreach ($cart as $product) {
-                $this->transactionModel->insertTransactionDetail($transaction_id, $product['id'], $product['quantity'], $product['price']);
-            }
-
-            echo json_encode(['status' => 'success']);
+        if (empty($this->customerModel->getCustomerByPhone($customer['phone']))) {
+            $this->customerModel->createCustomer($customer['name'], $customer['phone'], $customer['address']);
         }
+        if ($this->transactionModel->createTransaction($products, $totalAmount, $customer_give, $formatted_date, $customer['phone'])) {
+            echo json_encode(['status' => 'success']);
+            $_SESSION['announce'] = "Thanh toán thành công";
+        } else {
+            $_SESSION['announce'] = "Thanh toán thất bại";
+        };
     }
 }

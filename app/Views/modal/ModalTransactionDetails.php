@@ -1,4 +1,4 @@
-<div class="modal fade" id="printInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="printInvoice" aria-hidden="true">
+<div class="modal fade" id="InvoiceModal" tabindex="-1" role="dialog" aria-labelledby="InvoiceModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!--header-->

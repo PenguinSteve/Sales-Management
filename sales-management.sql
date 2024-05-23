@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 22, 2024 lúc 01:43 PM
+-- Thời gian đã tạo: Th5 23, 2024 lúc 12:14 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -91,12 +91,12 @@ CREATE TABLE `token` (
 
 CREATE TABLE `transaction` (
   `transaction_id` int(11) NOT NULL,
-  `total_amout` float DEFAULT NULL,
+  `total_amount` float DEFAULT NULL,
   `amount_receive` float DEFAULT NULL,
   `amount_back` float DEFAULT NULL,
   `transaction_date` datetime NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `customer_phone` varchar(10) DEFAULT NULL
+  `user_id` int(11) NOT NULL,
+  `customer_phone` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -165,8 +165,8 @@ ALTER TABLE `token`
 --
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`transaction_id`),
-  ADD KEY `customer_phone` (`customer_phone`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `customer_phone` (`customer_phone`);
 
 --
 -- Chỉ mục cho bảng `transaction_detail`
@@ -204,7 +204,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
 
 --
 -- AUTO_INCREMENT cho bảng `transaction`
@@ -238,8 +238,8 @@ ALTER TABLE `token`
 -- Các ràng buộc cho bảng `transaction`
 --
 ALTER TABLE `transaction`
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`customer_phone`) REFERENCES `customer` (`phone`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`customer_phone`) REFERENCES `customer` (`phone`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `transaction_detail`

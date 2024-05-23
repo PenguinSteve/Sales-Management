@@ -31,7 +31,7 @@ class AuthenticationModel extends Database
             return false;
         }
         if($user["status"] === "inactive"){
-            $_SESSION['announce'] = "Tài khoản chưa được kích hoạt, hãy đăng nhập bằng đường link được gửi tới email đã đăng ký";
+            $_SESSION['announce'] = "Tài khoản chưa được kích hoạt, liên hệ quản trị viên để được hỗ trợ";
             return false;
         }
         if($user["status"] === "locked"){
@@ -47,7 +47,7 @@ class AuthenticationModel extends Database
 
     public function createUserAdmin()
     {
-        $this->action("INSERT INTO user (username, password, email, name, role, status) VALUES (?, ?, ?, ?, ?, ?)", ["admin", password_hash("admin", PASSWORD_DEFAULT), "admin@gmail.com", "Quản lý", "admin", "activated"], 'ssssss');
+        $this->action("INSERT INTO user (username, password, email, name, avatar, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)", ["admin", password_hash("admin", PASSWORD_DEFAULT), "admin@gmail.com", "Quản lý", "public/images/avatar/avatar-s-1.png", "admin", "activated"], 'sssssss');
     }
 
     public function loginViaEmail($email, $token){

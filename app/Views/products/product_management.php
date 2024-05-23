@@ -132,20 +132,7 @@ if ($isAuthenticated) :
 
 
 
-        // // Bắt sự kiện click trên các nút có lớp delete-button
-        // $('.delete-button').on('click', function() {
-        //     selectedButtonId = $(this).attr('id');
-        //     console.log('Selected Button ID:', selectedButtonId);
-        // });
-
-        // // Bắt sự kiện click trên nút xác nhận xóa trong modal
-        // $('#confirmDeleteButton').on('click', function() {
-        //     if (selectedButtonId) {
-        //         console.log('Confirmed delete for ID:', selectedButtonId);
-        //         // Thực hiện hành động xóa tại đây
-        //         // Ví dụ: gửi request tới server để xóa item với ID tương ứng
-        //     }
-        // })
+        
     </script>
 
     </html>

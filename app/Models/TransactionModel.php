@@ -32,4 +32,21 @@ class TransactionModel extends Database
     {
         return $this->select("SELECT * FROM transaction WHERE date BETWEEN ? AND ?", [$from, $to], 'ss');
     }
+
+    public function createTransaction($products, $totalAmount, $customer_give, $date, $customer_phone)
+    {
+        try {
+            $this->action("INSERT INTO transaction (total_amount, amount_receive, amount_back, transaction_date, user_id, customer_phone) VALUES (?, ?, ?, ?, ?, ?)", [$totalAmount, $customer_give, $customer_give - $totalAmount, $date, $_SESSION['user']['user_id'], $customer_phone], 'dddsis');
+
+            $transaction_id = $this->getConn()->insert_id;
+            foreach ($products as $product) {
+                $this->action("INSERT INTO transaction_detail (product_id, transaction_id, quantity, price) VALUES (?, ?, ?, ?)", [$product['product_id'], $transaction_id, $product['quantity'], $product['retail_price']], 'iiid');
+            }
+            unset($_SESSION['cart']);
+            return true;
+        } catch (Exception $th) {
+            print_r($th->getMessage());
+            return false;
+        }
+    }
 }

@@ -10,9 +10,9 @@ class UserController extends Controller
     }
     public function index()
     {
-        // $id = $_SESSION['user']['user_id'];
-        // $user = $this->userModel->getUserById($id);
-        $this->render("personal_information", ['title' => "Thông tin cá nhân"]);
+        $id = $_SESSION['user']['user_id'];
+        $user = $this->userModel->getUserById($id);
+        $this->render("personal_information", ['title' => "Thông tin cá nhân", 'user' => $user]);
     }
 
     public function changePassword()
@@ -61,7 +61,6 @@ class UserController extends Controller
 
     public function updatePersonalAccount($id)
     {
-        //$id = $_POST['id'];
         $name = $_POST['name'];
 
         $targetFile = "public/product_images/" . basename($_FILES['avatar']['name']);
