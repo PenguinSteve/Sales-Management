@@ -21,11 +21,11 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="user/updatePersonalAccount/<?php echo $currentUser['user_id'] ?>" method="POST" enctype="multipart/form-data">
                     <div class="row gx-6 pl-5 align-items-center pt-5 ml-5">
                         <!--image and upload image-->
                         <div class="col-md-4 mr-4 userImg">
-                            <img class="card-img-top image image-avatar" src="<?php echo $currentUser['avatar'] ?>" id="image" onclick="importFile()" />
+                            <img class="card-img-top image image-avatar" src="<?php echo $user[0]['avatar'] ?>" id="image" onclick="importFile()" />
                             <input name="avatar" type="file" id="fileInput" style="display: none;" onchange="chooseFile(this)">
                         </div>
 
