@@ -66,19 +66,42 @@ if ($isAuthenticated) :
                             </thead>
 
                             <tbody>
-
+                                <?php
+                                if (isset($_SESSION['cart'])) {
+                                    $cart = $_SESSION['cart'];
+                                    foreach ($cart['products'] as $product) {
+                                        echo '<tr data-product-id="' . $product['product_id'] . '" data-product-name="' . $product['product_name'] . '" data-retail-price="' . $product['retail_price'] . '">' +
+                                            '<td>' . $product['product_name'] . '</td>' +
+                                            '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum" min="1" value="' . $product['quantity'] . '"></td>' +
+                                            '<td>' . $product['retail_price'] . '</td>' +
+                                            '<td class="total-price">' . $product['retail_price'] * $product['quantity'] . '</td>' +
+                                            '<td><button type="button" class="btn btn-outline-danger ml-1">Delete</button></td>' +
+                                            '</tr>';
+                                    }
+                                }
+                                ?>
                             </tbody>
                         </table>
-
+                        
+                        <?php 
+                        if(isset($cart['totalProducts']) && isset($cart['totalAmount'])){
+                            $totalProducts = $cart['totalProducts'];
+                            $totalAmount = $cart['totalAmount'];
+                        }
+                        else{
+                            $totalProducts = 0;
+                            $totalAmount = 0;
+                        }
+                        ?>
                         <div class="d-flex mt-3 justify-content-between">
                             <div class="d-flex" style="margin-left: 20rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
-                                <h4 style="color: #5A8DEE;" id="totalProducts">0</h4>
+                                <h4 style="color: #5A8DEE;" id="totalProducts"><?php echo $totalProducts?></h4>
                             </div>
 
                             <div class="d-flex justify-content-end" style="margin-right: 14rem;">
                                 <h6 class="mr-3 mt-2">Total:</h6>
-                                <h4 style="color: #5A8DEE;" id="totalAmount">0</h4>
+                                <h4 style="color: #5A8DEE;" id="totalAmount"><?php echo $totalAmount?></h4>
                             </div>
                         </div>
 
@@ -111,29 +134,71 @@ if ($isAuthenticated) :
 
     <script>
         $(document).ready(function() {
+
+            //Button checkout
             $("#btnCheckout").on('click', function() {
-                window.location.href = "transaction/checkout";
+                var cart = [];
+                var totalProducts = 0;
+                var totalAmount = 0;
+
+                $('tbody tr').each(function() {
+                    var product_id = $(this).data('product-id');
+                    var product_name = $(this).data('product-name');
+                    var retail_price = $(this).data('retail-price');
+                    var quantity = $(this).find('input.inputNum').val();
+
+                    cart.push({
+                        product_id: product_id,
+                        product_name: product_name,
+                        retail_price: retail_price,
+                        quantity: quantity,
+                    });
+
+                    totalProducts += parseInt(quantity);
+                    totalAmount += parseInt(quantity * retail_price);
+                });
+
+                $.ajax({
+                    url: 'transaction/checkout',
+                    method: 'POST',
+                    data: {
+                        cart: cart,
+                        totalProducts: totalProducts,
+                        totalAmount: totalAmount
+                    },
+                    success: function() {
+                        window.location.href = "transaction/checkout";
+                    }
+                });
             });
 
             //Suggestions for products when searching
             $('#searchProduct').on('input', function() {
+                var productListView = $('#product-list');
+                productListView.empty();
                 var text = $(this).val()
-                $.ajax({
-                    url: 'transaction/searchProduct/' + text,
-                    type: 'POST',
-                    success: function(response) {
-                        var productListView = $('#product-list')
-                        productListView.empty()
-                        response.forEach(product => {
-                            productListView.append('<div class="product-item" data-product-id="' + product.id + '" data-product-name="' + product.name + '" data-retail-price="' + product.retailPrice + '"><p>' + product.name + ' - ' + product.price + '</p></div>')
+                if (!text == "") {
+                    $.ajax({
+                        url: 'transaction/searchProduct',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            text: text
+                        },
+                        success: function(response) {
+                            var productListView = $('#product-list');
 
-                        })
-                    }
-                })
+                            productListView.empty();
+                            response.forEach(product => {
+                                productListView.append('<div class="product-item" data-product-id="' + product.product_id + '" data-product-name="' + product.product_name + '" data-retail-price="' + product.retail_price + '"><p>' + product.product_name + ' - Giá: ' + product.retail_price + '</p></div>')
+                            })
+                        }
+                    })
+                }
             })
 
             //Add product to cart when click on product item on suggestion list
-            $('.product-item').click(function() {
+            $(document).on('click', '.product-item', function() {
                 var productId = $(this).data('product-id');
                 var productName = $(this).data('product-name');
                 var retailPrice = $(this).data('retail-price');
@@ -165,6 +230,14 @@ if ($isAuthenticated) :
                 // Update total amount
                 var totalAmount = parseInt($('#totalAmount').text().replace(/\./g, ''));
                 $('#totalAmount').text((totalAmount + retailPrice).toLocaleString('vi-VN'));
+            });
+
+            //Prevent input quantity less than 1
+            $(document).on('input', '.inputNum', function() {
+                var value = $(this).val();
+                if (value < 1 || value == '') {
+                    $(this).val(1);
+                }
             });
 
             //Update total amount when change quantity of product
