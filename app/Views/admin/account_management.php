@@ -73,7 +73,7 @@ if ($isAuthenticated) :
 
                                     //Column 4: activated
                                     if ($user['status'] === 'inactive') {
-                                        echo "<td> <i class=\"badge-circle badge-circle-light-secondary font-medium-1\" data-feather=\"mail\"></i> </td>";
+                                        echo "<td><i id=\"{$user['email']}\" class=\"badge-circle badge-circle-light-secondary font-medium-1\" data-feather=\"mail\"></i></td>";
                                     } else {
                                         echo "<td></td>";
                                     }
@@ -113,6 +113,7 @@ if ($isAuthenticated) :
 
     <script>
         $(document).ready(function() {
+
             $("#saveAdd").click(function() {
                 if ($("#name").val() == "") {
                     $("small").show()
@@ -135,6 +136,22 @@ if ($isAuthenticated) :
                 } else {
                     $("#formAdd").submit()
                 }
+            })
+
+            // resend mail
+            $(".badge-circle-light-secondary").click(function() {
+                var idUser = $(this).attr("id");
+                alert(idUser)
+                $.ajax({
+                    url: "admin/resendEmail/" + idUser,
+                    method: "POST",
+                    success: function(response) {
+                        $('body').html(response);
+                    },
+                    error: function(error) {
+
+                    }
+                })
             })
         })
     </script>

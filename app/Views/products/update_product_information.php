@@ -75,7 +75,7 @@ if ($isAuthenticated) :
                                         <label for="category" class="col-form-label">Category</label>
                                         <select name="category" class="form-select" style="width: 16.2rem;" required>
                                             <?php foreach ($categories as $category) {
-                                                if ($category['id'] == $product[0]['category_id']) {
+                                                if ($category['category_id'] == $product[0]['category_id']) {
                                                     echo "<option value=\"" . $category['category_id'] . "\" selected>" . $category['category_name'] . "</option>";
                                                 } else {
                                                     echo "<option value=\"" . $category['category_id'] . "\">" . $category['category_name'] . "</option>";

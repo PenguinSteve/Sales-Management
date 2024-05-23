@@ -61,7 +61,6 @@ class UserController extends Controller
 
     public function updatePersonalAccount($id)
     {
-        //$id = $_POST['id'];
         $name = $_POST['name'];
 
         $targetFile = "public/product_images/" . basename($_FILES['avatar']['name']);
