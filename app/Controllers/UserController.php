@@ -82,10 +82,11 @@ class UserController extends Controller
         header("Location: " . _HOST . "user");
     }
 
-    public function updateStatus($id) 
+    public function updateStatus($id)
     {
         $user = $this->userModel->getUserById($id);
-        
-        if ($_POST('customCheck') == $user )
+
+        if ($_POST('customCheck') == $user) {
+        }
     }
 }
