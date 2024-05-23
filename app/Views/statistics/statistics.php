@@ -1,6 +1,6 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
-if(isset($_SESSION['isNeedToChangePassword'])){
+if (isset($_SESSION['isNeedToChangePassword'])) {
     header("Location:" . _HOST . "user/changePasswordFirstTime");
     exit();
 }
@@ -43,14 +43,14 @@ if ($isAuthenticated) :
                         <div class="d-flex mr-3">
                             <label for="date" class="col-form-label mr-2" id="labelFrom">From</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="dateFrom">
+                                <input type="date" class="form-control" id="dateFrom" onchange="changeDateFrom()">
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <label for="date" class="col-form-label mr-2" id="labelTo">To</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="dateTo">
+                                <input type="date" class="form-control" id="dateTo" onchange="changeDateTo()">
                             </div>
                         </div>
 
@@ -170,12 +170,49 @@ if ($isAuthenticated) :
             </div>
         </footer>
 
-
         <script src="public/js/feather-icons/feather.min.js"></script>
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script src="public/js/app.js"></script>
         <script src="public/js/main.js"></script>
     </body>
+
+    <script>
+        $(document).ready(function() {
+
+            var selectedValue_1
+            var selectedValue_2 = null
+
+            $('#selectTime').change(function() {
+                selectedValue_1 = $(this).val()
+                getStatistics()
+            })
+
+            $('#dateFrom').on('change', function() {
+                selectedValue_1 = $(this).val();
+                getStatistics()
+            })
+
+            $('#dateTo').on('change', function() {
+                selectedValue_2 = $(this).val();
+                getStatistics()
+            })
+
+            function getStatistics() {
+                alert('To: ' + selectedValue_1 + selectedValue_2);
+            }
+
+            // $.ajax({
+            //     url: "statistics/getStatistics/" + idCustomer,
+            //     method: "POST",
+            //     success: function(response) {
+            //         window.location.href = "customer/customer_information/" + idCustomer;
+            //     },
+            //     error: function(error) {
+
+            //     }
+            // })
+        })
+    </script>
 
     </html>
 

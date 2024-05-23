@@ -38,4 +38,13 @@ class AdminController extends Controller
         $_SESSION['announce'] = "Gửi email thành công";
         header('Location: ' . _HOST . 'admin');
     }
+
+    public function updateEmployee()
+    {
+        $id = $_POST['id'];
+        $checkbox = $_POST['customCheck'] == 'on' ? 'active' : 'locked';  // 'on' or null
+
+        $this->userModel->updateStatusEmployee($id, $checkbox);
+        $_SESSION['announce'] = "Cập nhập thông tin thành công";
+    }
 }

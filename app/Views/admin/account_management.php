@@ -69,7 +69,7 @@ if ($isAuthenticated) :
 
                                     //Column 3: status account
                                     $statusChecked = $user['status'] === 'locked' ? 'checked' : '';
-                                    echo "<td> <div class=\"custom-control custom-checkbox\"> <input type=\"checkbox\" class=\"form-check-input form-check-primary\"" . $statusChecked . "name=\"customCheck\" id=\"customColorCheck1\" disabled> </div> </td>";
+                                    echo "<td> <div class=\"custom-control custom-checkbox\"> <input type=\"checkbox\" class=\"form-check-input form-check-primary\" " . $statusChecked . " name=\"customCheck\" id=\"{$user['user_id']}\" disabled> </div> </td>";
 
                                     //Column 4: activated
                                     if ($user['status'] === 'inactive') {
@@ -80,8 +80,7 @@ if ($isAuthenticated) :
 
                                     //Column 5: button
                                     echo "<td>
-                                        <button type=\"button\" class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#updateEmployee\">Edit</button>
-                                        <button type=\"button\" class=\"btn btn-outline-danger ml-1\" data-toggle=\"modal\" data-target=\"#confirmDeleteModal\">Delete</button>
+                                        <button id=\"{$user['user_id']}+{$user['name']}+{$user['email']}+{$user['status']}\" type=\"button\" class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#updateEmployee\">Edit</button>
                                     </td>";
                                     echo "</tr>";
                                 } ?>
@@ -114,36 +113,64 @@ if ($isAuthenticated) :
     <script>
         $(document).ready(function() {
 
-            $("#saveAdd").click(function() {
-                if ($("#name").val() == "") {
-                    $("small").show()
-                    $("#name").focus()
-                } else if ($("#email").val() == "") {
-                    $("small").html("Email cannot be empty!").show()
-                    $("#email").focus()
+            // $("#saveAdd").click(function() {
+            //     if ($("#name").val() == "") {
+            //         $("small").show()
+            //         $("#name").focus()
+            //     } else if ($("#email").val() == "") {
+            //         $("small").html("Email cannot be empty!").show()
+            //         $("#email").focus()
+            //     } else {
+            //         $("#formAdd").submit()
+            //     }
+            // })
+
+            // show info on modal and update
+            var id
+
+            $('.btn-outline-success').on('click', function() {
+                idUser = $(this).attr('id');
+                alert(idUser)
+                var arrInfo = idUser.split("+");
+                id = arrInfo[0]
+
+                $("#id").val(null)
+                $("#nameUpdate").val(null)
+                $("#emailUpdate").val(null)
+
+                $("#id").val(arrInfo[0])
+                $("#nameUpdate").val(arrInfo[1])
+                $("#emailUpdate").val(arrInfo[2])
+
+                if (arrInfo[3] == 'locked') {
+                    $("#customColorCheck1").prop("checked", true);
                 } else {
-                    $("#formAdd").submit()
+                    $("#customColorCheck1").prop("checked", false);
                 }
             })
 
             $("#saveUpdate").click(function() {
-                if ($("#name").val() == "") {
-                    $("small").show()
-                    $("#name").focus()
-                } else if ($("#email").val() == "") {
-                    $("small").html("Email cannot be empty!").show()
-                    $("#email").focus()
-                } else {
-                    $("#formAdd").submit()
-                }
+                $.ajax({
+                    url: "user/updateStatus/" + id,
+                    method: "POST",
+                    success: function(response) {
+                        $('#confirmDeleteModal').modal('hide');
+                        $('.modal-backdrop').remove();
+                        $('body').html(response);
+                    },
+                    error: function(error) {
+
+                    }
+                })
             })
+
+
 
             // resend mail
             $(".badge-circle-light-secondary").click(function() {
-                var idUser = $(this).attr("id");
-                alert(idUser)
+                var emailUser = $(this).attr("id");
                 $.ajax({
-                    url: "admin/resendEmail/" + idUser,
+                    url: "admin/resendEmail/" + emailUser,
                     method: "POST",
                     success: function(response) {
                         $('body').html(response);

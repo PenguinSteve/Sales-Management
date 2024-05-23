@@ -18,21 +18,21 @@
                                 <label>ID</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="id" disabled>
+                                <input name="id" type="text" class="form-control" id="id" readonly>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Name</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="name" disabled>
+                                <input type="text" class="form-control" id="nameUpdate" disabled>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Email</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="email" disabled>
+                                <input type="text" class="form-control" id="emailUpdate" disabled>
                             </div>
 
                             <div class="d-flex">
@@ -40,7 +40,7 @@
                                     <label>Lock account</label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="form-check-input form-check-primary ml-2" checked name="customCheck" id="customColorCheck1">
+                                    <input type="checkbox" values="locked" class="form-check-input form-check-primary ml-2" name="customCheck" id="customColorCheck1">
                                 </div>
                             </div>
 

@@ -52,8 +52,13 @@ class UserModel extends Database
         }
     }
 
-    public function saveUserInformation($username, $name, $avatar = null, $status = null)
+    public function updateStatusEmployee($id, $status)
     {
+        $rowsAffected = $this->action(
+            "UPDATE user SET status = ? WHERE user_id = ?",
+            [$status, $id],
+            'si'
+        );
     }
 
     public function updateUser($id, $name, $targetFile)

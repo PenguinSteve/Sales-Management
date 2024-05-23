@@ -1,6 +1,6 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
-if(isset($_SESSION['isNeedToChangePassword'])){
+if (isset($_SESSION['isNeedToChangePassword'])) {
     header("Location:" . _HOST . "user/changePasswordFirstTime");
     exit();
 }
@@ -43,7 +43,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="number" class="form-control" id="phonenumber" disabled>
+                                                        <input type="number" class="form-control" id="phonenumber" disabled value="<?php echo $customer[0]['phone']; ?>">
                                                         <div class="form-control-icon">
                                                             <i data-feather="phone"></i>
                                                         </div>
@@ -58,7 +58,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" id="name" disabled>
+                                                        <input type="text" class="form-control" id="name" disabled value="<?php echo $customer[0]['customer_name']; ?>">
                                                         <div class="form-control-icon">
                                                             <i data-feather="user"></i>
                                                         </div>
@@ -73,7 +73,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="email" class="form-control" id="address" disabled>
+                                                        <input type="email" class="form-control" id="address" disabled value="<?php echo $customer[0]['address']; ?>">
                                                         <div class="form-control-icon">
                                                             <i data-feather="home"></i>
                                                         </div>

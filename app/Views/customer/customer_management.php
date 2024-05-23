@@ -1,6 +1,6 @@
 <?php
 $isAuthenticated = (isset($_SESSION['user']) && !isset($_SESSION['isNeedToChangePassword']));
-if(isset($_SESSION['isNeedToChangePassword'])){
+if (isset($_SESSION['isNeedToChangePassword'])) {
     header("Location:" . _HOST . "user/changePasswordFirstTime");
     exit();
 }
@@ -42,15 +42,21 @@ if ($isAuthenticated) :
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>0123456789</td>
-                                    <td>Michael Right</td>
-                                    <td>132, My Street, Kingston</td>
+                                <?php
+                                foreach ($customers as $customer) {
 
-                                    <td>
-                                        <button type="button" class="btn btn-outline-primary" id="btnSeeDetail">See details</button>
-                                    </td>
-                                </tr>
+                                    echo <<<HTML
+                                    <tr>
+                                        <td>{$customer['phone']}</td>
+                                        <td>{$customer['customer_name']}</td>
+                                        <td>{$customer['address']}</td>
+                                        <td>
+                                            <button id="{$customer['customer_id']}" type="button" class="btn btn-outline-primary">See details</button>
+                                        </td>
+                                    </tr>
+                                    HTML;
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -77,9 +83,26 @@ if ($isAuthenticated) :
         <script src="public/js/main.js"></script>
 
         <script>
-            document.getElementById("btnSeeDetail").onclick = function() {
-                window.location.href = "customer/customer_information";
-            };
+            $('.btn-outline-primary').on('click', function() {
+                idCustomer = $(this).attr('id');
+
+                $.ajax({
+                    url: "customer/customer_information/" + idCustomer,
+                    method: "POST",
+                    success: function(response) {
+                        window.location.href = "customer/customer_information/" + idCustomer;
+                    },
+                    error: function(error) {
+
+                    }
+                })
+            })
+
+
+
+            // document.getElementById("btnSeeDetail").onclick = function() {
+            //     window.location.href = "customer/customer_information";
+            // };
         </script>
     </body>
 

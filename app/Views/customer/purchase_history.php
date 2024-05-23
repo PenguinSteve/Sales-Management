@@ -13,22 +13,42 @@
             <thead>
                 <tr>
                     <th>Order ID</th>
-                    <th>Quantity</th>
+                    <!-- <th>Quantity</th> -->
                     <th>Total amount</th>
                     <th>Money given</th> <!--tiền khách đưa-->
                     <th>Excess amount</th> <!--tiền thừa-->
                     <th>Date of purchase</th>
+                    <th></th>
                 </tr>
             </thead>
 
             <tbody>
+
+                <?php
+                // foreach ($history as $h) {
+                //     echo <<<HTML
+                //         <tr>
+                //             <td>{$h['transaction_id']}</td>
+                //             <!-- <td>{$h['quantity']}</td> -->
+                //             <td>{$h['amount_receive']} - {$h['amount_receive']}</td>
+                //             <td>{$h['amount_receive']}</td>
+                //             <td>{$h['amount_receive']}</td>
+                //             <td>{$h['transaction_date']}</td>
+                //             <td>
+                //                 <button id="{$customer['customer_id']}" type="button" class="btn btn-outline-primary">See details</button>
+                //             </td>
+                //         </tr>
+                //     HTML;
+                // }
+                ?>
                 <tr>
                     <td>BST-498</td>
-                    <td>1</td>
+                    <!-- <td>1</td> -->
                     <td>9.000.000</td>
                     <td>9.000.000</td>
                     <td>0</td>
                     <td>19/05/2024</td>
+                    <td><button id="{$customer['customer_id']}" type="button" class="btn btn-outline-primary">See details</button></td>
                 </tr>
             </tbody>
         </table>

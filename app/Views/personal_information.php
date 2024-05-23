@@ -111,10 +111,6 @@ if ($isAuthenticated) :
         }
     </script>
 
-    <?php print_r($_POST);
-    print_r($_FILES['avatar']) ?>
-
-    </html>
 <?php
 else : header("Location:" . _HOST . "home/logout");
 endif;
