@@ -57,17 +57,22 @@ class TransactionController extends Controller
     public function saveTransaction()
     {
         header('Content-Type: application/json');
+        //Get data from client
         $customer = $_POST['customer'];
         $customer_give = $_POST['cusGives'];
         $products = $_SESSION['cart']['products'];
         $totalAmount = $_SESSION['cart']['totalAmount'];
 
-        $date = DateTime::createFromFormat('d/m/Y', $_POST['date']);
+        //Format date before insert to database
+        $date = DateTime::createFromFormat('d/m/Y H:i:s', $_POST['date']);
         $formatted_date = $date->format('Y-m-d H:i:s');
 
+        //Check if customer exist in database
         if (empty($this->customerModel->getCustomerByPhone($customer['phone']))) {
             $this->customerModel->createCustomer($customer['name'], $customer['phone'], $customer['address']);
         }
+
+        //Save transaction
         if ($this->transactionModel->createTransaction($products, $totalAmount, $customer_give, $formatted_date, $customer['phone'])) {
             echo json_encode(['status' => 'success']);
             $_SESSION['announce'] = "Thanh toán thành công";

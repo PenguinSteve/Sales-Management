@@ -98,11 +98,8 @@ if ($isAuthenticated) :
                 })
             })
 
+            
 
-
-            // document.getElementById("btnSeeDetail").onclick = function() {
-            //     window.location.href = "customer/customer_information";
-            // };
         </script>
     </body>
 

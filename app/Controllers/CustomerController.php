@@ -23,13 +23,20 @@ class CustomerController extends Controller
     public function customer_information($idCustomer)
     {
         $customer = $this->customerModel->getCustomerById($idCustomer);
-        $history = $this->transactionModel->getPurchasingHistory($idCustomer);
-
-        $this->render('customer/customer_information', ['title' => 'Thông tin khách hàng', "customer" => $customer, "history" => $history]);
+        $this->render('customer/customer_information', ['title' => 'Thông tin khách hàng', "customer" => $customer]);
     }
 
-    public function detailsInfo()
+    public function getTransactionHistory($customer_phone)
     {
-        $id = $_POST['id'];
+        header('Content-Type: application/json');
+        $purchase_history = $this->transactionModel->getTransactionsByCustomerPhone($customer_phone);
+        echo json_encode($purchase_history);
+    }
+
+    public function getTransactionDetail($transaction_id)
+    {
+        header('Content-Type: application/json');
+        $transaction_detail = $this->transactionModel->getTransactionDetail($transaction_id);
+        echo json_encode($transaction_detail);
     }
 }

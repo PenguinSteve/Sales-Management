@@ -217,10 +217,10 @@ if ($isAuthenticated) :
                 }
             });
 
-            //Prevent input customer gives less than total amount
+            //Prevent input customer gives less than 1 and empty
             $(document).on('input', '#cusGives', function() {
                 var value = $(this).val();
-                if (value < totalAmount || value == '') {
+                if (value < 1 || value == '') {
                     $(this).val(totalAmount);
                 }
 
@@ -234,22 +234,31 @@ if ($isAuthenticated) :
 
             //Validate invoice
             $('#printInvoiceBtn').on('click', function(e) {
-                if ($('#phone').val() == '' || $('#cusGives').val() == '' || $('#name').val() == '' || $('#address').val() == '' || $('#phone').val().length < 10) {
-                    alert('Hãy điền đầy đủ thông tin khách hàng và số tiền khách hàng trả');
+                if ($('#phone').val() == '' || $('#cusGives').val() == '' || $('#name').val() == '' || $('#address').val() == '' || $('#phone').val().length < 10 || $('#cusGives').val() < totalAmount) {
+                    alert('Hãy điền đầy đủ thông tin khách hàng và số tiền khách hàng trả ít nhất bằng tổng tiền hóa đơn');
                     e.preventDefault();
                 } else {
-                    $('#date').text(new Date().toLocaleDateString('vi-VN'));
+                    //Format date
+                    let now = new Date();
+                    let date = now.toLocaleDateString('vi-VN');
+                    let time = now.toLocaleTimeString('vi-VN');
+                    $('#date').text(date + ' ' + time);
+
+                    //Fill data to invoice modal
                     $('#customerName').text($('#name').val());
                     $('#totalAmountModal').text($('#totalAmount').text());
                     $('#customerPhone').text($('#phone').val());
                     $('#staffName').text('<?php echo $currentUser['name'] ?>');
 
+                    //Fill products to invoice modal
                     var products = <?php echo json_encode($_SESSION['cart']['products']); ?>;
                     $('.modal-body .product').empty();
                     products.forEach(function(product) {
                         var total = product.quantity * product.retail_price;
                         $('.modal-body').append('<div class="d-flex justify-content-between product"><p>' + product.product_name + '</p><p>' + product.quantity + '</p><p>' + total + '</p></div>');
                     });
+
+                    //Save transaction
                     $.ajax({
                         url: 'transaction/saveTransaction',
                         type: 'POST',
@@ -265,9 +274,9 @@ if ($isAuthenticated) :
                             date: $('#date').text()
                         },
                         success: function(response) {
-                            if(response.status == 'success'){
+                            if (response.status == 'success') {
                                 $('#InvoiceModal').modal('show');
-                            }else{
+                            } else {
                                 window.location.href = "transaction/checkout";
                             }
                         }

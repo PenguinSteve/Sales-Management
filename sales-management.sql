@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 23, 2024 lúc 12:14 PM
+-- Thời gian đã tạo: Th5 24, 2024 lúc 06:46 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -92,6 +92,7 @@ CREATE TABLE `token` (
 CREATE TABLE `transaction` (
   `transaction_id` int(11) NOT NULL,
   `total_amount` float DEFAULT NULL,
+  `total_quantity` int(11) NOT NULL,
   `amount_receive` float DEFAULT NULL,
   `amount_back` float DEFAULT NULL,
   `transaction_date` datetime NOT NULL,
@@ -198,7 +199,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
@@ -210,13 +211,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
