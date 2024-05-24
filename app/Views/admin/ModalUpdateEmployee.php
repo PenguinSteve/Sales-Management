@@ -18,7 +18,7 @@
                                 <label>ID</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input name="id" type="text" class="form-control" id="update-id" readonly>
+                                <input name="id" type="text" class="form-control" id="update-id" disabled>
                             </div>
 
                             <div class="col-md-3">

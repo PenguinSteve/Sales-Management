@@ -110,6 +110,21 @@ if ($isAuthenticated) :
 
     <script>
         $(document).ready(function() {
+            // resend mail
+            $(".badge-circle-light-secondary").click(function() {
+                var emailUser = $(this).attr("id");
+                $.ajax({
+                    url: "admin/resendEmail/" + emailUser,
+                    method: "POST",
+                    success: function(response) {
+                        $('body').html(response);
+                    },
+                    error: function(error) {
+
+                    }
+                })
+            })
+
             //add
             $("#saveAdd").click(function() {
                 if ($("#name").val() == "") {
@@ -135,15 +150,14 @@ if ($isAuthenticated) :
                 $("#update-name").val(name);
                 $("#update-email").val(email);
 
-                if(status == "inactive") {
+                if (status == "inactive") {
                     $('#customColorCheck1').hide();
                     return false;
-                }
-                else {
+                } else {
                     $('#customColorCheck1').show();
                 }
 
-                if(status == "activated") {
+                if (status == "activated") {
                     $('#customColorCheck1').prop('checked', false);
                 } else {
                     $('#customColorCheck1').prop('checked', true);
@@ -156,19 +170,19 @@ if ($isAuthenticated) :
                     } else {
                         $status = "activated";
                     }
-                   
+
                     $.ajax({
                         url: 'admin/updateUserStatus',
-                        method: 'POST', 
+                        method: 'POST',
                         data: {
-                            status: $status, 
+                            status: $status,
                             email: $(currentRow).data("user-email"),
                         },
                         success: function() {
                             location.reload();
                         },
                     });
-                    
+
                 })
             })
         })

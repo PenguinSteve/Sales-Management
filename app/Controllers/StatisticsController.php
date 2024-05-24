@@ -26,8 +26,6 @@ class StatisticsController extends Controller
     {
         $transactionDetails = $this->statisticsModel->getTransactionForModal($idOrder);
         $customer = $this->customerModel->getCustomerByPhone($phone);
-        print_r($transactionDetails[0]);
-
 
         echo <<<HTML
             <script>

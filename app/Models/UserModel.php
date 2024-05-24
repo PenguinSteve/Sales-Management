@@ -63,6 +63,7 @@ class UserModel extends Database
             [$status, $email],
             'ss'
         );
+        return $rowsAffected > 0;
     }
 
     public function updateUser($id, $name, $targetFile)

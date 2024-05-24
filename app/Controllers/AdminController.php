@@ -26,8 +26,6 @@ class AdminController extends Controller
         $name = $_POST['name'];
         if ($this->userModel->createUser($email, $name)) {
             $_SESSION['announce'] = "Tạo tài khoản thành công";
-        } else {
-            $_SESSION['announce'] = "Tạo tài khoản thất bại";
         }
         header('Location: ' . _HOST . 'admin');
     }
