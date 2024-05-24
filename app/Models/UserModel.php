@@ -57,12 +57,11 @@ class UserModel extends Database
         }
     }
 
-    public function updateStatusEmployee($id, $status)
-    {
+    public function updateUserStatus($status, $email) {
         $rowsAffected = $this->action(
-            "UPDATE user SET status = ? WHERE user_id = ?",
-            [$status, $id],
-            'si'
+            "UPDATE user SET status = ? WHERE email = ?",
+            [$status, $email],
+            'ss'
         );
     }
 
