@@ -16,8 +16,7 @@ if ($isAuthenticated) :
 
         <div id="app">
 
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php')
-            ?>
+            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <script>
@@ -174,6 +173,7 @@ if ($isAuthenticated) :
             </div>
         </footer>
 
+        <?php require(_DIR_ROOT . '/app/Views/modal/ModalTransactionDetails.php') ?>
         <script src="public/js/feather-icons/feather.min.js"></script>
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script src="public/js/app.js"></script>
@@ -203,8 +203,9 @@ if ($isAuthenticated) :
                 getStatistics()
             })
 
+
             function getStatistics() {
-                console.log(selectedValue_1 + "---" + selectedValue_2)
+                // console.log(selectedValue_1 + "---" + selectedValue_2)
                 $.ajax({
                     url: "statistics/getStatistics/" + type + "/" + selectedValue_1 + "/" + selectedValue_2,
                     method: "POST",
@@ -215,31 +216,65 @@ if ($isAuthenticated) :
                         $("#amountReceived").text(response['received'])
                         $("#orders").text(response['order'])
                         $("#products").text(response['products'])
-                        // console.log(response)
 
+                        $('tbody').empty();
+                        $.each(response['orders'], function(key, value) {
+                            var order = response['orders'][key]
+
+                            var newRow = "<tr id=\"" + order['transaction_id'] + "\">" +
+                                "<td>" + order['transaction_id'] + "</td>" +
+                                "<td>" + order['total_amount'] + "</td>" +
+                                "<td>" + order['amount_receive'] + "</td>" +
+                                "<td>" + order['amount_back'] + "</td>" +
+                                "<td>" + order['transaction_date'] + "</td>" +
+                                "<td>" + order['total_quantity'] + "</td>" +
+                                "</tr>";
+
+                            $("tbody").append(newRow)
+                        })
                     },
                     error: function(error) {
-
+                        alert(error)
                     }
                 })
             }
 
             $("table").on("click", "tbody tr", function() {
-                alert("HI")
-                // $("#date").val();
-                // $("#InvoiceModal").show()
-                $('#InvoiceModal').modal('show')
-            })
-            // $.ajax({
-            //     url: "statistics/" + idCustomer,
-            //     method: "POST",
-            //     success: function(response) {
-            //         window.location.href = "customer/customer_information/" + idCustomer;
-            //     },
-            //     error: function(error) {
+                var idOrder = $(this).attr('id')
 
-            //     }
-            // })
+                $.ajax({
+                    url: "statistics/orderDetails/" + idOrder,
+                    method: "POST",
+                    success: function(response) {
+                        response = JSON.parse(response)
+
+                        $("#date").text(response[0]['transaction_date'])
+                        $("#customerName").text(response[0]['customer_name'])
+                        $("#customerPhone").text(response[0]['customer_phone'])
+                        $("#staffName").text(response[0]['name'])
+                        $("#totalAmountModal").text((response[0]['total_amount']).toLocaleString('vi-VN'))
+
+                        // remove all <div> in modal-body except the first <div>
+                        var elementsToRemove = $('.modal-body').children(':not(:first-child)')
+                        elementsToRemove.remove()
+
+                        $.each(response, function(key, value) {
+                            var order = response[key]
+
+                            $(".modal-body").append(
+                                "<div class='d-flex justify-content-between'>" +
+                                "<p>" + order["product_name"] + "</p>" +
+                                "<p>" + order["quantity"] + "</p>" +
+                                "<p>" + order["price"] + "</p>" +
+                                "</div>")
+
+                        })
+
+                        $('#InvoiceModal').modal('show')
+                    },
+                    error: function(error) {}
+                })
+            })
         })
     </script>
 

@@ -2,7 +2,6 @@
 require_once("./app/Models/CustomerModel.php");
 require_once("./app/Models/TransactionModel.php");
 
-
 class CustomerController extends Controller
 {
     private CustomerModel $customerModel;

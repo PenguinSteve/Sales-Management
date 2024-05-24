@@ -8,11 +8,6 @@ class TransactionModel extends Database
         parent::__construct();
     }
 
-    public function getTransactions()
-    {
-        return $this->select("SELECT * FROM transaction");
-    }
-
     public function getTransactionsByCustomerPhone($phone)
     {
         return $this->select("SELECT * FROM transaction WHERE customer_phone = ?", [$phone], 's');
@@ -34,7 +29,7 @@ class TransactionModel extends Database
             "SELECT *
             FROM transaction
             WHERE transaction_date BETWEEN ? AND ?
-            ORDER BY transaction_date",
+            ORDER BY transaction_date DESC",
             [$from, $to],
             'ss'
         );
