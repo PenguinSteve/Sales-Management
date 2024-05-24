@@ -14,7 +14,7 @@
                 <li class='sidebar-title'>Main Menu</li>
 
                 <li class="sidebar-item">
-                    <a href="statistics/" class='sidebar-link'>
+                    <a href="statistics/" class='sidebar-link' id="statistics">
                         <i data-feather="home" width="20"></i>
                         <span>Reporting and Analytics</span>
                     </a>
@@ -78,7 +78,4 @@
     //     $(this).closest('li').addClass('active')
 
     // })
-
-    
-
 </script>
