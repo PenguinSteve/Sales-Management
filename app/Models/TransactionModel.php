@@ -18,14 +18,9 @@ class TransactionModel extends Database
         return $this->select("SELECT * FROM transaction");
     }
 
-    public function getTransactionDetailById($id)
-    {
-        return $this->select("SELECT * FROM transaction_detail WHERE transaction_id = ?", [$id], 'i');
-    }
-
     public function getTransactionsByCustomerPhone($phone)
     {
-        return $this->select("SELECT * FROM transaction WHERE customer_phone = ?", [$phone], 'i');
+        return $this->select("SELECT * FROM transaction WHERE customer_phone = ?", [$phone], 's');
     }
 
     public function getTransactionsByUserID($id)
@@ -33,9 +28,21 @@ class TransactionModel extends Database
         return $this->select("SELECT * FROM transaction WHERE user_id = ?", [$id], 'i');
     }
 
+    // public function getTransactionsByDateRange($from, $to)
+    // {
+    //     return $this->select("SELECT * FROM transaction WHERE date BETWEEN ? AND ?", [$from, $to], 'ss');
+    // }
+
     public function getTransactionsByDateRange($from, $to)
     {
-        return $this->select("SELECT * FROM transaction WHERE date BETWEEN ? AND ?", [$from, $to], 'ss');
+        return $this->select(
+            "SELECT *
+            FROM transaction
+            WHERE transaction_date BETWEEN ? AND ?
+            ORDER BY transaction_date",
+            [$from, $to],
+            'ss'
+        );
     }
 
     public function createTransaction($products, $totalAmount, $customer_give, $date, $customer_phone)
@@ -50,7 +57,6 @@ class TransactionModel extends Database
 
                 //Update product quantity have been sold
                 $this->action("UPDATE product SET sold = sold + ? WHERE product_id = ?", [$product['quantity'], $product['product_id']], 'ii');
-
             }
             unset($_SESSION['cart']);
             return true;

@@ -1,5 +1,6 @@
 <?php
 require_once("app/Models/UserModel.php");
+
 class UserController extends Controller
 {
     private UserModel $userModel;
@@ -8,6 +9,7 @@ class UserController extends Controller
     {
         $this->userModel = new UserModel();
     }
+
     public function index()
     {
         $id = $_SESSION['user']['user_id'];
@@ -90,4 +92,3 @@ class UserController extends Controller
         }
     }
 }
-

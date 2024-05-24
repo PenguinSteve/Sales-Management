@@ -94,7 +94,7 @@ CREATE TABLE `transaction` (
   `total_amount` float DEFAULT NULL,
   `amount_receive` float DEFAULT NULL,
   `amount_back` float DEFAULT NULL,
-  `transaction_date` datetime NOT NULL,
+  `amount_back` date NOT NULL,
   `user_id` int(11) NOT NULL,
   `customer_phone` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

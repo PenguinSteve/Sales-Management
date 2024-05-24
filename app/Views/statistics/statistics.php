@@ -16,8 +16,13 @@ if ($isAuthenticated) :
 
         <div id="app">
 
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
+            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php')
+            ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
+
+            <script>
+
+            </script>
 
             <script>
                 var sidebarLinks = $('.sidebar-link')
@@ -93,7 +98,6 @@ if ($isAuthenticated) :
 
                     <!--Reporting and Analytics-->
                     <section class="section">
-
                         <div class="card">
                             <div class="card-body pl-5 pr-5 d-flex justify-content-between">
                                 <div>
@@ -102,7 +106,7 @@ if ($isAuthenticated) :
 
                                 <div class="">
                                     <h6>VND</h6>
-                                    <h1 class='text-green'>23.682.720</h1>
+                                    <h1 class='text-green'>0</h1>
                                 </div>
                             </div>
                         </div>
@@ -180,9 +184,11 @@ if ($isAuthenticated) :
         $(document).ready(function() {
 
             var selectedValue_1
-            var selectedValue_2 = null
+            var selectedValue_2 = 'null'
+            var type
 
             $('#selectTime').change(function() {
+                type = $(this).val()
                 selectedValue_1 = $(this).val()
                 getStatistics()
             })
@@ -198,11 +204,26 @@ if ($isAuthenticated) :
             })
 
             function getStatistics() {
-                alert('To: ' + selectedValue_1 + selectedValue_2);
+                $.ajax({
+                    url: "statistics/getStatistics/" + type + "/" + selectedValue_1 + "/" + selectedValue_2,
+                    method: "POST",
+                    success: function(response) {
+                        $('section').html(response);
+                    },
+                    error: function(error) {
+
+                    }
+                })
             }
 
+            $("table").on("click", "tbody tr", function() {
+                alert("HI")
+                // $("#date").val();
+                // $("#InvoiceModal").show()
+                $('#InvoiceModal').modal('show')
+            })
             // $.ajax({
-            //     url: "statistics/getStatistics/" + idCustomer,
+            //     url: "statistics/" + idCustomer,
             //     method: "POST",
             //     success: function(response) {
             //         window.location.href = "customer/customer_information/" + idCustomer;
@@ -213,6 +234,9 @@ if ($isAuthenticated) :
             // })
         })
     </script>
+
+    <!-- <?php // print_r($total) 
+            ?> -->
 
     </html>
 

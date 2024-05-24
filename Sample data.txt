@@ -1,0 +1,27 @@
+INSERT INTO category (category_name) VALUES
+('Điện thoại'),
+('Tai nghe'),
+('Sạc dự phòng'),
+('Thẻ nhớ'),
+('Cáp sạc'),
+('Chuột, Bàn phím')
+
+
+INSERT INTO product (product_name, import_price, retail_price, created, category_id) VALUES
+('Sạc dự phòng Vivumax X15', 150000, 299000, '2024/05/24', 6),
+('Củ sạc USB-C Power', 380000, 489000, '2024/05/24', 8),
+('Thẻ nhớ SanDisk 32G', 85000, 120000, '2024/05/24', 7),
+('Bàn phím Smart Keyboard', 3250000, 4990000, '2024/05/24', 8),
+('Chuột Apple Magic', 1500000, 2100000, '2024/05/24', 8),
+('Samsung Galaxy Z Fold5', 2890000, 3499000, '2024/05/24', 4),
+('IPhone 15 Plus', 19870000, 22490000, '2024/05/24', 4),
+('Xiaomi Readmi Note 12', 2890000, 3990000, '2024/05/24', 4),
+('Vivo Y02A', 1500000, 2490000, '2024/05/24', 4)
+
+
+INSERT INTO customer (customer_name, phone, address) VALUES 
+('Khách hàng 1', '0123456789', 'Địa chỉ 1'),
+('Khách hàng 2', '1234567890', 'Địa chỉ 2'),
+('Khách hàng 3', '3456789012', 'Địa chỉ 3'),
+('Khách hàng 4', '4567890123', 'Địa chỉ 4'),
+('Khách hàng 5', '5678901234', 'Địa chỉ 5')

@@ -23,8 +23,6 @@
                     <p>Quantity</p>
                     <p>Total</p>
                 </div>
-
-                
             </div>
 
             <div class="modal-footer d-flex justify-content-between">
