@@ -32,8 +32,15 @@ class AdminController extends Controller
         header('Location: ' . _HOST . 'admin');
     }
 
-    public function checkStatus() {
-        
+    public function updateUserStatus() {
+        $status = $_POST['status'];
+        $email = $_POST['email'];
+        if ($this->userModel->updateUserStatus($status, $email)) {
+            $_SESSION['announce'] = "cập nhật thông tin thành công";
+        } else {
+            $_SESSION['announce'] = "Cập nhật thông tin thất bại";
+        }
+        header('Location: ' . _HOST . 'admin');
     }
 
     public function resendEmail($email)
@@ -41,14 +48,5 @@ class AdminController extends Controller
         $this->emailModel->resendEmail($email);
         $_SESSION['announce'] = "Gửi email thành công";
         header('Location: ' . _HOST . 'admin');
-    }
-
-    public function updateEmployee()
-    {
-        $id = $_POST['id'];
-        $checkbox = $_POST['customCheck'] == 'on' ? 'active' : 'locked';  // 'on' or null
-
-        $this->userModel->updateStatusEmployee($id, $checkbox);
-        $_SESSION['announce'] = "Cập nhập thông tin thành công";
     }
 }
