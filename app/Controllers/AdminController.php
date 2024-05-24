@@ -32,6 +32,10 @@ class AdminController extends Controller
         header('Location: ' . _HOST . 'admin');
     }
 
+    public function checkStatus() {
+        
+    }
+
     public function resendEmail($email)
     {
         $this->emailModel->resendEmail($email);
