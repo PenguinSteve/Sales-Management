@@ -42,9 +42,9 @@ class StatisticsModel extends Database
     public function getNumberProduct($dateFrom, $datoTo)
     {
         return $this->select(
-            "SELECT COUNT(DISTINCT product_id) AS products
+            "SELECT COUNT(DISTINCT transaction_detail.product_id) AS products
             FROM transaction_detail, transaction
-            WHERE transaction_date >= ? AND transaction_date <= ?",
+            WHERE (transaction_date BETWEEN ? AND ?) AND transaction_detail.transaction_id = transaction.transaction_id",
             [$dateFrom, $datoTo],
             'ss'
         );

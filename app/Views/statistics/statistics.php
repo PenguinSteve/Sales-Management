@@ -48,14 +48,14 @@ if ($isAuthenticated) :
                         <div class="d-flex mr-3">
                             <label for="date" class="col-form-label mr-2" id="labelFrom">From</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="dateFrom" onchange="changeDateFrom()">
+                                <input type="date" class="form-control" id="dateFrom">
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <label for="date" class="col-form-label mr-2" id="labelTo">To</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="dateTo" onchange="changeDateTo()">
+                                <input type="date" class="form-control" id="dateTo">
                             </div>
                         </div>
 
@@ -106,7 +106,7 @@ if ($isAuthenticated) :
 
                                 <div class="">
                                     <h6>VND</h6>
-                                    <h1 class='text-green'>0</h1>
+                                    <h1 id="totalProfit" class='text-green'>0</h1>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ if ($isAuthenticated) :
                                     <div class="card-body">
                                         <div class="text-center mb-5">
                                             <h6>VND</h6>
-                                            <h2 class='text-green'>23.682.720</h2>
+                                            <h2 class='text-green' id="amountReceived">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@ if ($isAuthenticated) :
                                     <div class="card-body">
                                         <div class="text-center mb-5">
                                             <h6>up to now</h6>
-                                            <h2 class='text-green'>241</h2>
+                                            <h2 class='text-green' id="orders">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@ if ($isAuthenticated) :
                                     <div class="card-body">
                                         <div class="text-center mb-5">
                                             <h6>up to now</h6>
-                                            <h2 class='text-green'>372</h2>
+                                            <h2 class='text-green' id="products">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -204,11 +204,19 @@ if ($isAuthenticated) :
             })
 
             function getStatistics() {
+                console.log(selectedValue_1 + "---" + selectedValue_2)
                 $.ajax({
                     url: "statistics/getStatistics/" + type + "/" + selectedValue_1 + "/" + selectedValue_2,
                     method: "POST",
                     success: function(response) {
-                        $('section').html(response);
+                        response = JSON.parse(response)
+
+                        $("#totalProfit").text(response['total'])
+                        $("#amountReceived").text(response['received'])
+                        $("#orders").text(response['order'])
+                        $("#products").text(response['products'])
+                        // console.log(response)
+
                     },
                     error: function(error) {
 
