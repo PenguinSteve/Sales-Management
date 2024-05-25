@@ -23,6 +23,7 @@ class StatisticsController extends Controller
         if ($type != 'specific_time') {
             $dayFrom = new DateTime('today');
             $dayTo = (new DateTime('today'))->setTime(23, 59, 59);
+        } else {
         }
         if ($type == 'yesterday') {
             $dayFrom = new DateTime('yesterday');
@@ -68,6 +69,21 @@ class StatisticsController extends Controller
         // recent purchase history
         $orders = $this->transactionModel->getTransactionsByDateRange($dayFrom, $dayTo);
 
+        $response = array(
+            "total" => $total,
+            "received" => $received,
+            "order" => $order,
+            "products" => $products,
+            "orders" => $orders
+        );
+
+        echo json_encode($response);
+    }
+
+    public function orderDetails($idOrder)
+    {
+        $details = $this->statisticsModel->getTransactionForModal($idOrder);
+        echo json_encode($details);
         $response = array(
             "total" => $total,
             "received" => $received,

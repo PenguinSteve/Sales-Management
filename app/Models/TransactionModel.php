@@ -29,7 +29,7 @@ class TransactionModel extends Database
             "SELECT *
             FROM transaction
             WHERE transaction_date BETWEEN ? AND ?
-            ORDER BY transaction_date",
+            ORDER BY transaction_date DESC",
             [$from, $to],
             'ss'
         );

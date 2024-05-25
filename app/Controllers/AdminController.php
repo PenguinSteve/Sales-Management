@@ -2,7 +2,6 @@
 require_once('./app/Models/UserModel.php');
 require_once('./app/Models/EmailModel.php');
 
-
 class AdminController extends Controller
 {
     private UserModel $userModel;
@@ -30,7 +29,8 @@ class AdminController extends Controller
         header('Location: ' . _HOST . 'admin');
     }
 
-    public function updateUserStatus() {
+    public function updateUserStatus()
+    {
         $status = $_POST['status'];
         $email = $_POST['email'];
         if ($this->userModel->updateUserStatus($status, $email)) {
