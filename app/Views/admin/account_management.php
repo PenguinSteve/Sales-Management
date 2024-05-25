@@ -47,6 +47,7 @@ if ($isAuthenticated) :
                                     <th>LOCKED</th>
                                     <th>ACTIVATED</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
@@ -87,6 +88,9 @@ if ($isAuthenticated) :
                                     } else {
                                         echo "<td></td>";
                                     }
+
+                                    //Column 6: button sales history
+                                    echo "<td><a href=\"admin/sales_history/{$user['user_id']}\" class=\"btn btn-outline-primary\">Sales History</a></td>";
                                     echo "</tr>";
                                 } ?>
                             </tbody>

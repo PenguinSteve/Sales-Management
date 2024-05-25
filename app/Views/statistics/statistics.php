@@ -299,11 +299,23 @@ if ($isAuthenticated) :
                             var order = response[key]
                             
                             $(".modal-body").append(
-                                "<div class='d-flex justify-content-between'>" +
-                                "<p>" + order["product_name"] + "</p>" +
-                                "<p>" + order["quantity"] + "</p>" +
-                                "<p>" + order["price"] + "</p>" +
-                                "</div>")
+                                `
+                                <div class="row">
+                                    <div class="col">
+                                        <p>${order['product_id']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>${order['product_name']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">${order['quantity']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">${order['price']}</p>
+                                    </div>
+                                </div>
+                                
+                                `);
 
                         })
 

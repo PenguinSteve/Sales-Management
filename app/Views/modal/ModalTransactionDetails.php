@@ -18,10 +18,19 @@
 
             <!--enter information-->
             <div class="modal-body">
-                <div class="d-flex justify-content-between">
-                    <p>Product</p>
-                    <p>Quantity</p>
-                    <p>Unit price</p>
+                <div class="row">
+                    <div class="col">
+                        <p>Product ID</p>
+                    </div>
+                    <div class="col">
+                        <p>Product</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-center">Quantity</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-center">Unit price</p>
+                    </div>
                 </div>
             </div>
 

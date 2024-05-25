@@ -255,7 +255,24 @@ if ($isAuthenticated) :
                     $('.modal-body .product').empty();
                     products.forEach(function(product) {
                         var total = product.quantity * product.retail_price;
-                        $('.modal-body').append('<div class="d-flex justify-content-between product"><p>' + product.product_name + '</p><p>' + product.quantity + '</p><p>' + total + '</p></div>');
+                        $(".modal-body").append(
+                                `
+                                <div class="row">
+                                    <div class="col">
+                                        <p>${product.product_id}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>${product.product_name}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">${product.quantity}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">${total}</p>
+                                    </div>
+                                </div>
+                                
+                                `);
                     });
 
                     //Save transaction
@@ -277,18 +294,27 @@ if ($isAuthenticated) :
                             if (response.status == 'success') {
                                 $('#InvoiceModal').modal('show');
 
-                                //Print invoice as pdf
-                                // var modalContent = $('#InvoiceModal').html();
-                                // var pdf = new jsPDF();
-                                // pdf.fromHTML(modalContent);
-                                // pdf.save('invoice.pdf');
-                                // html2canvas(document.querySelector("#InvoiceModal")).then(canvas => {
-                                //     var imgData = canvas.toDataURL('image/png');
-                                //     var pdf = new jsPDF();
-                                //     pdf.addImage(imgData, 'PNG', 0, 0);
-                                //     pdf.save("invoice.pdf");
-                                // });
-                                
+                                $('#InvoiceModal').on('shown.bs.modal', function(e) {
+                                    //Print invoice as pdf
+                                    var modalContent = document.querySelector('#InvoiceModal');
+
+                                    html2canvas(modalContent).then(function(canvas) {
+                                        var imgData = canvas.toDataURL('image/png');
+
+                                        // Create a new jsPDF instance
+                                        var pdf = new jsPDF('p', 'mm', 'a4');
+
+                                        var imgProps = pdf.getImageProperties(imgData);
+                                        var scale = 1.8;
+                                        var pdfWidth = (pdf.internal.pageSize.getWidth())*scale;
+                                        var pdfHeight = ((imgProps.height * pdfWidth) / imgProps.width)*scale;
+
+                                        pdf.addImage(imgData, 'PNG', (pdf.internal.pageSize.getWidth() - pdfWidth) / 2, (pdf.internal.pageSize.getHeight() - pdfHeight) / 2, pdfWidth, pdfHeight);
+
+                                        // Save the PDF
+                                        pdf.save('invoice.pdf');
+                                    });
+                                });
                             } else {
                                 window.location.href = "transaction/checkout";
                             }

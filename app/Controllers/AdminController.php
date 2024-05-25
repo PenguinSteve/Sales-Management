@@ -1,16 +1,19 @@
 <?php
 require_once('./app/Models/UserModel.php');
 require_once('./app/Models/EmailModel.php');
+require_once('./app/Models/TransactionModel.php');
 
 class AdminController extends Controller
 {
     private UserModel $userModel;
     private EmailModel $emailModel;
+    private TransactionModel $transactionModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->emailModel = new EmailModel();
+        $this->transactionModel = new TransactionModel();
     }
 
     public function index()
@@ -46,5 +49,25 @@ class AdminController extends Controller
         $this->emailModel->resendEmail($email);
         $_SESSION['announce'] = "Gửi email thành công";
         header('Location: ' . _HOST . 'admin');
+    }
+
+    public function sales_history($user_id)
+    {
+        $user = $this->userModel->getUserByID($user_id)[0];
+        $this->render("admin/sales_history", ['title' => 'Lịch sử bán hàng', 'user' => $user]);
+    }
+
+    public function getSalesHistory($user_id)
+    {
+        header('Content-Type: application/json');
+        $sales_history = $this->transactionModel->getTransactionsByUserID($user_id);
+        echo json_encode($sales_history);
+    }
+
+    public function getTransactionDetail($transaction_id)
+    {
+        header('Content-Type: application/json');
+        $transaction_detail = $this->transactionModel->getTransactionDetail($transaction_id);
+        echo json_encode($transaction_detail);
     }
 }
