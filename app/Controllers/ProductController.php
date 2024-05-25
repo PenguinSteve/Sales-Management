@@ -7,7 +7,6 @@ class ProductController extends Controller
     private ProductModel $productModel;
     private CategoryModel $categoryModel;
 
-
     public function __construct()
     {
         $this->categoryModel = new CategoryModel();
