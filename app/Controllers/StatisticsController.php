@@ -34,11 +34,11 @@ class StatisticsController extends Controller
             $dayFrom = (new DateTime('first day of this month'))->setTime(0, 0, 0);
             $dayTo = (new DateTime('last day of this month'))->setTime(23, 59, 59);
         } else if ($type == 'specific_time') {
-            $dayFrom = $dayFrom . ' ' . "00:00:00";
-            $dayTo = $dayTo . ' ' . "23:59:59";
-            return array('dayFrom' => $dayFrom, 'dayTo' => $dayTo);
+            $dayFrom = DateTime::createFromFormat('Y-m-d', $dayFrom)->setTime(0, 0, 0);
+            $dayTo = (DateTime::createFromFormat('Y-m-d', $dayTo))->setTime(23, 59, 59);
         }
-        return array('dayFrom' => $dayFrom->format('Y-m-d H:i:s'), 'dayTo' => $dayTo->format('Y-m-d H:i:s'));
+
+        return array('dayFrom' => $dayFrom->format('Y-m-d H:i:s'), 'dayTo' => $dayTo->format('Y-m-d H:i:s'));;
     }
 
     public function getStatistics($type, $dayFrom, $dayTo)
@@ -69,21 +69,6 @@ class StatisticsController extends Controller
         // recent purchase history
         $orders = $this->transactionModel->getTransactionsByDateRange($dayFrom, $dayTo);
 
-        $response = array(
-            "total" => $total,
-            "received" => $received,
-            "order" => $order,
-            "products" => $products,
-            "orders" => $orders
-        );
-
-        echo json_encode($response);
-    }
-
-    public function orderDetails($idOrder)
-    {
-        $details = $this->statisticsModel->getTransactionForModal($idOrder);
-        echo json_encode($details);
         $response = array(
             "total" => $total,
             "received" => $received,

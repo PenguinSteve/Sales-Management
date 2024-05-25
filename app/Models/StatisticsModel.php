@@ -13,8 +13,6 @@ class StatisticsModel extends Database
                             FROM product, transaction_detail, transaction
                             WHERE transaction_detail.product_id = product.product_id AND (transaction_date BETWEEN ? AND ?) AND transaction_detail.transaction_id=transaction.transaction_id 
                             GROUP BY transaction_detail.product_id",
-                            WHERE transaction_detail.product_id = product.product_id AND (transaction_date BETWEEN ? AND ?) AND transaction_detail.transaction_id=transaction.transaction_id 
-                            GROUP BY transaction_detail.product_id",
             [$dateFrom, $datoTo],
             'ss'
         );
