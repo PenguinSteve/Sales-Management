@@ -9,7 +9,7 @@ class StatisticsModel extends Database
     public function getProfitByTimelines($dateFrom, $datoTo)
     {
         return $this->select(
-            "SELECT COUNT(transaction_detail.product_id) AS count_product, import_price, transaction_detail.price
+            "SELECT SUM(quantity) AS count_product, import_price, transaction_detail.price
                             FROM product, transaction_detail, transaction
                             WHERE transaction_detail.product_id = product.product_id AND (transaction_date BETWEEN ? AND ?) AND transaction_detail.transaction_id=transaction.transaction_id 
                             GROUP BY transaction_detail.product_id",
@@ -21,7 +21,7 @@ class StatisticsModel extends Database
     public function getTotalProfit($dateFrom, $datoTo)
     {
         return $this->select(
-            "SELECT COUNT(transaction_detail.product_id) AS count_product, import_price
+            "SELECT COUNT(transaction_detail.product_id) AS count_product, import_price,
                             FROM product, transaction_detail, transaction
                             WHERE transaction_detail.product_id = product.product_id AND (transaction_date >= ? AND transaction_date <= ?) AND transaction_detail.transaction_id=transaction.transaction_id GROUP BY transaction_detail.product_id",
             [$dateFrom, $datoTo],

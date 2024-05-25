@@ -205,7 +205,6 @@ if ($isAuthenticated) :
 
 
             function getStatistics() {
-                // console.log(selectedValue_1 + "---" + selectedValue_2)
                 $.ajax({
                     url: "statistics/getStatistics/" + type + "/" + selectedValue_1 + "/" + selectedValue_2,
                     method: "POST",

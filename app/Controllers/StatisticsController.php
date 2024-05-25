@@ -23,7 +23,6 @@ class StatisticsController extends Controller
         if ($type != 'specific_time') {
             $dayFrom = new DateTime('today');
             $dayTo = (new DateTime('today'))->setTime(23, 59, 59);
-        } else {
         }
         if ($type == 'yesterday') {
             $dayFrom = new DateTime('yesterday');
@@ -34,11 +33,11 @@ class StatisticsController extends Controller
             $dayFrom = (new DateTime('first day of this month'))->setTime(0, 0, 0);
             $dayTo = (new DateTime('last day of this month'))->setTime(23, 59, 59);
         } else if ($type == 'specific_time') {
-            $dayFrom = DateTime::createFromFormat('Y-m-d', $dayFrom)->setTime(0, 0, 0);
-            $dayTo = (DateTime::createFromFormat('Y-m-d', $dayTo))->setTime(23, 59, 59);
+            $dayFrom = $dayFrom . ' ' . "00:00:00";
+            $dayTo = $dayTo . ' ' . "23:59:59";
+            return array('dayFrom' => $dayFrom, 'dayTo' => $dayTo);
         }
-
-        return array('dayFrom' => $dayFrom->format('Y-m-d H:i:s'), 'dayTo' => $dayTo->format('Y-m-d H:i:s'));;
+        return array('dayFrom' => $dayFrom->format('Y-m-d H:i:s'), 'dayTo' => $dayTo->format('Y-m-d H:i:s'));
     }
 
     public function getStatistics($type, $dayFrom, $dayTo)
