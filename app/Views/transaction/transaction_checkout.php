@@ -199,7 +199,7 @@ if ($isAuthenticated) :
                                 $("#name").val(response[0].customer_name)
                                 $("#address").val(response[0].address)
                             } else {
-                                $('small').show()
+                                $("#warningInformationCustomer").html("Hãy tạo khách hàng mới!").show()
                                 $("#name").val('')
                                 $("#address").val('')
                                 $("#name").removeAttr("disabled")
@@ -241,6 +241,7 @@ if ($isAuthenticated) :
             });
 
             //Validate invoice
+
             $('#printInvoiceBtn').on('click', function(e) {
                 if ($('#phone').val() == '') {
                     $("#warningInformationCustomer").show()
