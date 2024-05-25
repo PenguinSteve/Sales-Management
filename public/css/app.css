@@ -70,6 +70,10 @@
  * 6. Responsive
  */
 
+ small {
+  
+ }
+
 .idProduct {
   background-color: transparent;
   border: none;
@@ -81,15 +85,27 @@
   color: black;
 }
 
+.nunito {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 370;
+  font-style: normal;
+}
+
  .price {
   color: #5A8DEE;
+  font-size: medium;
   font-weight: bold;
+}
+
+.font {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: lighter;
 }
 
 .original_price {
   color: darkgray;
-  text-decoration: line-through;
-  margin-left: 8px;
+  white-space: nowrap;
 }
 
 .color-primary {

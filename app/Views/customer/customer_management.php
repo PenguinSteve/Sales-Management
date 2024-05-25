@@ -7,9 +7,7 @@ if (isset($_SESSION['isNeedToChangePassword'])) {
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
 ?>
-    <?php
-    require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
-    ?>
+    <?php require_once(_DIR_ROOT . '/app/Views/layouts/header.php') ?>
 
     <body>
         <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
@@ -18,6 +16,11 @@ if ($isAuthenticated) :
 
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
+
+            <script>
+                $('.sidebar-link').removeClass('active');
+                $('a[href="customer/"]').closest('li').addClass('active')
+            </script>
 
             <div id="main">
                 <div class="main-content container-fluid">
@@ -47,7 +50,7 @@ if ($isAuthenticated) :
 
                                     echo <<<HTML
                                     <tr>
-                                        <td>{$customer['phone']}</td>
+                                        <td class="nunito">{$customer['phone']}</td>
                                         <td>{$customer['customer_name']}</td>
                                         <td>{$customer['address']}</td>
                                         <td>
@@ -97,9 +100,6 @@ if ($isAuthenticated) :
                     }
                 })
             })
-
-            
-
         </script>
     </body>
 

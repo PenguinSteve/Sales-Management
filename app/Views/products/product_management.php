@@ -20,17 +20,17 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
-                <?php
-                require_once(_DIR_ROOT . '/app/Views/modal/ModalDeleteConfirm.php');
-                ?>
+                <?php require_once(_DIR_ROOT . '/app/Views/modal/ModalDeleteConfirm.php') ?>
+
+                <script>
+                    $('.sidebar-link').removeClass('active')
+                    $('a[href="product/"]').closest('li').addClass('active')
+                </script>
 
                 <section class="py-2">
                     <div class="container mt-5">
 
-                        <div class="d-flex justify-content-between">
-                            <div class="form-group col-lg-4">
-                                <input type="text" class="form-control mb-4" id="search" placeholder="Search">
-                            </div>
+                        <div class="d-flex justify-content-end mb-4">
                             <?php
                             if ($currentUser['role'] === "admin") {
                                 echo "<div><a href=\"product/addProduct\" class=\"btn btn-primary mr-4\">Add</a></div>";
@@ -46,23 +46,25 @@ if ($isAuthenticated) :
                                     // card
                                     echo <<<HTML
                                         <div class="col">
-                                            <div class="card" style="width: 100%;">
-                                                <img class="card-img-top p-1 mx-auto pt-2" style="width: 10rem; height: rem" src="{$product['image_url']}"/>
+                                            <div class="card" style="width: 105%;">
+                                                <img class="card-img-top p-1 mx-auto pt-2" style="width: 10rem; height: 10rem; object-fit: contain" src="{$product['image_url']}"/>
 
-                                                <div class="card-body pl-4 pr-4 pb-0">
+                                                <div class="card-body pl-4 pr-2 pb-0">
                                                     <h6 class="fw-bolder nameProduct">{$product['product_name']}</h6>
                                                     <p class="category">{$product['category_name']}</p>
                                                     <p>Code: {$product['product_id']}</p>
                                                     <div class="d-flex justify-content-left">
-                                                        <h5 class="fw-bolder price mr-2">{$product['retail_price']} đ</h5>
-                                                        <p class="retail_price text-sm">{$product['import_price']} đ</p>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="card-footer pt-2 pb-3 pr-4 border-top-0 bg-transparent d-flex justify-content-end">
+                                                        <h5 class="price nunito mr-2">{$product['retail_price']} đ</h5>
                                         HTML;
+                                    if ($currentUser['role'] === "admin") {
+                                        echo '<p class="retail_price original_price text-sm nunito">' . $product['import_price'] . ' đ</p>';
+                                    }
 
+                                    echo <<<HTML
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer pt-2 pb-3 pr-4 border-top-0 bg-transparent d-flex justify-content-end">
+                                                    HTML;
 
                                     if ($currentUser['role'] === "admin") {
                                         echo <<<HTML
@@ -106,6 +108,12 @@ if ($isAuthenticated) :
     <script>
         $(document).ready(function() {
 
+            $('.price').each(function() {
+                let numberStr = $(this).text();
+                let formattedNumber = numberStr.replace(/(\d{3})(\d{3})(\d{2})/, '$1.$2.$3');
+                $(this).text(formattedNumber);
+            });
+
             var idProduct
 
             $('.btn-outline-danger').on('click', function() {
@@ -127,7 +135,6 @@ if ($isAuthenticated) :
                 })
             })
         })
-
     </script>
 
     </html>

@@ -20,20 +20,8 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <script>
-
-            </script>
-
-            <script>
-                var sidebarLinks = $('.sidebar-link')
-
-                $('.sidebar-link').each(function() {
-                    if ($(this).hasClass('active')) {
-                        $(this).removeClass('active')
-                    }
-                })
-
-                var activeElement = $('a[href="statistics/"]')
-                activeElement.closest('li').addClass('active')
+                $('.sidebar-link').removeClass('active');
+                $('a[href="statistics/"]').closest('li').addClass('active')
             </script>
 
             <div id="main">
@@ -42,24 +30,24 @@ if ($isAuthenticated) :
                         <p class="text-subtitle text-muted ml-5">A good Reporting and Analytics to display statistics</p>
                     </div>
 
-                    <div class="mb-5 d-flex justify-content-end">
+                    <div class="mb-1 d-flex justify-content-end">
                         <!-- Date Range Picker -->
                         <div class="d-flex mr-3">
-                            <label for="date" class="col-form-label mr-2" id="labelFrom">From</label>
+                            <label for="date" class="col-form-label mr-2" id="labelFrom" style="display: none;">From</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="dateFrom">
+                                <input type="date" class="form-control" id="dateFrom" style="display: none;">
                             </div>
                         </div>
 
                         <div class="d-flex">
-                            <label for="date" class="col-form-label mr-2" id="labelTo">To</label>
+                            <label for="date" class="col-form-label mr-2" id="labelTo" style="display: none;">To</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="dateTo">
+                                <input type="date" class="form-control" id="dateTo" style="display: none;">
                             </div>
                         </div>
 
                         <select class="form-select" id="selectTime" style="width: 15rem;">
-                            <option selected>Timeline</option>
+                            <option value="overall" selected>Overall</option>
                             <option value="today">Today</option>
                             <option value="yesterday">Yesterday</option>
                             <option value="7days">Last 7 days</option>
@@ -70,11 +58,6 @@ if ($isAuthenticated) :
                         <script>
                             // show Date Range Picker only when user selects "Specific time"
                             $(document).ready(function() {
-                                $("#labelFrom").hide();
-                                $("#dateFrom").hide();
-                                $("#labelTo").hide();
-                                $("#dateTo").hide();
-
                                 $('#selectTime').on('change', function() {
                                     var selectedValue = $(this).val();
                                     console.log(selectedValue)
@@ -94,12 +77,15 @@ if ($isAuthenticated) :
                         </script>
                     </div>
 
+                    <div class="d-flex justify-content-center mb-5">
+                        <small style="color: red; display: none">Ngày kết thúc không được nhỏ hơn ngày bắt đầu!</small>
+                    </div>
 
                     <!--Reporting and Analytics-->
                     <section class="section">
-                        <?php 
-                        if($currentUser['role'] === 'admin'):
-                        echo'<div class="card">
+                        <?php
+                        if ($currentUser['role'] === 'admin') :
+                            echo '<div class="card">
                             <div class="card-body pl-5 pr-5 d-flex justify-content-between">
                                 <div>
                                     <h4 class="mt-4">Total profit</h4>
@@ -107,12 +93,13 @@ if ($isAuthenticated) :
 
                                 <div class="">
                                     <h6>VND</h6>
-                                    <h1 id="totalProfit" class="text-green">0</h1>
+                                    <h1 id="totalProfit" class="text-green nunito">0</h1>
                                 </div>
                             </div>
                         </div>';
                         endif;
                         ?>
+
                         <div class="row mb-2">
                             <div class="col-md-9">
                                 <?php require_once(_DIR_ROOT . '/app/Views/customer/purchase_history.php') ?>
@@ -127,7 +114,7 @@ if ($isAuthenticated) :
                                     <div class="card-body">
                                         <div class="text-center mb-5">
                                             <h6>VND</h6>
-                                            <h2 class='text-green' id="amountReceived">0</h2>
+                                            <h3 class='text-green nunito' id="amountReceived"></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +127,7 @@ if ($isAuthenticated) :
                                     <div class="card-body">
                                         <div class="text-center mb-5">
                                             <h6>up to now</h6>
-                                            <h2 class='text-green' id="orders">0</h2>
+                                            <h2 class='text-green nunito' id="orders"></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +140,7 @@ if ($isAuthenticated) :
                                     <div class="card-body">
                                         <div class="text-center mb-5">
                                             <h6>up to now</h6>
-                                            <h2 class='text-green' id="products">0</h2>
+                                            <h2 class='text-green' id="products"></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -185,6 +172,34 @@ if ($isAuthenticated) :
 
     <script>
         $(document).ready(function() {
+            loadPage()
+
+            function loadPage() {
+                $("#totalProfit").text(<?php echo json_encode($statistics["total"]) ?>)
+                $("#amountReceived").text(<?php echo json_encode($statistics["received"]) ?>)
+                $("#orders").text(<?php echo json_encode($statistics["order"]) ?>)
+                $("#products").text(<?php echo json_encode($statistics["products"]) ?>)
+
+                $('tbody').empty()
+
+                var orders = (<?php echo json_encode($statistics["orders"]) ?>)
+
+                $.each(orders, function(key, value) {
+                    var order = orders[key]
+
+                    var newRow = "<tr id=\"" + order['transaction_id'] + "\">" +
+                        "<td>" + order['transaction_id'] + "</td>" +
+                        "<td class=\"nunito\">" + order['total_amount'].toLocaleString('vi-VN') + " VND</td>" +
+                        "<td class=\"nunito\">" + order['amount_receive'].toLocaleString('vi-VN') + " VND</td>" +
+                        "<td class=\"nunito\">" + order['amount_back'].toLocaleString('vi-VN') + " VND</td>" +
+                        "<td class=\"nunito\">" + order['transaction_date'] + "</td>" +
+                        "<td class=\"nunito\">" + order['total_quantity'] + "</td>" +
+                        "</tr>";
+
+                    $("tbody").append(newRow)
+                })
+            }
+
 
             var selectedValue_1
             var selectedValue_2 = 'null'
@@ -198,64 +213,77 @@ if ($isAuthenticated) :
 
             $('#dateFrom').on('change', function() {
                 selectedValue_1 = $(this).val();
-                getStatistics()
+                validateDay()
             })
 
             $('#dateTo').on('change', function() {
                 selectedValue_2 = $(this).val();
-                getStatistics()
+                validateDay()
             })
+
+            function validateDay() {
+                if (selectedValue_1 != null && selectedValue_2 != null && selectedValue_1 > selectedValue_2) {
+                    $("small").show()
+                } else {
+                    $("small").hide()
+                    getStatistics()
+                }
+            }
 
 
             function getStatistics() {
-                $.ajax({
-                    url: "statistics/getStatistics/" + type + "/" + selectedValue_1 + "/" + selectedValue_2,
-                    method: "POST",
-                    success: function(response) {
-                        response = JSON.parse(response)
+                if (selectedValue_1 == "overall") {
+                    loadPage()
+                } else {
+                    $.ajax({
+                        url: "statistics/getStatistics/" + type + "/" + selectedValue_1 + "/" + selectedValue_2,
+                        method: "POST",
+                        success: function(response) {
+                            response = JSON.parse(response)
 
-                        $("#totalProfit").text(response['total'])
-                        $("#amountReceived").text(response['received'])
-                        $("#orders").text(response['order'])
-                        $("#products").text(response['products'])
+                            $("#totalProfit").text(response['total'])
+                            $("#amountReceived").text(response['received'])
+                            $("#orders").text(response['order'])
+                            $("#products").text(response['products'])
 
-                        $('tbody').empty();
-                        $.each(response['orders'], function(key, value) {
-                            var order = response['orders'][key]
+                            $('tbody').empty();
+                            $.each(response['orders'], function(key, value) {
+                                var order = response['orders'][key]
 
-                            //Format date
-                            let date = new Date(order['transaction_date']);
-                            let day = date.getDate();
-                            let month = date.getMonth() + 1;
-                            let year = date.getFullYear();
-                            let hours = date.getHours();
-                            let minutes = date.getMinutes();
-                            let seconds = date.getSeconds();
+                                //Format date
+                                let date = new Date(order['transaction_date']);
+                                let day = date.getDate();
+                                let month = date.getMonth() + 1;
+                                let year = date.getFullYear();
+                                let hours = date.getHours();
+                                let minutes = date.getMinutes();
+                                let seconds = date.getSeconds();
 
-                            day = (day < 10) ? '0' + day : day;
-                            month = (month < 10) ? '0' + month : month;
-                            hours = (hours < 10) ? '0' + hours : hours;
-                            minutes = (minutes < 10) ? '0' + minutes : minutes;
-                            seconds = (seconds < 10) ? '0' + seconds : seconds;
+                                day = (day < 10) ? '0' + day : day;
+                                month = (month < 10) ? '0' + month : month;
+                                hours = (hours < 10) ? '0' + hours : hours;
+                                minutes = (minutes < 10) ? '0' + minutes : minutes;
+                                seconds = (seconds < 10) ? '0' + seconds : seconds;
 
-                            let formattedDate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+                                let formattedDate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;
 
-                            var newRow = "<tr id=\"" + order['transaction_id'] + "\">" +
-                                "<td>" + order['transaction_id'] + "</td>" +
-                                "<td>" + order['total_amount'] + "</td>" +
-                                "<td>" + order['amount_receive'] + "</td>" +
-                                "<td>" + order['amount_back'] + "</td>" +
-                                "<td>" + formattedDate + "</td>" +
-                                "<td>" + order['total_quantity'] + "</td>" +
-                                "</tr>";
+                                var newRow = "<tr id=\"" + order['transaction_id'] + "\">" +
+                                    "<td>" + order['transaction_id'] + "</td>" +
+                                    "<td class=\"nunito\">" + order['total_amount'].toLocaleString('vi-VN') + " VND</td>" +
+                                    "<td class=\"nunito\">" + order['amount_receive'].toLocaleString('vi-VN') + " VND</td>" +
+                                    "<td class=\"nunito\">" + order['amount_back'].toLocaleString('vi-VN') + " VND</td>" +
+                                    "<td class=\"nunito\">" + formattedDate + "</td>" +
+                                    "<td class=\"nunito\">" + order['total_quantity'] + "</td>" +
+                                    "</tr>";
 
-                            $("tbody").append(newRow)
-                        })
-                    },
-                    error: function(error) {
-                        alert(error)
-                    }
-                })
+                                $("tbody").append(newRow)
+                            })
+                        },
+                        error: function(error) {
+                            alert(error)
+                        }
+                    })
+                }
             }
 
             $("table").on("click", "tbody tr", function() {
@@ -297,14 +325,13 @@ if ($isAuthenticated) :
 
                         $.each(response, function(key, value) {
                             var order = response[key]
-                            
+
                             $(".modal-body").append(
                                 "<div class='d-flex justify-content-between'>" +
                                 "<p>" + order["product_name"] + "</p>" +
                                 "<p>" + order["quantity"] + "</p>" +
-                                "<p>" + order["price"] + "</p>" +
+                                "<p class='nunito'>" + (order["price"]).toLocaleString('vi-VN') + "</p>" +
                                 "</div>")
-
                         })
 
                         $('#InvoiceModal').modal('show')

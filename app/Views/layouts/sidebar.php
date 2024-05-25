@@ -14,7 +14,7 @@
                 <li class='sidebar-title'>Main Menu</li>
 
                 <li class="sidebar-item">
-                    <a href="statistics/" class='sidebar-link' id="statistics">
+                    <a href="statistics/" class='sidebar-link'>
                         <i data-feather="home" width="20"></i>
                         <span>Reporting and Analytics</span>
                     </a>
@@ -57,25 +57,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    // function removeActive() {
-    //     $('a').removeClass('active')
-
-    // }
-
-    // $('a[href="statistics/"]').click(function() {
-    //     // removeActive()
-
-    //     // $(this).closest('li').addClass('active')
-    //     console.log($(this))
-
-    // })
-
-    // $('a[href="customer/"]').click(function() {
-    //     removeActive()
-
-    //     $(this).closest('li').addClass('active')
-
-    // })
-</script>

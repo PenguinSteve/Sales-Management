@@ -7,7 +7,7 @@
                     <h5 class="modal-title" id="inputModalLabel">Invoice</h5>
                     <div class="mt-1 mb-0 d-flex justify-content-between">
                         <p class="mr-3 mb-0">Date</p>
-                        <p id="date" class="mb-0"></p>
+                        <p id="date" class="mb-0 nunito"></p>
                     </div>
                 </div>
 
@@ -34,7 +34,7 @@
 
                     <div class="d-flex justify-content-start">
                         <p style="width: 7rem;">Mobile</p>
-                        <p id="customerPhone"></p>
+                        <p id="customerPhone" class="nunito"></p>
                     </div>
 
                     <div class="d-flex justify-content-start">
@@ -44,7 +44,7 @@
                 </div>
 
                 <div>
-                    <p id="totalAmountModal" style="margin-bottom: 8rem; font-size: large" class="price"></p>
+                    <p id="totalAmountModal" style="margin-bottom: 8rem; font-size: large" class="price nunito mt-4"></p>
                 </div>
             </div>
         </div>

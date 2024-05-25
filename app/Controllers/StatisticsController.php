@@ -15,7 +15,38 @@ class StatisticsController extends Controller
 
     public function index()
     {
-        $this->render("statistics/statistics", ['title' => 'Thống kê']);
+        //Total profit
+        $transaction = $this->statisticsModel->getTotalProfit();
+        $total = 0;
+
+        foreach ($transaction as $innerArray) {
+            $total += $innerArray['count_product'] * ($innerArray['price'] - $innerArray['import_price']);
+        }
+        $total = number_format($total, 0, '.', '.');
+
+        // Total amount received
+        $transaction = $this->statisticsModel->getTotalAmountReceived_numberOrder();
+        $received = number_format($transaction[0]['total'], 0, '.', '.');
+
+        // number of orders
+        $order = number_format($transaction[0]['orders'], 0, '.', '.');;
+
+        // number of products
+        $products = $this->statisticsModel->getTotalNumberProduct()[0]['products'];
+        $products = number_format($products, 0, '.');
+
+        // recent purchase history
+        $orders = $this->statisticsModel->getTransactions();
+
+        $response = array(
+            "total" => $total,
+            "received" => $received,
+            "order" => $order,
+            "products" => $products,
+            "orders" => $orders
+        );
+
+        $this->render("statistics/statistics", ['title' => 'Thống kê', 'statistics' => $response]);
     }
 
     public function handleDayTime($type, $dayFrom, $dayTo)

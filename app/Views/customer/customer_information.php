@@ -43,7 +43,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="number" class="form-control" id="phonenumber" disabled value="<?php echo $customer[0]['phone']; ?>">
+                                                        <input type="number" class="form-control nunito" id="phonenumber" disabled value="<?php echo $customer[0]['phone']; ?>">
                                                         <div class="form-control-icon">
                                                             <i data-feather="phone"></i>
                                                         </div>
@@ -142,10 +142,10 @@ if ($isAuthenticated) :
                             `
                             <tr>
                                 <td>${transaction['transaction_id']}</td>
-                                <td>${transaction['total_amount']}</td>
-                                <td>${transaction['amount_receive']}</td>
-                                <td>${transaction['amount_back']}</td>
-                                <td>${formattedDate}</td>
+                                <td class="nunito">${transaction['total_amount']}</td>
+                                <td class="nunito">${transaction['amount_receive']}</td>
+                                <td class="nunito">${transaction['amount_back']}</td>
+                                <td class="nunito">${formattedDate}</td>
                                 <td>${transaction['total_quantity']}</td>
                                 <td>
                                     <button id="${transaction['transaction_id']}" type="button" class="detail-transaction btn btn-outline-primary">See details</button>
@@ -210,7 +210,7 @@ if ($isAuthenticated) :
                                 <div class="d-flex justify-content-between">
                                     <p>${transaction_detail['product_name']}</p>
                                     <p>${transaction_detail['quantity']}</p>
-                                    <p>${transaction_detail['price']}</p>
+                                    <p class="nunito">${transaction_detail['price']}</p>
                                 </div>
                                 `);
                         });

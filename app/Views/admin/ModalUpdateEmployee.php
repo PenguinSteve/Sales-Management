@@ -37,7 +37,7 @@
 
                             <div class="d-flex">
                                 <div class="col-md-3">
-                                    <label>Lock account</label>
+                                    <label id="labelLock">Lock account</label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" values="locked" class="form-check-input form-check-primary ml-2" name="customCheck" id="customColorCheck1">
