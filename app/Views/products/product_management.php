@@ -47,7 +47,7 @@ if ($isAuthenticated) :
                                     echo <<<HTML
                                         <div class="col">
                                             <div class="card" style="width: 100%;">
-                                                <img class="card-img-top p-1 mx-auto pt-2" style="width: 10rem;" src="{$product['image_url']}"/>
+                                                <img class="card-img-top p-1 mx-auto pt-2" style="width: 10rem; height: rem" src="{$product['image_url']}"/>
 
                                                 <div class="card-body pl-4 pr-4 pb-0">
                                                     <h6 class="fw-bolder nameProduct">{$product['product_name']}</h6>

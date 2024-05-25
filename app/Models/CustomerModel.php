@@ -16,7 +16,6 @@ class CustomerModel extends Database
         return $this->select("SELECT * FROM customer WHERE customer_id = ?", [$id], 'i');
     }
 
-
     public function getCustomerByPhone($phone)
     {
         return $this->select("SELECT * FROM customer WHERE phone = ?", [$phone], 's');

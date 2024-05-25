@@ -220,7 +220,7 @@ if ($isAuthenticated) :
             //Prevent input customer gives less than 1 and empty
             $(document).on('input', '#cusGives', function() {
                 var value = $(this).val();
-                if (value < 1 || value == '') {
+                if (value < 1) {
                     $(this).val(totalAmount);
                 }
 

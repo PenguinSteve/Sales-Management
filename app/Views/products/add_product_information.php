@@ -51,20 +51,20 @@ if ($isAuthenticated) :
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="import_price" class="col-form-label">Import price</label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control inputNum" name="import_price" required>
+                                        <input style="width: 100%" type="number" class="form-control inputNum" name="import_price" required>
                                     </div>
                                 </div>
 
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="retail_price" class="col-form-label" required>Retail price</label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control inputNum" name="retail_price" required>
+                                        <input style="width: 100%" type="number" class="form-control inputNum" name="retail_price" required>
                                     </div>
                                 </div>
 
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="category" class="col-form-label">Category</label>
-                                    <select name="category" class="form-select" style="width: 14.6rem;" required>
+                                    <select name="category" class="form-select" style="width: 18.7rem" required>
                                         <?php foreach ($categories as $category) {
                                             echo "<option value=\"" . $category['category_id'] . "\">" . $category['category_name'] . "</option>";
                                         }

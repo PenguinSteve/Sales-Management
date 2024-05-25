@@ -122,6 +122,7 @@ if ($isAuthenticated) :
                 success: function(response) {
                     let html = "";
                     response.forEach(transaction => {
+                        //Format date
                         let date = new Date(transaction['transaction_date']);
                         let day = date.getDate();
                         let month = date.getMonth() + 1;
@@ -198,7 +199,7 @@ if ($isAuthenticated) :
                             <div class="d-flex justify-content-between">
                                 <p>Product</p>
                                 <p>Quantity</p>
-                                <p>Total</p>
+                                <p>Unit price</p>
                             </div>
                             `);
 

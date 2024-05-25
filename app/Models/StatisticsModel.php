@@ -9,9 +9,10 @@ class StatisticsModel extends Database
     public function getProfitByTimelines($dateFrom, $datoTo)
     {
         return $this->select(
-            "SELECT COUNT(transaction_detail.product_id) AS count_product, import_price
+            "SELECT COUNT(transaction_detail.product_id) AS count_product, import_price, transaction_detail.price
                             FROM product, transaction_detail, transaction
-                            WHERE transaction_detail.product_id = product.product_id AND (transaction_date >= ? AND transaction_date <= ?) AND transaction_detail.transaction_id=transaction.transaction_id GROUP BY transaction_detail.product_id",
+                            WHERE transaction_detail.product_id = product.product_id AND (transaction_date BETWEEN ? AND ?) AND transaction_detail.transaction_id=transaction.transaction_id 
+                            GROUP BY transaction_detail.product_id",
             [$dateFrom, $datoTo],
             'ss'
         );
@@ -42,34 +43,24 @@ class StatisticsModel extends Database
     public function getNumberProduct($dateFrom, $datoTo)
     {
         return $this->select(
-            "SELECT COUNT(DISTINCT product_id) AS products
-            FROM transaction_detail, transaction
-            WHERE transaction_date >= ? AND transaction_date <= ?",
+            "SELECT SUM(total_quantity) AS products
+            FROM transaction
+            WHERE (transaction_date BETWEEN ? AND ?)",
             [$dateFrom, $datoTo],
             'ss'
         );
     }
 
-    public function getOrderByTimelines($idOrder)
-    {
-        // return $this->select(
-        //     "SELECT *
-        //     FROM transaction
-        //     WHERE transaction_date >= ? AND transaction_date <= ? AND ",
-        //     [$dateFrom, $datoTo],
-        //     'ss'
-        // );
-    }
-
     public function getTransactionForModal($id)
     {
         return $this->select(
-            "SELECT transaction_detail.*, product.*, user.name
-            FROM transaction_detail
-            INNER JOIN product ON transaction_detail.product_id = product.product_id
-            INNER JOIN transaction ON transaction.transaction_id = transaction_detail.transaction_id
-            INNER JOIN user ON user.user_id = transaction.user_id
-            WHERE transaction_detail.transaction_id = ?",
+            "SELECT quantity, price, product_name, transaction.transaction_date, transaction.total_amount, customer_phone, customer.customer_name, user.name
+            FROM transaction_detail, customer, user, transaction, product
+            WHERE transaction_detail.transaction_id = ?
+            AND user.user_id = transaction.user_id
+            AND transaction.customer_phone = customer.phone
+            AND transaction.transaction_id = transaction_detail.transaction_id
+            AND transaction_detail.product_id = product.product_id",
             [$id],
             'i'
         );

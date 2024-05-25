@@ -62,20 +62,20 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="import_price" class="col-form-label">Import price</label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control inputNum" name="import_price" required value="<?php echo $product[0]['import_price']; ?>">
+                                            <input style="width: 100%" type="number" class="form-control inputNum" name="import_price" required value="<?php echo $product[0]['import_price']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="retail_price" class="col-form-label" required>Retail price</label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control inputNum" name="retail_price" required value="<?php echo $product[0]['retail_price']; ?>">
+                                            <input style="width: 100%" type="number" class="form-control inputNum" name="retail_price" required value="<?php echo $product[0]['retail_price']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="category" class="col-form-label">Category</label>
-                                        <select name="category" class="form-select" style="width: 16.2rem;" required>
+                                        <select style="width: 21rem" name="category" class="form-select" style="width: 16.2rem;" required>
                                             <?php foreach ($categories as $category) {
                                                 if ($category['category_id'] == $product[0]['category_id']) {
                                                     echo "<option value=\"" . $category['category_id'] . "\" selected>" . $category['category_name'] . "</option>";

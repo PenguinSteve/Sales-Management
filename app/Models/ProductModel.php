@@ -16,16 +16,6 @@ class ProductModel extends Database
         return $this->select("SELECT * FROM product WHERE product_id = ?", [$id], 'i');
     }
 
-    // public function getProductByName($name)
-    // {
-    //     return $this->select("SELECT * FROM product WHERE name LIKE ?", ["%" . $name . "%"], 's');
-    // }
-
-    // public function getProductByBarcode($barcode)
-    // {
-    //     return $this->select("SELECT * FROM product WHERE barcode = ?", [$barcode], 'i');
-    // }
-
     public function getProductByNameOrBarCode($text)
     {
         return $this->select("SELECT * FROM product WHERE product_name LIKE ? OR CAST(product_id AS CHAR) LIKE ?", ["%" . $text . "%", "%" . $text . "%"], 'ss');

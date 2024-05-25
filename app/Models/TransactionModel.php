@@ -8,11 +8,6 @@ class TransactionModel extends Database
         parent::__construct();
     }
 
-    public function getTransactions()
-    {
-        return $this->select("SELECT * FROM transaction");
-    }
-
     public function getTransactionsByCustomerPhone($phone)
     {
         return $this->select("SELECT * FROM transaction WHERE customer_phone = ?", [$phone], 's');

@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-between">
                     <p>Product</p>
                     <p>Quantity</p>
-                    <p>Total</p>
+                    <p>Unit price</p>
                 </div>
             </div>
 
