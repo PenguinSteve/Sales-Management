@@ -57,7 +57,6 @@ if ($isAuthenticated) :
                                                         <h5 class="fw-bolder price mr-2">{$product['retail_price']} đ</h5>
                                                         <p class="retail_price text-sm">{$product['import_price']} đ</p>
                                                     </div>
-
                                                 </div>
 
 

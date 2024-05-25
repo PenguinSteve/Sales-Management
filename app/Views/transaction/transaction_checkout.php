@@ -276,6 +276,19 @@ if ($isAuthenticated) :
                         success: function(response) {
                             if (response.status == 'success') {
                                 $('#InvoiceModal').modal('show');
+
+                                //Print invoice as pdf
+                                // var modalContent = $('#InvoiceModal').html();
+                                // var pdf = new jsPDF();
+                                // pdf.fromHTML(modalContent);
+                                // pdf.save('invoice.pdf');
+                                // html2canvas(document.querySelector("#InvoiceModal")).then(canvas => {
+                                //     var imgData = canvas.toDataURL('image/png');
+                                //     var pdf = new jsPDF();
+                                //     pdf.addImage(imgData, 'PNG', 0, 0);
+                                //     pdf.save("invoice.pdf");
+                                // });
+                                
                             } else {
                                 window.location.href = "transaction/checkout";
                             }

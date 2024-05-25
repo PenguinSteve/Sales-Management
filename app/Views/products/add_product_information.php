@@ -6,6 +6,10 @@ if (isset($_SESSION['isNeedToChangePassword'])) {
 }
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
+    if ($currentUser['role'] != 'admin') {
+        header("Location:" . _HOST . "home");
+        exit();
+    }
 ?>
     <?php
     require_once(_DIR_ROOT . '/app/Views/layouts/header.php')

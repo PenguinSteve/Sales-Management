@@ -6,6 +6,10 @@ if (isset($_SESSION['isNeedToChangePassword'])) {
 }
 if ($isAuthenticated) :
     $currentUser = $_SESSION['user'];
+    if ($currentUser['role'] != 'admin') {
+        header("Location:" . _HOST . "home");
+        exit();
+    }
 ?>
     <?php
     require_once(_DIR_ROOT . '/app/Views/layouts/header.php')
@@ -77,9 +81,12 @@ if ($isAuthenticated) :
                                     }
 
                                     //Column 5: button
-                                    echo "<td>
-                                        <button type=\"button\" class=\"btn btn-outline-success emp-update\" data-toggle=\"modal\" data-target=\"#updateEmployee\">Edit</button>
+                                    if ($user['role'] != 'admin') {
+                                        echo "<td><button type=\"button\" class=\"btn btn-outline-success emp-update\" data-toggle=\"modal\" data-target=\"#updateEmployee\">Edit</button>
                                     </td>";
+                                    } else {
+                                        echo "<td></td>";
+                                    }
                                     echo "</tr>";
                                 } ?>
                             </tbody>

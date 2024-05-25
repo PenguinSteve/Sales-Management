@@ -43,6 +43,27 @@ if ($isAuthenticated) :
                                 <div class="form-group col-lg-4">
                                     <input type="text" class="form-control" id="searchProduct" placeholder="Search or Enter barcode">
                                 </div>
+
+                                <?php
+                                if (isset($cart['totalProducts']) && isset($cart['totalAmount'])) {
+                                    $totalProducts = $cart['totalProducts'];
+                                    $totalAmount = $cart['totalAmount'];
+                                } else {
+                                    $totalProducts = 0;
+                                    $totalAmount = 0;
+                                }
+                                ?>
+                                <div class="d-flex mt-3 justify-content-between ">
+                                    <div class="d-flex">
+                                        <h6 class="mr-3 mt-1" style="margin-left: 6.5rem;">Total product:</h6>
+                                        <h4 style="color: #5A8DEE;" id="totalProducts"><?php echo $totalProducts ?></h4>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end" style="margin-left: 9rem;">
+                                        <h6 class="mr-3 mt-1">Total amount:</h6>
+                                        <h4 style="color: #5A8DEE;" id="totalAmount"><?php echo $totalAmount ?></h4>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="suggested-products">
@@ -82,28 +103,8 @@ if ($isAuthenticated) :
                                 ?>
                             </tbody>
                         </table>
-                        
-                        <?php 
-                        if(isset($cart['totalProducts']) && isset($cart['totalAmount'])){
-                            $totalProducts = $cart['totalProducts'];
-                            $totalAmount = $cart['totalAmount'];
-                        }
-                        else{
-                            $totalProducts = 0;
-                            $totalAmount = 0;
-                        }
-                        ?>
-                        <div class="d-flex mt-3 justify-content-between">
-                            <div class="d-flex" style="margin-left: 20rem;">
-                                <h6 class="mr-3 mt-2">Total:</h6>
-                                <h4 style="color: #5A8DEE;" id="totalProducts"><?php echo $totalProducts?></h4>
-                            </div>
 
-                            <div class="d-flex justify-content-end" style="margin-right: 14rem;">
-                                <h6 class="mr-3 mt-2">Total:</h6>
-                                <h4 style="color: #5A8DEE;" id="totalAmount"><?php echo $totalAmount?></h4>
-                            </div>
-                        </div>
+
 
                         <button type="button" class="btn btn-outline-primary m-5 float-right" id="btnCheckout">Next</button>
                     </div>

@@ -47,7 +47,7 @@ class AuthenticationModel extends Database
 
     public function createUserAdmin()
     {
-        $this->action("INSERT INTO user (username, password, email, name, avatar, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)", ["admin", password_hash("admin", PASSWORD_DEFAULT), "admin@gmail.com", "Quản lý", "public/images/avatar/avatar-s-1.png", "admin", "activated"], 'sssssss');
+        $this->action("INSERT INTO user (username, password, email, name, avatar, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)", ["admin", password_hash("admin", PASSWORD_DEFAULT), "admin@gmail.com", "Quản lý", "public/images/avatar/default_avatar.png", "admin", "activated"], 'sssssss');
     }
 
     public function loginViaEmail($email, $token){

@@ -97,7 +97,9 @@ if ($isAuthenticated) :
 
                     <!--Reporting and Analytics-->
                     <section class="section">
-                        <div class="card">
+                        <?php 
+                        if($currentUser['role'] === 'admin'):
+                        echo'<div class="card">
                             <div class="card-body pl-5 pr-5 d-flex justify-content-between">
                                 <div>
                                     <h4 class="mt-4">Total profit</h4>
@@ -105,11 +107,12 @@ if ($isAuthenticated) :
 
                                 <div class="">
                                     <h6>VND</h6>
-                                    <h1 id="totalProfit" class='text-green'>0</h1>
+                                    <h1 id="totalProfit" class="text-green">0</h1>
                                 </div>
                             </div>
-                        </div>
-
+                        </div>';
+                        endif;
+                        ?>
                         <div class="row mb-2">
                             <div class="col-md-9">
                                 <?php require_once(_DIR_ROOT . '/app/Views/customer/purchase_history.php') ?>

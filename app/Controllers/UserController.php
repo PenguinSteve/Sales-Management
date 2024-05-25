@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $name = $_POST['name'];
 
-        $targetFile = "public/product_images/" . basename($_FILES['avatar']['name']);
+        $targetFile = "public/images/avatar/" . basename($_FILES['avatar']['name']);
 
         if ($_FILES['avatar']['error'] != 4) {
             $row_affected = $this->userModel->updateUser($id, $name, $targetFile);

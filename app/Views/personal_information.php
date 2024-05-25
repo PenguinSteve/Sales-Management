@@ -40,7 +40,7 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="id" class="col-form-label">ID</label>
                                         <div class="col-sm-8">
-                                            <input name="id" type="text" class="form-control" value="<?php echo $currentUser['user_id'] ?>">
+                                            <input readonly name="id" type="text" class="form-control" value="<?php echo $currentUser['user_id'] ?>">
                                         </div>
                                     </div>
 
