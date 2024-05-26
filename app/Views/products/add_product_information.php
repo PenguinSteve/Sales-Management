@@ -55,14 +55,14 @@ if ($isAuthenticated) :
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="import_price" class="col-form-label">Import price</label>
                                     <div class="col-sm-8">
-                                        <input style="width: 100%" type="number" class="form-control inputNum" name="import_price" required>
+                                        <input style="width: 100%" type="number" class="nunito form-control inputNum" name="import_price" required>
                                     </div>
                                 </div>
 
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="retail_price" class="col-form-label" required>Retail price</label>
                                     <div class="col-sm-8">
-                                        <input style="width: 100%" type="number" class="form-control inputNum" name="retail_price" required>
+                                        <input style="width: 100%" type="number" class="nunito form-control inputNum" name="retail_price" required>
                                     </div>
                                 </div>
 
@@ -79,7 +79,7 @@ if ($isAuthenticated) :
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="date" class="col-form-label">Creation date</label>
                                     <div class="col-sm-8">
-                                        <input type="date" class="form-control" name="date" required>
+                                        <input type="date" class="form-control nunito" name="date" required>
                                     </div>
                                 </div>
 

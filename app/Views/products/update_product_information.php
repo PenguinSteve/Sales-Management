@@ -41,17 +41,12 @@ if ($isAuthenticated) :
                             <small style="color: red; display: none">Choose an image!</small>
                         </div>
 
-
                         <div class="col-md-7">
 
-                            <!--id and barcode-->
+                            <!--barcode-->
                             <div class="col-md-12">
                                 <div class="d-flex align-items-center">
                                     <svg id="barcode"></svg>
-                                    <div class="fa-barcode">
-                                        <input class="idProduct" type="text" disabled value="<?php echo $product[0]['product_id'] ?>" style="color:black; margin-left: 3rem">
-
-                                    </div>
                                 </div>
 
                                 <!--information details-->
@@ -66,14 +61,14 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="import_price" class="col-form-label">Import price</label>
                                         <div class="col-sm-8">
-                                            <input style="width: 100%" type="number" class="form-control inputNum" name="import_price" required value="<?php echo $product[0]['import_price']; ?>">
+                                            <input style="width: 100%" type="number" class="form-control inputNum nunito" name="import_price" required value="<?php echo $product[0]['import_price']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="retail_price" class="col-form-label" required>Retail price</label>
                                         <div class="col-sm-8">
-                                            <input style="width: 100%" type="number" class="form-control inputNum" name="retail_price" required value="<?php echo $product[0]['retail_price']; ?>">
+                                            <input style="width: 100%" type="number" class="form-control nunito inputNum" name="retail_price" required value="<?php echo $product[0]['retail_price']; ?>">
                                         </div>
                                     </div>
 
@@ -98,7 +93,7 @@ if ($isAuthenticated) :
                                             $createdDate = DateTime::createFromFormat('Y-m-d H:i:s', $product[0]['created']);
                                             $formattedDate = $createdDate ? $createdDate->format('Y-m-d') : ''; ?>
 
-                                            <input type="date" class="form-control" name="date" required value="<?php echo htmlspecialchars($formattedDate); ?>">
+                                            <input type="date" class="form-control nunito" name="date" required value="<?php echo htmlspecialchars($formattedDate); ?>">
 
                                         </div>
                                     </div>

@@ -12,13 +12,14 @@ if ($isAuthenticated) :
     ?>
 
     <body>
-        <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
         <div id="app">
 
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php')
+            <?php
+            require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php');
+            require_once(_DIR_ROOT . '/app/Views/layouts/nav.php');
+            require_once(_DIR_ROOT . '/app/Views/layouts/announce.php');
             ?>
-            <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
                 <form action="user/updatePersonalAccount/<?php echo $currentUser['user_id'] ?>" method="POST" enctype="multipart/form-data">
