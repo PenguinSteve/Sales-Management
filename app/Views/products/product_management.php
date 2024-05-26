@@ -110,7 +110,7 @@ if ($isAuthenticated) :
 
             $('.price').each(function() {
                 let numberStr = $(this).text();
-                let formattedNumber = numberStr.replace(/(\d{3})(\d{3})(\d{2})/, '$1.$2.$3');
+                let formattedNumber = numberStr.replace(/(\d{2})(\d{3})(\d{3})/, '$1.$2.$3');
                 $(this).text(formattedNumber);
             });
 
