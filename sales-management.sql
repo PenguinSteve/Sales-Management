@@ -39,7 +39,9 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (1, 'Tai nghe'),
 (2, 'Điện thoại'),
-(3, 'Khác');
+(3, 'Sạc dự phòng'),
+(4, 'Chuột, Bàn phím'),
+(5, 'Khác');
 
 -- --------------------------------------------------------
 
