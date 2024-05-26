@@ -66,7 +66,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8"> <!--input field-->
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="Name" id="name" name="name" disabled>
+                                                        <input type="text" class="form-control nunito" placeholder="Name" id="name" name="name" disabled>
                                                         <div class="form-control-icon">
                                                             <i data-feather="user"></i>
                                                         </div>
@@ -81,7 +81,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="Address" id="address" name="address" disabled>
+                                                        <input type="text" class="form-control nunito" placeholder="Address" id="address" name="address" disabled>
                                                         <div class="form-control-icon">
                                                             <i data-feather="home"></i>
                                                         </div>
@@ -198,6 +198,7 @@ if ($isAuthenticated) :
                             if (response.length > 0) {
                                 $("#name").val(response[0].customer_name)
                                 $("#address").val(response[0].address)
+                                $("#warningInformationCustomer").hide()
                             } else {
                                 $("#warningInformationCustomer").html("Hãy tạo khách hàng mới!").show()
                                 $("#name").val('')
@@ -297,7 +298,7 @@ if ($isAuthenticated) :
                                         <p class="nunito">${product.product_id}</p>
                                     </div>
                                     <div class="col">
-                                        <p>${product.product_name}</p>
+                                        <p class="nunito">${product.product_name}</p>
                                     </div>
                                     <div class="col">
                                         <p class="text-center nunito">${product.quantity}</p>
@@ -340,7 +341,7 @@ if ($isAuthenticated) :
                                         var pdf = new jsPDF('p', 'mm', 'a4');
 
                                         var imgProps = pdf.getImageProperties(imgData);
-                                        var scale = 1.8;
+                                        var scale = 1.7;
                                         var pdfWidth = (pdf.internal.pageSize.getWidth())*scale;
                                         var pdfHeight = ((imgProps.height * pdfWidth) / imgProps.width)*scale;
 

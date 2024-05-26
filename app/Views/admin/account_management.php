@@ -73,7 +73,7 @@ if ($isAuthenticated) :
                                     echo "<td> <div class=\"avatar avatar-lg mr-3\"> <img src=\"" . $defaultAvatar . "\"> </div> </td>";
 
                                     //Column 2: name
-                                    echo "<td>" . $user['name'] . "</td>";
+                                    echo "<td class=\"nunito\">" . $user['name'] . "</td>";
 
                                     //Column 3: status account
                                     $statusChecked = $user['status'] === 'locked' ? 'checked' : '';

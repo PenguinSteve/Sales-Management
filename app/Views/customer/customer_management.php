@@ -51,8 +51,8 @@ if ($isAuthenticated) :
                                     echo <<<HTML
                                     <tr>
                                         <td class="nunito">{$customer['phone']}</td>
-                                        <td>{$customer['customer_name']}</td>
-                                        <td>{$customer['address']}</td>
+                                        <td class="nunito">{$customer['customer_name']}</td>
+                                        <td class="nunito">{$customer['address']}</td>
                                         <td>
                                             <button id="{$customer['customer_id']}" type="button" class="btn btn-outline-primary">See details</button>
                                         </td>

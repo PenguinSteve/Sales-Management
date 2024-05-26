@@ -85,9 +85,9 @@ if ($isAuthenticated) :
                                     $cart = $_SESSION['cart'];
                                     foreach ($cart['products'] as $product) {
                                         echo '<tr data-product-id="' . $product['product_id'] . '" data-product-name="' . $product['product_name'] . '" data-retail-price="' . $product['retail_price'] . '">' +
-                                            '<td>' . $product['product_id'] . '</td>' +
-                                            '<td>' . $product['product_name'] . '</td>' +
-                                            '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum" min="1" value="' . $product['quantity'] . '"></td>' +
+                                            '<td class="nunito">' . $product['product_id'] . '</td>' +
+                                            '<td class="nunito">' . $product['product_name'] . '</td>' +
+                                            '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum nunito" min="1" value="' . $product['quantity'] . '"></td>' +
                                             '<td class="nunito">' . $product['retail_price'] . '</td>' +
                                             '<td class="nunito total-price">' . $product['retail_price'] * $product['quantity'] . '</td>' +
                                             '<td><button type="button" class="btn btn-outline-danger ml-1">Delete</button></td>' +
@@ -185,7 +185,7 @@ if ($isAuthenticated) :
 
                             productListView.empty();
                             response.forEach(product => {
-                                productListView.append('<div class="product-item" data-product-id="' + product.product_id + '" data-product-name="' + product.product_name + '" data-retail-price="' + product.retail_price + '"><p>' + product.product_name + ' - Giá: ' + product.retail_price + '</p></div>')
+                                productListView.append('<div class="product-item" data-product-id="' + product.product_id + '" data-product-name="' + product.product_name + '" data-retail-price="' + product.retail_price + '"><p class="nunito">' + product.product_name + ' - Giá: ' + product.retail_price + '</p></div>')
                             })
                         }
                     })
@@ -210,11 +210,11 @@ if ($isAuthenticated) :
 
                     // The product is not in the cart, add a new row
                     var newRow = '<tr data-product-id="' + productId + '" data-product-name="' + productName + '" data-retail-price="' + retailPrice + '">' +
-                        '<td>' + productId + '</td>' +
-                        '<td>' + productName + '</td>' +
-                        '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum" min="1" value="1"></td>' +
-                        '<td>' + retailPrice + '</td>' +
-                        '<td class="total-price">' + retailPrice + '</td>' +
+                        '<td class="nunito">' + productId + '</td>' +
+                        '<td class="nunito">' + productName + '</td>' +
+                        '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum nunito" min="1" value="1"></td>' +
+                        '<td class="nunito">' + retailPrice + '</td>' +
+                        '<td class="total-price nunito">' + retailPrice + '</td>' +
                         '<td><button type="button" class="btn btn-outline-danger ml-1">Delete</button></td>' +
                         '</tr>';
                     $('tbody').append(newRow);

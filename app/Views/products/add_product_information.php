@@ -48,7 +48,7 @@ if ($isAuthenticated) :
                                 <div class="mb-2 d-flex justify-content-between">
                                     <label for="name" class="col-form-label">Product name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="name" required>
+                                        <input type="text" class="form-control nunito" name="name" required>
                                     </div>
                                 </div>
 

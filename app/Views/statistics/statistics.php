@@ -140,7 +140,7 @@ if ($isAuthenticated) :
                                     <div class="card-body">
                                         <div class="text-center mb-5">
                                             <h6>up to now</h6>
-                                            <h2 class='text-green' id="products"></h2>
+                                            <h2 class='text-green nunito' id="products"></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@ if ($isAuthenticated) :
                     var order = orders[key]
 
                     var newRow = "<tr id=\"" + order['transaction_id'] + "\">" +
-                        "<td>" + order['transaction_id'] + "</td>" +
+                        "<td class=\"nunito\">" + order['transaction_id'] + "</td>" +
                         "<td class=\"nunito\">" + order['total_amount'].toLocaleString('vi-VN') + " VND</td>" +
                         "<td class=\"nunito\">" + order['amount_receive'].toLocaleString('vi-VN') + " VND</td>" +
                         "<td class=\"nunito\">" + order['amount_back'].toLocaleString('vi-VN') + " VND</td>" +
@@ -268,7 +268,7 @@ if ($isAuthenticated) :
                                 let formattedDate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;
 
                                 var newRow = "<tr id=\"" + order['transaction_id'] + "\">" +
-                                    "<td>" + order['transaction_id'] + "</td>" +
+                                    "<td class=\"nunito\">" + order['transaction_id'] + "</td>" +
                                     "<td class=\"nunito\">" + order['total_amount'].toLocaleString('vi-VN') + " VND</td>" +
                                     "<td class=\"nunito\">" + order['amount_receive'].toLocaleString('vi-VN') + " VND</td>" +
                                     "<td class=\"nunito\">" + order['amount_back'].toLocaleString('vi-VN') + " VND</td>" +
@@ -334,7 +334,7 @@ if ($isAuthenticated) :
                                         <p class="nunito">${order['product_id']}</p>
                                     </div>
                                     <div class="col">
-                                        <p>${order['product_name']}</p>
+                                        <p class="nunito">${order['product_name']}</p>
                                     </div>
                                     <div class="col">
                                         <p class="text-center nunito">${order['quantity']}</p>

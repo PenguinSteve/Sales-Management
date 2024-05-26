@@ -34,7 +34,7 @@ if ($isAuthenticated) :
                                 <p class="text-subtitle text-muted">View sales history of sales staff.</p>
                             </div>
                             <div class="mt-5 mr-4">
-                                <p id="name">Sales staff: <?php echo $user['name'] ?></p>
+                                <p id="name" class="nunito">Sales staff: <?php echo $user['name'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -107,12 +107,12 @@ if ($isAuthenticated) :
                             html +=
                                 `
                                 <tr>
-                                    <td>${transaction['transaction_id']}</td>
-                                    <td>${transaction['total_amount']}</td>
-                                    <td>${transaction['amount_receive']}</td>
-                                    <td>${transaction['amount_back']}</td>
-                                    <td>${formattedDate}</td>
-                                    <td>${transaction['total_quantity']}</td>
+                                    <td class="nunito">${transaction['transaction_id']}</td>
+                                    <td class="nunito">${transaction['total_amount']}</td>
+                                    <td class="nunito">${transaction['amount_receive']}</td>
+                                    <td class="nunito">${transaction['amount_back']}</td>
+                                    <td class="nunito">${formattedDate}</td>
+                                    <td class="nunito">${transaction['total_quantity']}</td>
                                     <td>
                                         <button id="${transaction['transaction_id']}" type="button" class="detail-transaction btn btn-outline-primary">See details</button>
                                     </td>
@@ -165,16 +165,16 @@ if ($isAuthenticated) :
                                 `
                                 <div class="row">
                                     <div class="col">
-                                        <p>Product ID</p>
+                                        <p class="nunito">Product ID</p>
                                     </div>
                                     <div class="col">
-                                        <p>Product</p>
+                                        <p  class="nunito">Product</p>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center">Quantity</p>
+                                        <p class="text-center nunito">Quantity</p>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center">Unit price</p>
+                                        <p class="text-center nunito">Unit price</p>
                                     </div>
                                 </div>
                                 `);
@@ -185,16 +185,16 @@ if ($isAuthenticated) :
                                 `
                                 <div class="row">
                                     <div class="col">
-                                        <p>${transaction_detail['product_id']}</p>
+                                        <p class="nunito">${transaction_detail['product_id']}</p>
                                     </div>
                                     <div class="col">
-                                        <p>${transaction_detail['product_name']}</p>
+                                        <p class="nunito">${transaction_detail['product_name']}</p>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center">${transaction_detail['quantity']}</p>
+                                        <p class="text-center nunito">${transaction_detail['quantity']}</p>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center">${transaction_detail['price']}</p>
+                                        <p class="text-center nunito">${transaction_detail['price']}</p>
                                     </div>
                                 </div>
                                 

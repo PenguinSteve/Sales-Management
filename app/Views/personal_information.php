@@ -41,21 +41,21 @@ if ($isAuthenticated) :
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="id" class="col-form-label">ID</label>
                                         <div class="col-sm-8">
-                                            <input readonly name="id" type="text" class="form-control" value="<?php echo $currentUser['user_id'] ?>">
+                                            <input readonly name="id" type="text" class="form-control nunito" value="<?php echo $currentUser['user_id'] ?>">
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="name" class="col-form-label">Full name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="name" value="<?php echo $currentUser['name'] ?>" required>
+                                            <input type="text" class="form-control nunito" name="name" value="<?php echo $currentUser['name'] ?>" required>
                                         </div>
                                     </div>
 
                                     <div class="mb-2 d-flex justify-content-between">
                                         <label for="email" class="col-form-label">Email</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="email" value="<?php echo $currentUser['email'] ?>" disabled>
+                                            <input type="text" class="form-control nunito" id="email" value="<?php echo $currentUser['email'] ?>" disabled>
                                         </div>
                                     </div>
 

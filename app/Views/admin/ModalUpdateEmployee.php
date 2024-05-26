@@ -18,21 +18,21 @@
                                 <label>ID</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input name="id" type="text" class="form-control" id="update-id" disabled>
+                                <input name="id" type="text" class="form-control nunito" id="update-id" disabled>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Name</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="update-name" disabled>
+                                <input type="text" class="form-control nunito" id="update-name" disabled>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Email</label>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <input type="text" class="form-control" id="update-email" disabled>
+                                <input type="text" class="form-control nunito" id="update-email" disabled>
                             </div>
 
                             <div class="d-flex">

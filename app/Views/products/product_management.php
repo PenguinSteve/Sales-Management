@@ -50,9 +50,9 @@ if ($isAuthenticated) :
                                                 <img class="card-img-top p-1 mx-auto pt-2" style="width: 10rem; height: 10rem; object-fit: contain" src="{$product['image_url']}"/>
 
                                                 <div class="card-body pl-4 pr-2 pb-0">
-                                                    <h6 class="fw-bolder nameProduct">{$product['product_name']}</h6>
+                                                    <h6 class="fw-bolder nameProduct nunito">{$product['product_name']}</h6>
                                                     <p class="category">{$product['category_name']}</p>
-                                                    <p>Code: {$product['product_id']}</p>
+                                                    <p class="nunito">Code: {$product['product_id']}</p>
                                                     <div class="d-flex justify-content-left">
                                                         <h5 class="price nunito mr-2">{$product['retail_price']} đ</h5>
                                         HTML;

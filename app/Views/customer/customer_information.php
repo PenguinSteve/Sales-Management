@@ -58,7 +58,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" id="name" disabled value="<?php echo $customer[0]['customer_name']; ?>">
+                                                        <input type="text" class="form-control nunito" id="name" disabled value="<?php echo $customer[0]['customer_name']; ?>">
                                                         <div class="form-control-icon">
                                                             <i data-feather="user"></i>
                                                         </div>
@@ -73,7 +73,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="email" class="form-control" id="address" disabled value="<?php echo $customer[0]['address']; ?>">
+                                                        <input type="email" class="form-control nunito" id="address" disabled value="<?php echo $customer[0]['address']; ?>">
                                                         <div class="form-control-icon">
                                                             <i data-feather="home"></i>
                                                         </div>
@@ -141,12 +141,12 @@ if ($isAuthenticated) :
                         html +=
                             `
                             <tr>
-                                <td>${transaction['transaction_id']}</td>
+                                <td class="nunito">${transaction['transaction_id']}</td>
                                 <td class="nunito">${transaction['total_amount']}</td>
                                 <td class="nunito">${transaction['amount_receive']}</td>
                                 <td class="nunito">${transaction['amount_back']}</td>
                                 <td class="nunito">${formattedDate}</td>
-                                <td>${transaction['total_quantity']}</td>
+                                <td class="nunito">${transaction['total_quantity']}</td>
                                 <td>
                                     <button id="${transaction['transaction_id']}" type="button" class="detail-transaction btn btn-outline-primary">See details</button>
                                 </td>
@@ -198,16 +198,16 @@ if ($isAuthenticated) :
                             `
                             <div class="row">
                                 <div class="col">
-                                    <p>Product ID</p>
+                                    <p class="nunito">Product ID</p>
                                 </div>
                                 <div class="col">
-                                    <p>Product</p>
+                                    <p class="nunito">Product</p>
                                 </div>
                                 <div class="col">
-                                    <p class="text-center">Quantity</p>
+                                    <p class="text-center nunito">Quantity</p>
                                 </div>
                                 <div class="col">
-                                    <p class="text-center">Unit price</p>
+                                    <p class="text-center nunito">Unit price</p>
                                 </div>
                             </div>
                             `);
@@ -222,7 +222,7 @@ if ($isAuthenticated) :
                                         <p class="nunito">${transaction_detail['product_id']}</p>
                                     </div>
                                     <div class="col">
-                                        <p>${transaction_detail['product_name']}</p>
+                                        <p class="nunito">${transaction_detail['product_name']}</p>
                                     </div>
                                     <div class="col">
                                         <p class="text-center nunito">${transaction_detail['quantity']}</p>
