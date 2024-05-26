@@ -70,6 +70,7 @@ if ($isAuthenticated) :
                         <table class="table table-light mb-0">
                             <thead>
                                 <tr>
+                                    <th>Product id</th>
                                     <th>Product name</th>
                                     <th>Number of items</th>
                                     <th>Unit price</th>
@@ -84,6 +85,7 @@ if ($isAuthenticated) :
                                     $cart = $_SESSION['cart'];
                                     foreach ($cart['products'] as $product) {
                                         echo '<tr data-product-id="' . $product['product_id'] . '" data-product-name="' . $product['product_name'] . '" data-retail-price="' . $product['retail_price'] . '">' +
+                                            '<td>' . $product['product_id'] . '</td>' +
                                             '<td>' . $product['product_name'] . '</td>' +
                                             '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum" min="1" value="' . $product['quantity'] . '"></td>' +
                                             '<td class="nunito">' . $product['retail_price'] . '</td>' +
@@ -205,8 +207,10 @@ if ($isAuthenticated) :
                     var totalPrice = existingProduct.find('td.total-price');
                     totalPrice.text(parseInt(quantity.val()) * retailPrice);
                 } else {
+
                     // The product is not in the cart, add a new row
                     var newRow = '<tr data-product-id="' + productId + '" data-product-name="' + productName + '" data-retail-price="' + retailPrice + '">' +
+                        '<td>' + productId + '</td>' +
                         '<td>' + productName + '</td>' +
                         '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum" min="1" value="1"></td>' +
                         '<td>' + retailPrice + '</td>' +

@@ -78,7 +78,7 @@ class StatisticsModel extends Database
     public function getTransactionForModal($id)
     {
         return $this->select(
-            "SELECT quantity, price, product_name, transaction.transaction_date, transaction.total_amount, customer_phone, customer.customer_name, user.name
+            "SELECT quantity, price, product_name, transaction_detail.product_id, transaction.transaction_date, transaction.total_amount, customer_phone, customer.customer_name, user.name
             FROM transaction_detail, customer, user, transaction, product
             WHERE transaction_detail.transaction_id = ?
             AND user.user_id = transaction.user_id

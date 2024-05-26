@@ -196,10 +196,19 @@ if ($isAuthenticated) :
                         $(".modal-body").empty();
                         $(".modal-body").append(
                             `
-                            <div class="d-flex justify-content-between">
-                                <p>Product</p>
-                                <p>Quantity</p>
-                                <p>Unit price</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Product ID</p>
+                                </div>
+                                <div class="col">
+                                    <p>Product</p>
+                                </div>
+                                <div class="col">
+                                    <p class="text-center">Quantity</p>
+                                </div>
+                                <div class="col">
+                                    <p class="text-center">Unit price</p>
+                                </div>
                             </div>
                             `);
 
@@ -207,11 +216,22 @@ if ($isAuthenticated) :
                         response.forEach(transaction_detail => {
                             $(".modal-body").append(
                                 `
-                                <div class="d-flex justify-content-between">
-                                    <p>${transaction_detail['product_name']}</p>
-                                    <p>${transaction_detail['quantity']}</p>
-                                    <p class="nunito">${transaction_detail['price']}</p>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="nunito">${transaction_detail['product_id']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>${transaction_detail['product_name']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center nunito">${transaction_detail['quantity']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center nunito">${transaction_detail['price']}</p>
+                                    </div>
                                 </div>
+                                
                                 `);
                         });
 

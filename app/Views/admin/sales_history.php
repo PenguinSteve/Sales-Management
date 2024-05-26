@@ -24,6 +24,8 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <div id="main">
+                <?php require_once(_DIR_ROOT . '/app/Views/modal/ModalTransactionDetails.php'); ?>
+
                 <div class="main-content container-fluid">
                     <div class="page-title">
                         <div class="d-flex justify-content-between">
@@ -32,7 +34,7 @@ if ($isAuthenticated) :
                                 <p class="text-subtitle text-muted">View sales history of sales staff.</p>
                             </div>
                             <div class="mt-5 mr-4">
-                                <p id="name">Sales people: Michael Right</p>
+                                <p id="name">Sales staff: <?php echo $user['name'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -42,42 +44,20 @@ if ($isAuthenticated) :
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
-                                    <th>Quantity</th>
                                     <th>Total amount</th>
-                                    <th>Date of purchase</th>
-                                    <th>Customer mobile</th>
-                                    <th>Customer Name</th>
+                                    <th>Money given</th>
+                                    <th>Excess amount</th>
+                                    <th>Date of sale</th>
+                                    <th>Quantity</th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <tr>
-                                    <td data-toggle="modal" data-target="#printInvoice">BST-498</td>
-                                    <td>1</td>
-                                    <td>9.000.000</td>
-                                    <td>19/05/2024</td>
-                                    <td>0123456789</td>
-                                    <td>Nguyen Van A</td>
-                                </tr>
+                            <tbody id="sales_history">
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-                <?php require_once 'ModalInvoice.php' ?>
-
-                <script>
-                    $(document).ready(function() {
-                        $('td').on('click', function() {
-                            var td = $(this).closest('tr').children('td');
-
-                            $("#totalAmount").val(td.eq(2).text())
-                            $("#customerName").val(td.eq(5).text())
-                            $("#salesName").val($("#name").val())
-                            $("#date").val(td.eq(3).text())
-                        })
-                    })
-                </script>
             </div>
         </div>
 
@@ -98,6 +78,139 @@ if ($isAuthenticated) :
         <script src="public/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script src="public/js/app.js"></script>
         <script src="public/js/main.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: "admin/getSalesHistory/" + "<?php echo $user['user_id']; ?>",
+                    method: "POST",
+                    dataType: "json",
+                    success: function(response) {
+                        let html = "";
+                        response.forEach(transaction => {
+                            //Format date
+                            let date = new Date(transaction['transaction_date']);
+                            let day = date.getDate();
+                            let month = date.getMonth() + 1;
+                            let year = date.getFullYear();
+                            let hours = date.getHours();
+                            let minutes = date.getMinutes();
+                            let seconds = date.getSeconds();
+
+                            day = (day < 10) ? '0' + day : day;
+                            month = (month < 10) ? '0' + month : month;
+                            hours = (hours < 10) ? '0' + hours : hours;
+                            minutes = (minutes < 10) ? '0' + minutes : minutes;
+                            seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+                            let formattedDate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+                            html +=
+                                `
+                                <tr>
+                                    <td>${transaction['transaction_id']}</td>
+                                    <td>${transaction['total_amount']}</td>
+                                    <td>${transaction['amount_receive']}</td>
+                                    <td>${transaction['amount_back']}</td>
+                                    <td>${formattedDate}</td>
+                                    <td>${transaction['total_quantity']}</td>
+                                    <td>
+                                        <button id="${transaction['transaction_id']}" type="button" class="detail-transaction btn btn-outline-primary">See details</button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        $("#sales_history").html(html);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+
+                $(document).on("click", ".detail-transaction", function() {
+                    let transaction_id = $(this).attr("id");
+                    $.ajax({
+                        url: "admin/getTransactionDetail/" + transaction_id,
+                        method: "POST",
+                        dataType: "json",
+                        success: function(response) {
+
+                            //Format date
+                            let date = new Date(response[0]['transaction_date']);
+                            let day = date.getDate();
+                            let month = date.getMonth() + 1;
+                            let year = date.getFullYear();
+                            let hours = date.getHours();
+                            let minutes = date.getMinutes();
+                            let seconds = date.getSeconds();
+
+                            day = (day < 10) ? '0' + day : day;
+                            month = (month < 10) ? '0' + month : month;
+                            hours = (hours < 10) ? '0' + hours : hours;
+                            minutes = (minutes < 10) ? '0' + minutes : minutes;
+                            seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+                            let formattedDate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+
+                            //Fill data to modal
+                            $("#date").text(formattedDate);
+                            $("#customerName").text(response[0]['customer_name']);
+                            $("#customerPhone").text(response[0]['customer_phone']);
+                            $("#staffName").text(response[0]['name']);
+                            $("#totalAmountModal").text((response[0]['total_amount']).toLocaleString('vi-VN') + " VND");
+
+                            //Clear old data
+                            $(".modal-body").empty();
+                            $(".modal-body").append(
+                                `
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Product ID</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>Product</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">Quantity</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">Unit price</p>
+                                    </div>
+                                </div>
+                                `);
+
+                            //Fill transaction detail
+                            response.forEach(transaction_detail => {
+                                $(".modal-body").append(
+                                `
+                                <div class="row">
+                                    <div class="col">
+                                        <p>${transaction_detail['product_id']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>${transaction_detail['product_name']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">${transaction_detail['quantity']}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center">${transaction_detail['price']}</p>
+                                    </div>
+                                </div>
+                                
+                                `);
+                            });
+
+                            $("#InvoiceModal").modal("show");
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+            });
+        </script>
     </body>
 
     </html>
