@@ -259,16 +259,16 @@ if ($isAuthenticated) :
                                 `
                                 <div class="row">
                                     <div class="col">
-                                        <p>${product.product_id}</p>
+                                        <p class="nunito">${product.product_id}</p>
                                     </div>
                                     <div class="col">
                                         <p>${product.product_name}</p>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center">${product.quantity}</p>
+                                        <p class="text-center nunito">${product.quantity}</p>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center">${total}</p>
+                                        <p class="text-center nunito">${total}</p>
                                     </div>
                                 </div>
                                 
