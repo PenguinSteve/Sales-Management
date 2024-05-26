@@ -114,6 +114,12 @@ if ($isAuthenticated) :
                 $(this).text(formattedNumber);
             });
 
+            $('.retail_price').each(function() {
+                let numberStr1 = $(this).text();
+                let formattedNumber = numberStr1.replace(/(\d{2})(\d{3})(\d{3})/, '$1.$2.$3');
+                $(this).text(formattedNumber);                
+            });
+
             var idProduct
 
             $('.btn-outline-danger').on('click', function() {
