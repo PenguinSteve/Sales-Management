@@ -1,9 +1,9 @@
 <?php if (isset($_SESSION['announce'])) : ?>
-    <div id="announce" class="announce toast z-1" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000" style="width: 18rem; height: fit-content; float: right;">
+    <div id="announce" class="announce toast z-3" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000" style="width: 18rem; height: fit-content; float: right;">
 
         <div class="toast-header">
-            <i class="bi bi-exclamation-triangle"></i>
-            <strong class="mr-auto ml-3">Message</strong>
+            <i class="bi bi-exclamation-triangle" style="color: #2178d1;"></i>
+            <strong class="mr-auto ml-3" style="color: #2178d1">Message</strong>
             <span aria-hidden="true">&times;</span>
             </button>
         </div>

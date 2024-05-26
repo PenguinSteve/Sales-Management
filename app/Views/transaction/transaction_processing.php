@@ -19,16 +19,8 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
             <script>
-                var sidebarLinks = $('.sidebar-link')
-
-                $('.sidebar-link').each(function() {
-                    if ($(this).hasClass('active')) {
-                        $(this).removeClass('active')
-                    }
-                })
-
-                var activeElement = $('a[href="transaction/"]')
-                activeElement.closest('li').addClass('active')
+                $('.sidebar-link').removeClass('active');
+                $('a[href="transaction/"]').closest('li').addClass('active')
             </script>
 
             <div id="main">
@@ -53,15 +45,15 @@ if ($isAuthenticated) :
                                     $totalAmount = 0;
                                 }
                                 ?>
-                                <div class="d-flex mt-3 justify-content-between ">
+                                <div class="d-flex mt-1 justify-content-between ">
                                     <div class="d-flex">
                                         <h6 class="mr-3 mt-1" style="margin-left: 6.5rem;">Total product:</h6>
-                                        <h4 style="color: #5A8DEE;" id="totalProducts"><?php echo $totalProducts ?></h4>
+                                        <h4 style="color: #5A8DEE;" id="totalProducts" class="nunito"><?php echo $totalProducts ?></h4>
                                     </div>
 
                                     <div class="d-flex justify-content-end" style="margin-left: 9rem;">
                                         <h6 class="mr-3 mt-1">Total amount:</h6>
-                                        <h4 style="color: #5A8DEE;" id="totalAmount"><?php echo $totalAmount ?></h4>
+                                        <h4 style="color: #5A8DEE;" id="totalAmount" class="nunito"><?php echo $totalAmount ?> VND</h4>
                                     </div>
                                 </div>
                             </div>
@@ -96,8 +88,8 @@ if ($isAuthenticated) :
                                             '<td>' . $product['product_id'] . '</td>' +
                                             '<td>' . $product['product_name'] . '</td>' +
                                             '<td class="d-flex justify-content-center text-bold-500"><input type="number" class="form-control inputNum" min="1" value="' . $product['quantity'] . '"></td>' +
-                                            '<td>' . $product['retail_price'] . '</td>' +
-                                            '<td class="total-price">' . $product['retail_price'] * $product['quantity'] . '</td>' +
+                                            '<td class="nunito">' . $product['retail_price'] . '</td>' +
+                                            '<td class="nunito total-price">' . $product['retail_price'] * $product['quantity'] . '</td>' +
                                             '<td><button type="button" class="btn btn-outline-danger ml-1">Delete</button></td>' +
                                             '</tr>';
                                     }

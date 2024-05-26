@@ -30,11 +30,12 @@ if ($isAuthenticated) :
                 ?>
                 <?php require_once(_DIR_ROOT . '/app/Views/layouts/announce.php') ?>
 
-                <div class="container p-5 d-flex justify-content-center">
+                <div class="container p-5 d-flex justify-content-center" id="InforCard">
                     <div class="card col-6">
 
                         <div class="card-header">
                             <h4 class="card-title">Customer Information</h4>
+                            <small style="color: red; display: none; margin-bottom: 3px" id="warningInformationCustomer">Hãy nhập số điện thoại khách hàng!</small>
                         </div>
 
                         <div class="card-content">
@@ -50,7 +51,7 @@ if ($isAuthenticated) :
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="number" class="form-control" placeholder="Mobile" id="phone" name="phone">
+                                                        <input type="number" class="form-control nunito" placeholder="Mobile" id="phone" name="phone">
                                                         <div class="form-control-icon">
                                                             <i data-feather="phone"></i>
                                                         </div>
@@ -110,7 +111,7 @@ if ($isAuthenticated) :
                                             <!--Total amount-->
                                             <div class="d-flex justify-content-between">
                                                 <label>Total amount</label>
-                                                <label id="totalAmount" style="font-weight: bold; color:#5A8DEE; font-size:medium"></label>
+                                                <label id="totalAmount" style="font-weight: bold; color:#5A8DEE; font-size:medium" class="nunito"></label>
                                             </div>
 
 
@@ -122,11 +123,13 @@ if ($isAuthenticated) :
                                                 <div class="col-md-4 mt-2 d-flex justify-content-end">
                                                     <div class="form-group">
                                                         <div class="position-relative">
-                                                            <input type="number" class="form-control" id="cusGives">
+                                                            <input type="number" class="form-control nunito" id="cusGives">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <small style="color: red; display: none; margin-bottom: 3px" id="warningOrderSummary">Không được để trống trường thông tin!</small>
 
                                             <div class="divider divider-right mt-1 mb-1">
                                                 <div class="divider-text">.</div>
@@ -135,7 +138,7 @@ if ($isAuthenticated) :
                                             <!--The amount of money the customer receives back.-->
                                             <div class="d-flex justify-content-between mt-1">
                                                 <label>Change</label>
-                                                <label id="change" style="font-size: medium;"></label>
+                                                <label id="change" style="font-size: medium;" class="nunito"></label>
                                             </div>
 
                                             <div class="d-flex justify-content-end mt-3 mb-1">
@@ -196,6 +199,7 @@ if ($isAuthenticated) :
                                 $("#name").val(response[0].customer_name)
                                 $("#address").val(response[0].address)
                             } else {
+                                $("#warningInformationCustomer").html("Hãy tạo khách hàng mới!").show()
                                 $("#name").val('')
                                 $("#address").val('')
                                 $("#name").removeAttr("disabled")
@@ -206,6 +210,10 @@ if ($isAuthenticated) :
                 } else {
                     $("#name").attr("disabled", "disabled").val('');
                     $("#address").attr("disabled", "disabled").val('');
+                }
+
+                if (("#name").val() != "" && $("#address").val() != "") {
+                    $('small').hide()
                 }
             })
 
@@ -233,10 +241,37 @@ if ($isAuthenticated) :
             });
 
             //Validate invoice
+
             $('#printInvoiceBtn').on('click', function(e) {
-                if ($('#phone').val() == '' || $('#cusGives').val() == '' || $('#name').val() == '' || $('#address').val() == '' || $('#phone').val().length < 10 || $('#cusGives').val() < totalAmount) {
-                    alert('Hãy điền đầy đủ thông tin khách hàng và số tiền khách hàng trả ít nhất bằng tổng tiền hóa đơn');
+                if ($('#phone').val() == '') {
+                    $("#warningInformationCustomer").show()
+                    $("html").animate({
+                        scrollTop: $("#InforCard").offset().top
+                    }, "fast");
                     e.preventDefault();
+
+                } else if ($('#phone').val().length < 10) {
+                    $("#warningInformationCustomer").html("Số điện thoại không hợp lệ!").show()
+                    $("html").animate({
+                        scrollTop: $("#InforCard").offset().top
+                    }, "fast");
+                    e.preventDefault();
+
+                } else if ($('#name').val() == '' || $('#address').val() == '') {
+                    $("#warningInformationCustomer").html("Hãy nhập đầy đủ thông tin khách hàng!").show()
+                    $("html").animate({
+                        scrollTop: $("#InforCard").offset().top
+                    }, "fast");
+                    e.preventDefault();
+
+                } else if ($('#cusGives').val() == '') {
+                    $("#warningOrderSummary").show()
+                    e.preventDefault();
+
+                } else if ($('#cusGives').val() < totalAmount) {
+                    $("#warningOrderSummary").html("Số tiền khách đưa không hợp lệ!").show()
+                    e.preventDefault();
+
                 } else {
                     //Format date
                     let now = new Date();

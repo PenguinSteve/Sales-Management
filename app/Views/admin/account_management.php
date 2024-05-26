@@ -21,6 +21,11 @@ if ($isAuthenticated) :
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/sidebar.php') ?>
             <?php require_once(_DIR_ROOT . '/app/Views/layouts/nav.php') ?>
 
+            <script>
+                $('.sidebar-link').removeClass('active');
+                $('a[href="admin/"]').closest('li').addClass('active')
+            </script>
+
             <div id="main">
                 <?php
                 require_once(_DIR_ROOT . '/app/Views/admin/ModalAddEmployee.php');
@@ -153,25 +158,27 @@ if ($isAuthenticated) :
             $(".emp-update").click(function() {
                 var currentRow = $(this).closest("tr");
                 var id = $(currentRow).data("user-id");
-                var name = $(currentRow).data("user-name");
-                var email = $(currentRow).data("user-email");
-                var status = $(currentRow).data("user-status");
+                var name = $(currentRow).data("user-name")
+                var email = $(currentRow).data("user-email")
+                var status = $(currentRow).data("user-status")
 
-                $("#update-id").val(id);
-                $("#update-name").val(name);
-                $("#update-email").val(email);
+                $("#update-id").val(id)
+                $("#update-name").val(name)
+                $("#update-email").val(email)
 
                 if (status == "inactive") {
-                    $('#customColorCheck1').hide();
+                    $('#labelLock').hide()
+                    $('#customColorCheck1').hide()
                     return false;
                 } else {
-                    $('#customColorCheck1').show();
+                    $('#labelLock').show()
+                    $('#customColorCheck1').show()
                 }
 
                 if (status == "activated") {
-                    $('#customColorCheck1').prop('checked', false);
+                    $('#customColorCheck1').prop('checked', false)
                 } else {
-                    $('#customColorCheck1').prop('checked', true);
+                    $('#customColorCheck1').prop('checked', true)
                 }
 
                 //confirm-update

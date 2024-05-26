@@ -23,6 +23,7 @@
             </thead>
 
             <tbody id="purchase_history">
+
             </tbody>
         </table>
     </div>

@@ -10,22 +10,21 @@ class StatisticsModel extends Database
     {
         return $this->select(
             "SELECT SUM(quantity) AS count_product, import_price, transaction_detail.price
-                            FROM product, transaction_detail, transaction
-                            WHERE transaction_detail.product_id = product.product_id AND (transaction_date BETWEEN ? AND ?) AND transaction_detail.transaction_id=transaction.transaction_id 
-                            GROUP BY transaction_detail.product_id",
+            FROM product, transaction_detail, transaction
+            WHERE transaction_detail.product_id = product.product_id AND (transaction_date BETWEEN ? AND ?) AND transaction_detail.transaction_id=transaction.transaction_id 
+            GROUP BY transaction_detail.product_id",
             [$dateFrom, $datoTo],
             'ss'
         );
     }
 
-    public function getTotalProfit($dateFrom, $datoTo)
+    public function getTotalProfit()
     {
         return $this->select(
-            "SELECT COUNT(transaction_detail.product_id) AS count_product, import_price,
-                            FROM product, transaction_detail, transaction
-                            WHERE transaction_detail.product_id = product.product_id AND (transaction_date >= ? AND transaction_date <= ?) AND transaction_detail.transaction_id=transaction.transaction_id GROUP BY transaction_detail.product_id",
-            [$dateFrom, $datoTo],
-            'ss'
+            "SELECT SUM(quantity) AS count_product, import_price, transaction_detail.price
+            FROM product, transaction_detail, transaction
+            WHERE transaction_detail.product_id = product.product_id AND transaction_detail.transaction_id=transaction.transaction_id 
+            GROUP BY transaction_detail.product_id"
         );
     }
 
@@ -40,6 +39,14 @@ class StatisticsModel extends Database
         );
     }
 
+    public function getTotalAmountReceived_numberOrder()
+    {
+        return $this->select(
+            "SELECT SUM(total_amount) AS total, COUNT(transaction_id) AS orders
+            FROM transaction"
+        );
+    }
+
     public function getNumberProduct($dateFrom, $datoTo)
     {
         return $this->select(
@@ -48,6 +55,23 @@ class StatisticsModel extends Database
             WHERE (transaction_date BETWEEN ? AND ?)",
             [$dateFrom, $datoTo],
             'ss'
+        );
+    }
+
+    public function getTotalNumberProduct()
+    {
+        return $this->select(
+            "SELECT SUM(total_quantity) AS products
+            FROM transaction"
+        );
+    }
+
+    public function getTransactions()
+    {
+        return $this->select(
+            "SELECT *
+            FROM transaction
+            ORDER BY transaction_date DESC"
         );
     }
 
